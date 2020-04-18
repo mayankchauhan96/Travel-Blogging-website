@@ -18,6 +18,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #Templates Directory
 TEMPLATES_DIRS = os.path.join(BASE_DIR,'templates')
 
+#media directory
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Quick-start development settings - unsuitable for production
@@ -29,7 +33,7 @@ SECRET_KEY = 'gh0=l5&5l8(t1jf!5(6zg^=80)%1(r=8w__yvh06w(rq-0vni4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["d7c467b8.ngrok.io",'127.0.0.1']
 
 
 # Application definition
