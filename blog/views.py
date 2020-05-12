@@ -12,6 +12,14 @@ class PostList(generic.ListView):
 # class PostDetail(generic.DetailView):
 #     model = Post
 #     template_name = 'post_detail.html'
+def blog_form(request):
+    return render(request, 'blogform.html')
+
+
+
+def about_us(request):
+    return render(request, 'aboutus.html')
+
 
 def post_detail(request, slug):
     template_name = 'post_detail.html'
@@ -36,3 +44,4 @@ def post_detail(request, slug):
                                         'comments': comments,
                                         'new_comment': new_comment,
                                         'comment_form': comment_form})
+

@@ -1,8 +1,15 @@
 <!DOCTYPE html>
+
 <html>
 
     <head>
         <title>Tales by travelers</title>
+        {% load static %}
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
         <meta name="google" content="notranslate" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,6 +39,32 @@
             box-shadow: 0 16px 48px #E3E7EB;
             padding-top: 10px;
         }
+
+        .dropdown-submenu {
+        position: relative;
+        }
+
+        .dropdown-submenu .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -1px;
+        }
+
+        .dropright {
+            position: relative;
+            cursor: pointer;
+            color: black;
+            padding-bottom: 10px;
+            padding-top: 10px;
+            {% comment %} margin-left: 15px; {% endcomment %}
+        }
+
+        .dropright .dropdown-menu {
+        top: 0;   
+        left: 100%;
+        margin-top: -1px;
+        }
+        
     </style>
 
         <!-- Navigation -->
@@ -45,23 +78,44 @@
                 <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About us</a>
+                    <a class="nav-link" href="{% url 'about_us' %}">About us</a>
                 </li>
+                
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Destinations
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% comment %} <li class="dropdown-item" href="#">Another action</li> {% endcomment %}
+                            <ul class="dropdown-submenu">
+                            <a class="dropright" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Uttarakhand </a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-item" href="#">Chopta</li>
+                                <li class="dropdown-item" href="#">Rishikesh</li>
+                            </ul>
+                            </ul>
+                            <div class="dropdown-divider"></div>
+                            <ul class="dropdown-submenu">
+                            <a class="dropright" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Himachal </a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-item" href="#">Dharamshala</li>
+                                <li class="dropdown-item" href="#">Kasol</li>
+                            </ul>
+                            </ul>
+                    </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Blogs</a>
+                    <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Blogs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Adventure</a>
+                </li>
+                </li>
+                
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact us</a>
                 </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
@@ -77,6 +131,16 @@
         <footer class="py-3 bg-grey">
             <p class="m-0 text-dark text-center ">Copyright &copy; Talesbytravellers</p>
         </footer>
+        <script>
+        $(document).ready(function() {
+            $('.dropdown-submenu a.dropright').on("click", function(e) {
+                $(this).next('ul').toggle();
+                e.stopPropagation();
+                e.preventDefault();
+            });
+        });
+    
+        </script>
     </body>
 </html>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
