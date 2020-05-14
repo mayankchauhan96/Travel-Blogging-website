@@ -8,5 +8,4 @@ urlpatterns = [
     path('blog_form/',  views.blog_form, name='blog_form'),
     path('<slug:slug>/',  views.post_detail, name='post_detail'),
 
-
 ]
