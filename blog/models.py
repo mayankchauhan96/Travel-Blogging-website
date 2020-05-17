@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from autoslug import AutoSlugField
 from django.utils import timezone
 import json
 
@@ -9,8 +10,6 @@ STATUS = (
 )
 
 STATE_CHOICES = (
-    
-    ("IN","India"),
     ("AP","Andhra Pradesh"),
     ("AR","Arunachal Pradesh"),
     ("AS","Assam"),
@@ -49,14 +48,17 @@ STATE_CHOICES = (
 
 class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
-    slug = models.SlugField(max_length=200, unique=True)
+    slug = AutoSlugField(populate_from='title')
     cover = models.ImageField(upload_to='images/', null = True)
-    author = models.ForeignKey(User, on_delete= models.CASCADE,related_name='blog_posts')
+    # author = models.ForeignKey(User, on_delete= models.CASCADE,related_name='blog_posts')
+    author = models.CharField(max_length=200)
     updated_on = models.DateTimeField(auto_now= True)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
-    state_choice = models.CharField(max_length=200,choices=STATE_CHOICES, default="IN")
+    state_choice = models.CharField(max_length=200,choices=STATE_CHOICES, default="UK")
+    location = models.CharField(max_length=200, default="kashipur")
+    email = models.EmailField(default="xyz@gmail.com")
 
 
     class Meta:

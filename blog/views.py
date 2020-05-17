@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post
-from .forms import CommentForm
+from .forms import CommentForm,BlogForm
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 
@@ -9,12 +9,26 @@ class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by('-created_on')
     template_name = 'index.html'
 
-# class PostDetail(generic.DetailView):
-#     model = Post
-#     template_name = 'post_detail.html'
-def blog_form(request):
-    return render(request, 'blogform.html')
 
+def blog_form(request):
+    print("coming")
+    form_obj = None
+    if request.method == 'POST':
+        print("dra")
+        new_blog_form = BlogForm(data= request.POST, files=request.FILES)
+        print("dra")
+        if new_blog_form.is_valid():
+            print("drafted")
+            form_obj = new_blog_form.save(commit=False, )
+            # form_obj.post = post
+            form_obj.save()
+            print("submitted")
+        else:
+            # print new_blog_form.is_valid()   #form contains data and errors
+            print (new_blog_form.errors)
+    else:
+        new_blog_form = BlogForm()
+    return render(request, 'blogform.html', {'new_blog_form': new_blog_form, 'form_obj':form_obj})
 
 
 def about_us(request):
