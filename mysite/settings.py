@@ -38,7 +38,7 @@ ALLOWED_HOSTS = ["47a2b120.ngrok.io",'127.0.0.1']
 STATIC_ROOT = os.path.join(BASE_DIR, 'root')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'boot'),
+    os.path.join(BASE_DIR, 'static'),
 ]
 # Application definition
 
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'blog',
     'crispy_forms',
     'bootstrap',
+    'bootstrap4',
     'fontawesome',
     'jquery'
 ]
