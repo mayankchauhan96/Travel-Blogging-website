@@ -3,10 +3,40 @@ from django.contrib.auth.models import User
 from autoslug import AutoSlugField
 from django.utils import timezone
 import json
+from multiselectfield import MultiSelectField
 
 STATUS = (
     (0,"Draft"),
     (1,"Publish")
+)
+
+CATEGORY= (
+    ("BE","Beaches"),
+    ("IL","Islands"),
+    ("HI","Hiking"),
+    ("CA","Camping"),
+    ("MT","Mountains"),
+    ("DE","Deserts"),
+    ("FO","Forests"),
+    ("HP","Historic Places"),
+    ("MO","Monuments"),
+    ("TE","Temples"),
+    ("MU","Museums"),
+    ("ZO","Zoos"),
+    ("TP","Theme Parks"),
+    ("GA","Gardens"),
+    ("AQ","Aquaria"),
+    ("WC","Winter Carnival"),
+    ("MA","Markets & Shopping"),
+    ("UA","Urban"),
+    ("RU","Rural"),
+    ("RL","Rivers & Lakes"),
+    ("CF","Couples Friendly"),
+    ("ST","Sports Tourism"),
+    ("JF","Just for Food "),
+    ("RE","Resorts"),
+    ("CU","Culture"),
+    ("AD","Adventure"),
 )
 
 STATE_CHOICES = (
@@ -47,6 +77,7 @@ STATE_CHOICES = (
 
 
 class Post(models.Model):
+    post_id = models.AutoField
     title = models.CharField(max_length=200, unique=True)
     slug = AutoSlugField(populate_from='title')
     cover = models.ImageField(upload_to='images/', null = True)
@@ -59,7 +90,7 @@ class Post(models.Model):
     state_choice = models.CharField(max_length=200,choices=STATE_CHOICES, default="UK")
     location = models.CharField(max_length=200, default="kashipur")
     email = models.EmailField(default="xyz@gmail.com")
-
+    category =MultiSelectField(choices=CATEGORY, max_choices= 4, blank=True, null=True )
 
     class Meta:
         ordering = ['-created_on']

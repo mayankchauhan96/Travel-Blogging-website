@@ -10,4 +10,4 @@ class CommentForm(forms.ModelForm):
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('author', 'email', 'title','cover','location','state_choice','content')
+        fields = ('author', 'email', 'title','cover','location','state_choice','content','category')

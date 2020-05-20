@@ -2,10 +2,10 @@ from django.contrib import admin
 from .models import Post, Comment
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'status','created_on','location','email')
-    list_filter = ("status","state_choice",)
+    list_display = ('post_id','title', 'slug', 'status','created_on','location','email','author',"state_choice","category",)
+    list_filter = ("status","state_choice","category",)
     search_fields = ['title', 'content','author']
-    prepopulated_fields = {'slug': ('title',)}
+    # prepopulated_fields = {'slug': ('title',)}
     actions = ['approve_posts']
 
     def approve_posts(self, request, queryset):
