@@ -1,0 +1,164 @@
+{% extends 'base.html' %} {% block content %}
+{% comment %} {% load crispy_forms_tags %} {% endcomment %}
+{% load bootstrap4 %}
+
+{{ new_blog_form.media }}
+
+
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+    }
+    
+    .head_text {
+        color: white;
+    }
+    
+    .card {
+        box-shadow: 0 32px 48px #E3E7EB;
+    }
+
+    .container{
+      max-width: 1600px;
+    }
+    
+    .notification{
+      position:absolute;
+      top: 5rem;
+      right: 1rem;
+      width:300px;
+      min-height:100px;
+      margin-top:100px;
+      border:1px solid #666;
+      background-color:#3073BB;
+      background-repeat:no-repeat;
+      background-position:20px 30px;
+    }
+    
+</style>
+<header class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h3 class=" site-heading my-4 mt-3 text-white"> Write your own blog </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 card mb-4  mt-3 left  top">
+      <div class="card-body">
+        {% if form_obj %}
+        <div class="alert alert-success" role="alert">
+          Great! Your blog is awaiting moderation
+        </div>
+        {% comment %} {% elif new_blog_form.errors %}
+        <div class="alert alert-danger" role="alert">
+             Oh Crap! You can only a select maximum of 4 fields in Category
+        </div> {% endcomment %}
+        {% else %}
+        <form  method= "post" enctype="multipart/form-data" style="margin-top: 1.3em;" >
+          {% comment %} {{ new_blog_form | crispy  }} {% endcomment %}
+          {% csrf_token %}
+          {% bootstrap_form new_blog_form %}
+          <div class="alert alert-warning" role="alert">
+           Attention! You can only a select maximum of 4 fields in Category
+          </div>
+          {% buttons %}
+            <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+          {% endbuttons %}
+        </form>
+        {% endif %}
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock content %}
+
+ {% comment %} <div class="form-group row">
+            <label for="author" class="col-sm-2 col-form-label">Author</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="author" placeholder="Enter your name here">
+            </div>
+          </div>
+            <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+              <input type="Email" class="form-control" id="email" placeholder="xyz@email.com">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">Blog Title</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="title" placeholder="Give your blog a title">
+            </div>
+          </div>
+            <div class="form-group row">
+            <label for="cover" class="col-sm-2 col-form-file">Cover Photo</label>
+            <div class="col-sm-10">
+              <input type="file" class="form-control-file" id="cover">
+            </div>
+            
+          </div>
+               <div class="form-group row">
+            <label for="location" class="col-sm-2 col-form-label">Location </label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="location" placeholder="Mention the name of place you visited">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">State of the visited location</label>
+            <select class="form-control" id="state_choice">
+              <option value=”Andhra Pradesh”>Andhra Pradesh</option>
+              <option value=”Andaman and Nicobar Islands”>Andaman and Nicobar Islands</option>
+              <option value=”Arunachal Pradesh”>Arunachal Pradesh</option>
+              <option value=”Assam”>Assam</option>
+              <option value=”Bihar”>Bihar</option>
+              <option value=”Chandigarh”>Chandigarh</option>
+              <option value=”Chhattisgarh”>Chhattisgarh</option>
+              <option value=”Dadar and Nagar Haveli”>Dadar and Nagar Haveli</option>
+              <option value=”Daman and Diu”>Daman and Diu</option>
+              <option value=”Delhi”>Delhi</option>
+              <option value=”Lakshadweep”>Lakshadweep</option>
+              <option value=”Puducherry”>Puducherry</option>
+              <option value=”Goa”>Goa</option>
+              <option value=”Gujarat”>Gujarat</option>
+              <option value=”Haryana”>Haryana</option>
+              <option value=”Himachal Pradesh”>Himachal Pradesh</option>
+              <option value=”Jammu and Kashmir”>Jammu and Kashmir</option>
+              <option value=”Jharkhand”>Jharkhand</option>
+              <option value=”Karnataka”>Karnataka</option>
+              <option value=”Kerala”>Kerala</option>
+              <option value=”Madhya Pradesh”>Madhya Pradesh</option>
+              <option value=”Maharashtra”>Maharashtra</option>
+              <option value=”Manipur”>Manipur</option>
+              <option value=”Meghalaya”>Meghalaya</option>
+              <option value=”Mizoram”>Mizoram</option>
+              <option value=”Nagaland”>Nagaland</option>
+              <option value=”Odisha”>Odisha</option>
+              <option value=”Punjab”>Punjab</option>
+              <option value=”Rajasthan”>Rajasthan</option>
+              <option value=”Sikkim”>Sikkim</option>
+              <option value=”Tamil Nadu”>Tamil Nadu</option>
+              <option value=”Telangana”>Telangana</option>
+              <option value=”Tripura”>Tripura</option>
+              <option value=”Uttar Pradesh”>Uttar Pradesh</option>
+              <option value=”Uttarakhand”>Uttarakhand</option>
+              <option value=”West Bengal”>West Bengal</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="content">Story/Tale</label>
+            <textarea class="form-control" id="content" placeholder="Write down your story here..." rows="30"></textarea>
+          </div> {% endcomment %}
+          {% comment %} acion="{% url 'blog_form' %}" {% endcomment %}

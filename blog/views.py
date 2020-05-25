@@ -4,13 +4,29 @@ from .forms import CommentForm,BlogForm
 from django.views import generic
 from django.http import HttpResponse
 from django.contrib import messages
+from django.views.generic.list import ListView
+from math import ceil
 
 
-class PostList(generic.ListView):
-    queryset = Post.objects.filter(status=1).order_by('-created_on')
-    template_name = 'index.html'
+# class PostList(generic.ListView):
+#     queryset = Post.objects.filter(status=1).order_by('-created_on')
+#     template_name = 'index.html'
 
-    
+class PostInfiniteRecent(generic.ListView):
+    queryset = Post.objects.filter(status=1).all()
+    paginate_by = 2
+    context_object_name = 'posts'
+    template_name = 'infinite.html'
+    ordering = ['-created_on']
+
+def recent_post(request):
+    recent_posts = Post.objects.filter(status=1).all()
+    n = len(recent_posts)
+    nslides = n//4 + ceil((n/4)-(n//4))
+    params = {"no_of_slides":nslides,"range": range(1,nslides),"recent":recent_posts}
+    return render(request,'index.html', params)
+
+
 def blog_form(request):
     print("coming")
     form_obj = None

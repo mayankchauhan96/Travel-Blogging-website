@@ -4,6 +4,8 @@ from autoslug import AutoSlugField
 from django.utils import timezone
 import json
 from multiselectfield import MultiSelectField
+from djrichtextfield.models import RichTextField
+
 
 STATUS = (
     (0,"Draft"),
@@ -84,7 +86,7 @@ class Post(models.Model):
     # author = models.ForeignKey(User, on_delete= models.CASCADE,related_name='blog_posts')
     author = models.CharField(max_length=200)
     updated_on = models.DateTimeField(auto_now= True)
-    content = models.TextField()
+    content = RichTextField()
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
     state_choice = models.CharField(max_length=200,choices=STATE_CHOICES, default="UK")
@@ -102,7 +104,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
     name = models.CharField(max_length=80)
     email = models.EmailField()
-    body = models.TextField()
+    body = RichTextField()
     created_on = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=False)
 

@@ -33,9 +33,10 @@ SECRET_KEY = 'gh0=l5&5l8(t1jf!5(6zg^=80)%1(r=8w__yvh06w(rq-0vni4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["47a2b120.ngrok.io",'127.0.0.1']
+ALLOWED_HOSTS = ["b1c58ee1.ngrok.io",'127.0.0.1']
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'root')
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
@@ -54,7 +55,8 @@ INSTALLED_APPS = [
     'bootstrap',
     'bootstrap4',
     'fontawesome',
-    'jquery'
+    'jquery',
+    'djrichtextfield',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +71,17 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'mysite.urls'
 
+DJRICHTEXTFIELD_CONFIG = {
+    'js': ['//cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js'],
+    'init_template': 'djrichtextfield/init/tinymce.js',
+    'settings': {
+        'menubar': True,
+        'plugins': 'link image',
+        'toolbar': 'bold italic | link image | removeformat',
+        'width': 700
+    }
+}
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -80,6 +93,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
             ],
         },
     },

@@ -4,9 +4,14 @@
     <head>
         {% load static %}
         {% include 'message.html' %}
+        <!--textricheditor-->
         <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+        {% comment %} <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}"> {% endcomment %}
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <!-- Material Design for Bootstrap -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/css/mdb.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
         <meta name="google" content="notranslate" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -17,6 +22,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <!-- Material Design for Bootstrap -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/js/mdb.min.js"></script>
+        <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+        <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+        <script src="{% static 'js/infinite.min.js' %}"></script>
+
+
         <title>Tales by travelers</title>
     </head>
     <body>
@@ -66,7 +78,36 @@
         left: 100%;
         margin-top: -1px;
         }
-        
+
+        .fa-facebook {
+        background: #3B5998;
+        color: white;
+        }
+
+        .fa-twitter {
+        background: #55ACEE;
+        color: white;
+        }
+
+        .fa-google {
+        background: #dd4b39;
+        color: white;
+        }
+
+        .fa-youtube {
+        background: #bb0000;
+        color: white;
+        }
+
+        .fa-instagram {
+        background: #125688;
+        color: white;
+        }
+
+        .fa-pinterest {
+        background: #cb2027;
+        color: white;
+        }
         </style>
 
         <!-- Navigation -->
@@ -78,13 +119,13 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item ">
                         <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-                    <li class="nav-item active">
+                    <li class="nav-item ">
                         <a class="nav-link" href="{% url 'about_us' %}">About us</a>
                     </li>
                     
-                    <li class="nav-item active dropdown">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Destinations
                         </a>
@@ -147,8 +188,24 @@
                 e.preventDefault();
             });
         });
+        $font-family-sans-serif:
+            // Safari for macOS and iOS (San Francisco)
+            -apple-system,
+            // Chrome < 56 for macOS (San Francisco)
+            BlinkMacSystemFont,
+            // Windows
+            "Segoe UI",
+            // Android
+            Roboto,
+            // Basic web fallback
+            "Helvetica Neue", Arial,
+            // Linux
+            "Noto Sans",
+            // Sans serif fallback
+            sans-serif,
+            // Emoji fonts
+            "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
         </script>
-        <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
         <script src="{% static 'js/bootstrap.min.js' %}"></script>
         {% if messages %}
         <script>

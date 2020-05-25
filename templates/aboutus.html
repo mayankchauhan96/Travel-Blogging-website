@@ -1,0 +1,61 @@
+{% extends 'base.html' %} {% block content %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+    }
+      .masthead{
+     background: url("/static/img/new.jpg") 50% 0 no-repeat fixed;
+     color: red;
+     height: 800px;
+     padding: 100px 0 0 0;   
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+    .head_text {
+        color: white;
+    }
+    
+    .card {
+        box-shadow: 0 32px 48px #E3E7EB;
+    }
+
+    .container{
+      max-width: 1600px;
+    }
+</style>
+<header class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                  <h3 class=" site-heading my-4 mt-3 text-white">About us </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 card mb-4  mt-3 left  top">
+      <div class="card-body">
+        <p class=" text">As the name suggests tales by Travelers, a platform where Travelers can share their travel stories to the world. We will make your stories heard and remembered. Here you will get to read and write blogs/stories on travel.</p>
+        <p class=" text">
+Mail us your photographs and videos of your trip to our email address and feature yourself on our website and social media platforms.</p>
+      </div>
+    </div>
+    {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
+  </div>
+</div>
+
+{% endblock content %}
+
