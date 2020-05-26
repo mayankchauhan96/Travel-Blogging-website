@@ -38,6 +38,7 @@
             font-size: 17px;
             background-color: #fdfdfd;
         }
+
         .shadow {
             box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.1);
         }
@@ -111,8 +112,8 @@
         </style>
 
         <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="{% url 'home' %}">Tales by travelers</a>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar bg-dark">
+            <a class="navbar-brand" href="{% url 'home' %}">TBT</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -149,7 +150,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Blogs</a>
+                        <a class="nav-link" href="{% url 'recent_posts' %}" tabindex="-1" aria-disabled="true">Blogs</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Adventure</a>
@@ -157,6 +158,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contact us</a>
                     </li>
+                </ul>
+
                     <!-- social_media -->
                     <buttton class="btn-floating btn-lg btn-fb"><a href="https://www.facebook.com/Tales-by-Travelers-100648714955907" target="_blank" class="fa fa-facebook"></a></buttton>
                     <buttton class="btn-floating btn-lg btn-tw"><a href="" target="_blank" class="fa fa-twitter"></a></buttton>
@@ -165,10 +168,10 @@
                     <buttton class="btn-floating btn-lg btn-pin"><a href="" target="_blank" class="fa fa-pinterest"></a></buttton>
                     <buttton class="btn-floating btn-lg btn-yt"><a href="" target="_blank" class="fa fa-youtube"></a></buttton>
                     <buttton class="btn-floating btn-lg btn-email"><a onclick="location.href='mailto:talebytravellers@gmail.com';" target="_blank" class="fa fa-envelope pr-1"></a></buttton>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <form class="form-inline">
+                    <div class="md-form my-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                    </div>
                 </form>
             </div>
         </nav>

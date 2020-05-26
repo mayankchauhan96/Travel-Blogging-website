@@ -9,51 +9,60 @@
         font-size: 18px;
         background-color: #fdfdfd;
     }
+    .btn-primary{
+        border-bottom-left-radius: calc(2rem - 1px);
+        border-top-right-radius: calc(2rem - 1px);
+
+    }
+
+    .view img, .view video {
+        position: relative;
+        display: block;
+        max-height: 400px;
+        max-width: 600px;
+        min-width: -webkit-fill-available;
+        min-height: -webkit-fill-available;
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    }
     .card-img-top {
-        width: 100%;
         border-top-left-radius: calc(.5rem - 1px);
         border-top-right-radius: calc(.5rem - 1px);
-        height: 250px;
         box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+        height:180px
+        width: 320px
     }
 
     .card-body {
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    margin-right: 4%;
-    margin-left: 4%;
-    background: #fff;
-    padding: 1.25rem;
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
-
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        margin-right: 4%;
+        margin-left: 4%;
+        background: #fff;
+        padding: 1.25rem;
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
     }
 
     .col-md-3{
         display: inline-block;
-        margin-left:-4px;
     }
     .carousel-indicators .active {
         background-color: blue;
-    }
 
+    }
 
     body.carousel-indicator li{
-    background-color: blue;
+        background-color: blue;
     }
 
-    body .carousel-indicators{
-    bottom: -10px;
-    }
     .carousel-control-next, .carousel-control-prev {
-    width: 10%;
-    margin: -168px;
-}
+        width: 10%;
+    }
 
     body .carousel-control-prev-icon,
     body .carousel-control-next-icon{
-    width: 40px;
-    height: 30px;
-    background-color: blue;
+        width: 30px;
+        height: 30px;
+        background-color: blue;
     }
   
 
@@ -61,35 +70,37 @@
         color: white;
     }
     
-    .container {
-        max-width: 1500px;
-        {% comment %} height: 650px; {% endcomment %}
-        {% comment %} max-height: 750px; {% endcomment %}
-
-    }
+  {% comment %} .container {
+    display: flex;
+    justify-content: flex-start;
+    } {% endcomment %}
     .masthead{
-     background: url("/static/img/new.jpg") 50% 0 no-repeat fixed;
-     color: red;
-     height: 800px;
-     padding: 100px 0 0 0;   
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+        background: url("/static/img/new.jpg") 50% 0 no-repeat fixed;
+        color: red;
+        height: 100vh;
+        padding: 100px 0 0 0;   
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
-w
+    .hr-light {
+        border-top: 3px solid #fff;
+        width: 80px;
+    }
+
+
+
 
 </style>
  <header class="masthead">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
-            <div class=" col-md-8 col-md-10 mx-auto">
-                <div class="site-heading">
-
-                    <h3 class=" site-heading my-4 mt-3 text-white"> We are here to take you there </h3>
-                     {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
-                    
-                </div>
+            <div class="col-md-12 mb-4 white-text text-center">
+                <h1 class="h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5" style="letter-spacing: 6px;" ><strong>TALES BY TRAVELERS</strong></h1>
+                <h5 class="text-uppercase mb-4 white-text wow fadeInDown"  style="letter-spacing: 2px;" d><strong>A Travel Blogging Platform</strong></h5>
+                <a class="btn btn-outline-black wow fadeInDown" data-wow-delay="0.4s">Register</a>
+                <a class="btn btn-outline-black wow fadeInDown" data-wow-delay="0.4s">Sign IN</a>
             </div>
         </div>
     </div>
@@ -99,122 +110,81 @@ w
 <h1 style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:red;" >Recent</span>  Blogs</h1>
 
 <div class="container"> 
-    <div id = "demo" class = "carousel slide" data-ride = "carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#demo" data-slide-to="0" class="active"></li>
-            {% for i in range %}
-            <li data-target="#demo" data-slide-to="{{i}}" ></li>
-            {% endfor %}
-        </ol>
-
-        <!--slideshow start here-->
-        <div class="container carousel-inner role="listbox" style=" width:100%; height:750px !important; no-padding">
-
-            <div class="carousel-item active">
-
-                <div class= "col-xs-3 col-sm-3 col-md-3">
-                        
-                    <!-- Card Wider -->
-                    <div class=" card-cascade wider ">
-
-                        <!-- Card image -->
-                        <div class="shadow view view-cascade overlay waves-effect">
-                            <img class=" card-img-top"  src="{{ recent.0.cover.url }}" alt="{{ recent.0.title }}">
-                            <a href="{% url 'post_detail' recent.0.slug  %}">
-                            <div class="mask waves-effect waves-light rgba-white-slight"></div>
-                            </a>
-                        </div>
-
-                        <!-- Card content -->
-                        <div class=" shadow card-body card-body-cascade">
-
-                            <!-- Label -->
-                            <h5 class="pink-text pb-2 pt-1"><i class="fa fa-tags"></i> {{ recent.0.category }}</h5>
-                            <!-- Title -->
-                            <h5 class="font-weight-bold card-title">{{ recent.0.title }}</h5>
-
-                            <h6 class="blue-text pb-2 pt-1"><i class="fa fa-pencil"></i> {{ recent.0.author }} | {{ recent.0.updated_on}} </h6>
-                            <!-- Text -->
-                            <p style="font-size:15px" class="card-text">{{recent.0.content|striptags|slice:":80" }}...</p>
-                            <!-- Button -->
-                            <a href="{% url 'post_detail' recent.0.slug  %}" class="btn btn-primary waves-effect">Read More &rarr;</a>
-
-                            <!-- Card footer -->
-                            <div class="card-footer text-muted text-center mt-4"><i class="fa fa-automobile"></i>
-                                {{ recent.0.state_choice}} | {{ recent.0.location}}
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                {% for i in recent|slice:"1:20"%}
-                <div class= "col-xs-3 col-sm-3 col-md-3">
-             
-                    <!-- Card Wider -->
-                    <div class=" card-cascade wider ">
-
-                        <!-- Card image -->
-                        <div class="shadow view view-cascade overlay waves-effect">
-                            <img class=" card-img-top"  src="{{ i.cover.url }}" alt="{{ i.title }}">
-                            <a href="{% url 'post_detail' i.slug  %}">
-                            <div class="mask waves-effect waves-light rgba-white-slight"></div>
-                            </a>
-                        </div>
-
-                        <!-- Card content -->
-                        <div class=" shadow card-body card-body-cascade">
-
-                            <!-- Label -->
-                            <h5 class="pink-text pb-2 pt-1"><i class="fa fa-tags"></i> {{ i.category }}</h5>
-                            <!-- Title -->
-                            <h4 class="font-weight-bold card-title">{{ i.title }}</h4>
-
-                            <h6 class="blue-text pb-2 pt-1"><i class="fa fa-pencil"></i> {{ i.author }} | {{ i.updated_on}} </h6>
-                            <!-- Text -->
-                            <p style="font-size:15px" class="card-text">{{i.content|striptags|slice:":80" }}...</p>
-                            <!-- Button -->
-                            <a href="{% url 'post_detail' i.slug  %}" class="btn btn-primary waves-effect">Read More &rarr;</a>
-
-                            <!-- Card footer -->
-                            <div class="card-footer text-muted text-center mt-4"><i class="fa fa-automobile"></i>
-                                {{ i.state_choice}} | {{ i.location}}
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
-            </div>
-            <div class="carousel-item">
-                {% endif %}
+    <div class="row align-items-start justify-content-center">
+        <div id = "demo" class = "carousel slide " data-ride = "carousel">
+            <ol class="carousel-indicators">
+                {% comment %} <li data-target="#demo" data-slide-to="1" class="active"></li> {% endcomment %}
+                {% for i in range %}
+                <li data-target="#demo" data-slide-to="{{i}}" ></li>
                 {% endfor %}
+            </ol>
+
+            <!--slideshow start here-->
+            <div class="carousel-inner ">
+
+                <div class="carousel-item active ">
+
+                    {% for i in recent|slice:"0:20"%}
+                    <div class= "col-md-8 col-md-10 mx-auto">
+                
+                        <!-- Card Wider -->
+                        <div class=" card-cascade wider ">
+
+                            <!-- Card image -->
+                            <div class="shadow view view-cascade overlay waves-effect">
+                                <img class=" card-img-top"  src="{{ i.cover.url }}" alt="{{ i.title }}">
+                                <a href="{% url 'post_detail' i.slug  %}">
+                                <div class="mask waves-effect waves-light rgba-white-slight"></div>
+                                </a>
+                            </div>
+
+                            <!-- Card content -->
+                            <div class=" shadow card-body card-body-cascade">
+
+                                <!-- Label -->
+                                <h5 class="pink-text pb-2 pt-1"><i class="fa fa-tags"></i> {{ i.category }}</h5>
+                                <!-- Title -->
+                                <h4 class="font-weight-bold card-title">{{ i.title }}</h4>
+
+                                <h6 class="blue-text pb-2 pt-1"><i class="fa fa-pencil"></i> {{ i.author }} | {{ i.updated_on}} </h6>
+                                <!-- Text -->
+                                <p style="font-size:15px" class="card-text">{{i.content|striptags|slice:":80" }}...</p>
+                                <!-- Button -->
+                                <a href="{% url 'post_detail' i.slug  %}" class="btn btn-primary waves-effect">Read More &rarr;</a>
+
+                                <!-- Card footer -->
+                                <div class="card-footer text-muted text-center mt-4"><i class="fa fa-automobile"></i>
+                                    {{ i.state_choice}} | {{ i.location}}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    {% if forloop.counter and forloop.counter > 0 and not forloop.last %}
+                </div>
+                <div class="carousel-item">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
             </div>
 
+            <!--left and rigth control-->
+            <a class = "carousel-control-prev" href="#demo" data-slide="prev">
+                <span class = "carousel-control-prev-icon"></span>
+            </a>
+            <a class = "carousel-control-next" href="#demo" data-slide="next">
+                <span class = "carousel-control-next-icon"></span>
+            </a>
         </div>
-
-         <!--left and rigth control-->
-        <a class = "carousel-control-prev" href="#demo" data-slide="prev">
-            <span class = "carousel-control-prev-icon"></span>
-        </a>
-        <a class = "carousel-control-next" href="#demo" data-slide="next">
-            <span class = "carousel-control-next-icon"></span>
-        </a>
     </div>
-
 </div>
 <div class="row">
     <div class="col text-center">
-        <a type="button" href="{% url 'recent_posts' %}" class="btn btn-secondary ">See All Posts</a>
+        <a type="button" href="{% url 'recent_posts' %}" class="btn btn-dark ">See All Posts</a>
 
     </div>
   </div>
 
-
-<div class="row">
-    <div class="col-lg-12">
-
-    </div>
-</div>
 
 {%endblock%}

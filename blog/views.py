@@ -22,7 +22,7 @@ class PostInfiniteRecent(generic.ListView):
 def recent_post(request):
     recent_posts = Post.objects.filter(status=1).all()
     n = len(recent_posts)
-    nslides = n//4 + ceil((n/4)-(n//4))
+    nslides = n
     params = {"no_of_slides":nslides,"range": range(1,nslides),"recent":recent_posts}
     return render(request,'index.html', params)
 
