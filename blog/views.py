@@ -1,12 +1,12 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Post
-from .forms import CommentForm,BlogForm
+from .models import Post,Comment,ContactUs
+from .forms import CommentForm,BlogForm,ContactUsForm
 from django.views import generic
 from django.http import HttpResponse
 from django.contrib import messages
 from django.views.generic.list import ListView
 from math import ceil
-
+from django.db.models import Q
 
 # class PostList(generic.ListView):
 #     queryset = Post.objects.filter(status=1).order_by('-created_on')
@@ -73,4 +73,44 @@ def post_detail(request, slug):
                                         'comments': comments,
                                         'new_comment': new_comment,
                                         'comment_form': comment_form})
+
+
+def contact_us(request):
+    print("coming")
+    contact_us_obj = None
+    if request.method == 'POST':
+        contact_us_form = ContactUsForm(data= request.POST)
+        if contact_us_form.is_valid():
+            contact_us_obj = contact_us_form.save()
+            contact_us_obj.save()
+            print("submitted")
+        else:
+            messages.info(request, 'Alert! Over exceed word limits ')
+            print (new_blog_form.errors)
+            # return HttpResponse('You can only select 4 fields in Category')
+
+    else:
+        contact_us_form = ContactUsForm()
+    return render(request, 'contact_us.html', {'contact_us_form': contact_us_form, 'contact_us_obj':contact_us_obj})
+
+def search(request):
+    if request.method == 'GET':
+        query = request.GET['query']
+
+        if len(query) > 100:
+            queryset= Post.objects.none()
+            
+        else:
+            lookups= Q(title__icontains=query) | Q(content__icontains=query) | Q(location__icontains=query) | Q(state_choice__icontains=query) | Q(author__icontains=query) | Q(email__icontains=query) | Q(category__icontains=query)
+            queryset = Post.objects.filter(lookups).distinct()
+
+        if queryset.count() ==0:
+            messages.warning(request, 'No search results found, Please refine your query')
+        
+        return render(request, "search.html", {"queryset":queryset, 'query':query})
+            
+            
+
+    else:
+        messages.info(request, 'Alert!')
 

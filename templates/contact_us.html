@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 {% load crispy_forms_tags %}
+{{ contact_us_form.media }}
 {% load static %}
 
 
@@ -92,7 +93,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 mb-4 black-text text-center">
-                <h1 class="h1-reponsive black-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5" style="letter-spacing: 6px; margin-top:240px;" ><strong>ABOUT US</strong></h1>
+                <h1 class="h1-reponsive black-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5" style="letter-spacing: 6px; margin-top:240px;" ><strong>CONTACT US</strong></h1>
                 <hr class="hr-light my-4">
             </div>
         </div>
@@ -102,10 +103,22 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 card mb-4  mt-3 left  top">
+       
       <div class="card-body">
-        <h2>About website</h2>
-        <p class=" text">As the name suggests, TBT is a platform where Travelers can share their travel stories to the world. We will make your stories heard and remembered.</p>
-        <p>For more info follow us on</p>
+       {% if contact_us_obj %}
+        <div class="alert alert-success" role="alert">
+          Your response is saved. We will get to you soon.
+        </div>
+        {% else %}
+        <h5>Submit your Enquiry (Feedbacks and Suggestions are also welcomed)</h5>
+        <form method="post" style="margin-top: 1.3em;">
+          {{ contact_us_form | crispy }}
+          {% csrf_token %}
+          <button type="submit" method= "post" class="btn btn-primary btn-lg">Submit</button>
+        </form>
+        {% endif %}
+        <br>
+        <p>For more info you can contact us via:</p>
         
         <div class="pb-4">
           <!-- social_media -->
@@ -126,22 +139,16 @@
           </a>
         </div>
         <hr class="hr-dark my-4">
-        <h2>What we do?</h2>
-        <p class=" text">We travel around India, write our journey tales, give inspirations to blog, suggest best travels routes, favouravle seasons to travel, best packages and what not.</p>
-        <p><em> And guess what now being on this platform you don't worry about making your own blogging websites, we welcome you to write your own blogs and we will publish it for you.</em></p>
-        <hr class="hr-dark my-4">
         <strong>
-          Mail us your travel photographs and videos of your trip and feature yourself on our website and social media platforms.
+          Mail us @
         </strong>
         <br>
         <br>
         <div class="card text-white bg-dark mb-3">
           <div class="card-body">
             <strong>Email ID: <span class="h5" >talebytravellers@gmail.com</span> </strong> <buttton class="btn-floating btn-lg btn-email"><a onclick="location.href='mailto:talebytravellers@gmail.com';" target="_blank" class="fa fa-envelope pr-1"></a></buttton>
-
           </div>
         </div>
-
       </div>
     </div>
     {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
@@ -150,3 +157,6 @@
 
 {% endblock content %}
 
+ 
+ 
+ 

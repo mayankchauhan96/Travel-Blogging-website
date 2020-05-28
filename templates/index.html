@@ -8,50 +8,215 @@
         font-family: "Roboto", sans-serif;
         font-size: 18px;
         background-color: #fdfdfd;
+        min-height: 100vh;
     }
-    .btn-primary{
-        border-bottom-left-radius: calc(2rem - 1px);
-        border-top-right-radius: calc(2rem - 1px);
+    .btn-info{
+        border-bottom-left-radius: calc(1.5rem - 1px);
+        border-top-right-radius: calc(1.5rem - 1px);
 
     }
+    .container-2{
+        max-width: fit-content;
+        padding-left: 50px;
+        padding-right: 50px;
+        margin-left: 80px;
+        margin-right: 80px;
+    }
+
+    /*for container-2    */
+
+
+
+    .cta-100 {
+    margin-top: 100px;
+    padding-left: 8%;
+    padding-top: 7%;
+    }
+    .col-md-4{
+        padding-bottom:20px;
+    }
+
+    .white {
+    color: #fff !important;
+    }
+    .mt{float: left;margin-top: -20px;padding-top: 20px;}
+    .bg-blue-ui {
+    background-color: #708198 !important;
+    }
+    figure img{width:300px;}
+
+    #blogCarousel {
+    padding-bottom: 100px;
+    }
+
+    .blog .carousel-indicators {
+    left: 0;
+    top: -50px;
+    height: 50%;
+    }
+
+
+    /* The colour of the indicators */
+
+    .blog .carousel-indicators li {
+    background: #708198;
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    }
+
+    .blog .carousel-indicators .active {
+    background: #0fc9af;
+    }
+
+
+
+
+    .item-carousel-blog-block {
+    outline: medium none;
+    padding: 15px;
+    }
+
+    .item-box-blog {
+    border: 1px solid #dadada;
+    text-align: center;
+    z-index: 4;
+    padding: 20px;
+    }
+
+    .item-box-blog-image {
+    position: relative;
+    }
+
+    .item-box-blog-image figure img {
+    width: 100%;
+    height: auto;
+    }
+
+    .item-box-blog-date {
+    position: absolute;
+    z-index: 5;
+    padding: 4px 20px;
+    top: -20px;
+    right: 8px;
+    background-color: #41cb52;
+    }
+
+    .item-box-blog-date span {
+    color: #fff;
+    display: block;
+    text-align: center;
+    line-height: 1.2;
+    }
+
+    .item-box-blog-date span.mon {
+    font-size: 18px;
+    }
+
+    .item-box-blog-date span.day {
+    font-size: 16px;
+    }
+
+    .item-box-blog-body {
+    padding: 10px;
+    }
+
+    .item-heading-blog a h5 {
+    margin: 0;
+    line-height: 1;
+    text-decoration:none;
+    transition: color 0.3s;
+    }
+
+    .item-box-blog-heading a {
+        text-decoration: none;
+    }
+
+    .item-box-blog-data p {
+    font-size: 13px;
+    }
+
+    .item-box-blog-data p i {
+    font-size: 12px;
+    }
+
+    .item-box-blog-text {
+    max-height: 100px;
+    overflow: hidden;
+    }
+
+    .mt-10 {
+    float: left;
+    margin-top: -10px;
+    padding-top: 10px;
+    }
+
+    .btn.bg-blue-ui.white.read {
+    cursor: pointer;
+    padding: 4px 20px;
+    float: left;
+    margin-top: 10px;
+    }
+
+    .btn.bg-blue-ui.white.read:hover {
+    box-shadow: 0px 5px 15px inset #4d5f77;
+    }
+
+    /*for container-2    */
+
+
 
     .view img, .view video {
         position: relative;
         display: block;
-        max-height: 400px;
-        max-width: 600px;
-        min-width: -webkit-fill-available;
-        min-height: -webkit-fill-available;
+     
         box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
     }
     .card-img-top {
         border-top-left-radius: calc(.5rem - 1px);
         border-top-right-radius: calc(.5rem - 1px);
         box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
-        height:180px
-        width: 320px
+        {% comment %} height:180px
+        width: 320px {% endcomment %}
     }
+    .card-cascade {
+        {% comment %} width: 500px; {% endcomment %}
+        height: 800px;
+
+    }
+       .card-cascade .content{
+        widows: 400px;
+        padding: 30px
+        box-sizing: border-box;
+        
+    }
+
 
     .card-body {
         -ms-flex: 1 1 auto;
         flex: 1 1 auto;
-        margin-right: 4%;
-        margin-left: 4%;
+        {% comment %} margin-right: 4%;
+        margin-left: 4%; {% endcomment %}
         background: #fff;
-        padding: 1.25rem;
+        {% comment %} padding: 1.25rem; {% endcomment %}
         box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
     }
+        .col-md-8 img{
 
-    .col-md-3{
-        display: inline-block;
-    }
+        height: 300px;
+        max-width: 400px;
+        min-width: -webkit-fill-available;
+         display: inline-block;
+          }
+
+   
     .carousel-indicators .active {
-        background-color: blue;
+        background-color: black;
 
     }
 
     body.carousel-indicator li{
-        background-color: blue;
+        background-color: black;
     }
 
     .carousel-control-next, .carousel-control-prev {
@@ -62,7 +227,7 @@
     body .carousel-control-next-icon{
         width: 30px;
         height: 30px;
-        background-color: blue;
+        background-color: black;
     }
   
 
@@ -70,10 +235,6 @@
         color: white;
     }
     
-  {% comment %} .container {
-    display: flex;
-    justify-content: flex-start;
-    } {% endcomment %}
     .masthead{
         background: url("/static/img/new.jpg") 50% 0 no-repeat fixed;
         color: red;
@@ -83,108 +244,312 @@
         background-repeat: no-repeat;
         background-size: cover;
     }
-    .hr-light {
+    .hr-dark {
         border-top: 3px solid #fff;
         width: 80px;
     }
-
-
-
+    
 
 </style>
  <header class="masthead">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mb-4 white-text text-center">
-                <h1 class="h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5" style="letter-spacing: 6px;" ><strong>TALES BY TRAVELERS</strong></h1>
-                <h5 class="text-uppercase mb-4 white-text wow fadeInDown"  style="letter-spacing: 2px;" d><strong>A Travel Blogging Platform</strong></h5>
-                <a class="btn btn-outline-black wow fadeInDown" data-wow-delay="0.4s">Register</a>
-                <a class="btn btn-outline-black wow fadeInDown" data-wow-delay="0.4s">Sign IN</a>
+            <div class="col-md-12 mb-4 black-text text-center">
+                <h1 class="h1-reponsive black-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5" style="letter-spacing: 6px; margin-top:240px" ><strong>TALES BY TRAVELERS</strong></h1>
+                <hr class="hr-dark my-4">
+                <h5 class="text-uppercase mb-4 black-text" style="letter-spacing: 2px;" d><strong>A Travel Blogging Platform</strong></h5>
+                <a class="btn btn-outline-black" >Register</a>
+                <button type="button" class="btn btn-outline-black" data-toggle="modal" data-target="#exampleModal">
+                Sign IN
+                </button>
+                {% comment %} <a class="btn btn-outline-black" >Sign IN</a> {% endcomment %}
+
             </div>
         </div>
     </div>
 </header> 
 
 
-<h1 style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:red;" >Recent</span>  Blogs</h1>
+<h1 class: "scrolled" style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:red;" >Recent</span>  Blogs</h1>
 
 <div class="container"> 
-    <div class="row align-items-start justify-content-center">
-        <div id = "demo" class = "carousel slide " data-ride = "carousel">
-            <ol class="carousel-indicators">
-                {% comment %} <li data-target="#demo" data-slide-to="1" class="active"></li> {% endcomment %}
-                {% for i in range %}
-                <li data-target="#demo" data-slide-to="{{i}}" ></li>
-                {% endfor %}
-            </ol>
+    {% comment %} <div class="row">
+        <div class="col "> {% endcomment %}
+            <div id = "demo{{forloop.counter}}" class = "carousel slide  " data-ride = "carousel">
+                <ol class="carousel-indicators">
+                    {% comment %} <li data-target="#demo" data-slide-to="1" class="active"></li> {% endcomment %}
+                    {% for i in range %}
+                    <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}" ></li>
+                    {% endfor %}
+                </ol>
 
-            <!--slideshow start here-->
-            <div class="carousel-inner ">
+                <!--slideshow start here-->
+                <div class="container carousel-inner no-padding">
 
-                <div class="carousel-item active ">
+                    <div class="carousel-item active">
 
-                    {% for i in recent|slice:"0:20"%}
-                    <div class= "col-md-8 col-md-10 mx-auto">
-                
-                        <!-- Card Wider -->
-                        <div class=" card-cascade wider ">
+                        {% for i in recent|slice:"0:20"%}
+                        <div class= "col-md-8 col-sm-8 mx-auto">
+                    
+                            <!-- Card Wider -->
+                            <div class=" card-cascade wider ">
 
-                            <!-- Card image -->
-                            <div class="shadow view view-cascade overlay waves-effect">
-                                <img class=" card-img-top"  src="{{ i.cover.url }}" alt="{{ i.title }}">
-                                <a href="{% url 'post_detail' i.slug  %}">
-                                <div class="mask waves-effect waves-light rgba-white-slight"></div>
-                                </a>
-                            </div>
+                                <!-- Card image -->
+                                <div class="shadow view view-cascade overlay waves-effect">
+                                    <img class=" card-img-top"  src="{{ i.cover.url }}" alt="{{ i.title }}">
+                                    <a href="{% url 'post_detail' i.slug  %}">
+                                    <div class="mask waves-effect waves-light rgba-white-slight"></div>
+                                    </a>
+                                </div>
 
-                            <!-- Card content -->
-                            <div class=" shadow card-body card-body-cascade">
+                                <!-- Card content -->
+                                <div class=" shadow card-body card-body-cascade">
 
-                                <!-- Label -->
-                                <h5 class="pink-text pb-2 pt-1"><i class="fa fa-tags"></i> {{ i.category }}</h5>
-                                <!-- Title -->
-                                <h4 class="font-weight-bold card-title">{{ i.title }}</h4>
+                                    <!-- Label -->
+                                    <h5 class="pink-text pb-2 pt-1"><i class="fa fa-tags"></i> {{ i.category }}</h5>
+                                    <!-- Title -->
+                                    <h4 class="font-weight-bold card-title">{{ i.title }}</h4>
 
-                                <h6 class="blue-text pb-2 pt-1"><i class="fa fa-pencil"></i> {{ i.author }} | {{ i.updated_on}} </h6>
-                                <!-- Text -->
-                                <p style="font-size:15px" class="card-text">{{i.content|striptags|slice:":80" }}...</p>
-                                <!-- Button -->
-                                <a href="{% url 'post_detail' i.slug  %}" class="btn btn-primary waves-effect">Read More &rarr;</a>
+                                    <h6 class="blue-text pb-2 pt-1"><i class="fa fa-pencil"></i> {{ i.author }} | {{ i.updated_on}} </h6>
+                                    <!-- Text -->
+                                    <p style="font-size:15px" class="card-text">{{i.content|striptags|slice:":150" }}...</p>
+                                    <!-- Button -->
+                                    <a href="{% url 'post_detail' i.slug  %}" class="btn btn-info waves-effect">Read More &rarr;</a>
 
-                                <!-- Card footer -->
-                                <div class="card-footer text-muted text-center mt-4"><i class="fa fa-automobile"></i>
-                                    {{ i.state_choice}} | {{ i.location}}
+                                    <!-- Card footer -->
+                                    <div class="card-footer text-muted text-center mt-4"><i class="fa fa-automobile"></i>
+                                        {{ i.state_choice}} | {{ i.location}}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
+                        {% if forloop.counter and forloop.counter > 0 and not forloop.last %}
                     </div>
-                    {% if forloop.counter and forloop.counter > 0 and not forloop.last %}
+                    <div class="carousel-item">
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+
                 </div>
-                <div class="carousel-item">
-                    {% endif %}
-                    {% endfor %}
-                </div>
+
+                <!--left and rigth control-->
+                <a class = "carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev">
+                    <span class = "carousel-control-prev-icon"></span>
+                </a>
+                <a class = "carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
+                    <span class = "carousel-control-next-icon"></span>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a type="button" href="{% url 'recent_posts' %}" class="btn btn-dark ">See All Posts</a>
 
             </div>
+        </div>
 
-            <!--left and rigth control-->
-            <a class = "carousel-control-prev" href="#demo" data-slide="prev">
-                <span class = "carousel-control-prev-icon"></span>
-            </a>
-            <a class = "carousel-control-next" href="#demo" data-slide="next">
-                <span class = "carousel-control-next-icon"></span>
-            </a>
+    </div>
+</div>
+    
+
+<div class='container-2'>   
+
+    <div class="row blog">
+        <div class="col-md-12">
+            <div id="blogCarousel" class="carousel slide carousel-fade container-blog" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#blogCarousel" data-slide-to="1"></li>
+            </ol>
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                <div class="row">
+                    <div class="col-md-4" >
+                    <div class="item-box-blog">
+                        <div class="item-box-blog-image">
+                        <!--Date-->
+                        <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Augu 01</span> </div>
+                        <!--Image-->
+                        <figure> <img alt="" src="https://cdn.pixabay.com/photo/2017/02/08/14/25/computer-2048983_960_720.jpg"> </figure>
+                        </div>
+                        <div class="item-box-blog-body">
+                        <!--Heading-->
+                        <div class="item-box-blog-heading">
+                            <a href="#" tabindex="0">
+                            <h5>News Title</h5>
+                            </a>
+                        </div>
+                        <!--Data-->
+                        <div class="item-box-blog-data" style="padding: px 15px;">
+                            <p><i class="fa fa-user-o"></i> Admin, <i class="fa fa-comments-o"></i> Comments(3)</p>
+                        </div>
+                        <!--Text-->
+                        <div class="item-box-blog-text">
+                            <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
+                        </div>
+                        <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
+                        <!--Read More Button-->
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-4" >
+                    <div class="item-box-blog">
+                        <div class="item-box-blog-image">
+                        <!--Date-->
+                        <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Augu 01</span> </div>
+                        <!--Image-->
+                        <figure> <img alt="" src="https://cdn.pixabay.com/photo/2017/02/08/14/25/computer-2048983_960_720.jpg"> </figure>
+                        </div>
+                        <div class="item-box-blog-body">
+                        <!--Heading-->
+                        <div class="item-box-blog-heading">
+                            <a href="#" tabindex="0">
+                            <h5>News Title</h5>
+                            </a>
+                        </div>
+                        <!--Data-->
+                        <div class="item-box-blog-data" style="padding: px 15px;">
+                            <p><i class="fa fa-user-o"></i> Admin, <i class="fa fa-comments-o"></i> Comments(3)</p>
+                        </div>
+                        <!--Text-->
+                        <div class="item-box-blog-text">
+                            <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
+                        </div>
+                        <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
+                        <!--Read More Button-->
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-4" >
+                    <div class="item-box-blog">
+                        <div class="item-box-blog-image">
+                        <!--Date-->
+                        <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Augu 01</span> </div>
+                        <!--Image-->
+                        <figure> <img alt="" src="https://cdn.pixabay.com/photo/2017/02/08/14/25/computer-2048983_960_720.jpg"> </figure>
+                        </div>
+                        <div class="item-box-blog-body">
+                        <!--Heading-->
+                        <div class="item-box-blog-heading">
+                            <a href="#" tabindex="0">
+                            <h5>News Title</h5>
+                            </a>
+                        </div>
+                        <!--Data-->
+                        <div class="item-box-blog-data" style="padding: px 15px;">
+                            <p><i class="fa fa-user-o"></i> Admin, <i class="fa fa-comments-o"></i> Comments(3)</p>
+                        </div>
+                        <!--Text-->
+                        <div class="item-box-blog-text">
+                            <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
+                        </div>
+                        <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
+                        <!--Read More Button-->
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!--.row-->
+                </div>
+                <!--.item-->
+                <div class="carousel-item ">
+                <div class="row">
+                    <div class="col-md-4" >
+                    <div class="item-box-blog">
+                        <div class="item-box-blog-image">
+                        <!--Date-->
+                        <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Augu 01</span> </div>
+                        <!--Image-->
+                        <figure> <img alt="" src="https://cdn.pixabay.com/photo/2017/02/08/14/25/computer-2048983_960_720.jpg"> </figure>
+                        </div>
+                        <div class="item-box-blog-body">
+                        <!--Heading-->
+                        <div class="item-box-blog-heading">
+                            <a href="#" tabindex="0">
+                            <h5>News Title</h5>
+                            </a>
+                        </div>
+                        <!--Data-->
+                        <div class="item-box-blog-data" style="padding: px 15px;">
+                            <p><i class="fa fa-user-o"></i> Admin, <i class="fa fa-comments-o"></i> Comments(3)</p>
+                        </div>
+                        <!--Text-->
+                        <div class="item-box-blog-text">
+                            <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
+                        </div>
+                        <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
+                        <!--Read More Button-->
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-4" >
+                    <div class="item-box-blog">
+                        <div class="item-box-blog-image">
+                        <!--Date-->
+                        <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Augu 01</span> </div>
+                        <!--Image-->
+                        <figure> <img alt="" src="https://cdn.pixabay.com/photo/2017/02/08/14/25/computer-2048983_960_720.jpg"> </figure>
+                        </div>
+                        <div class="item-box-blog-body">
+                        <!--Heading-->
+                        <div class="item-box-blog-heading">
+                            <a href="#" tabindex="0">
+                            <h5>News Title</h5>
+                            </a>
+                        </div>
+                        <!--Data-->
+                        <div class="item-box-blog-data" style="padding: px 15px;">
+                            <p><i class="fa fa-user-o"></i> Admin, <i class="fa fa-comments-o"></i> Comments(3)</p>
+                        </div>
+                        <!--Text-->
+                        <div class="item-box-blog-text">
+                            <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
+                        </div>
+                        <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
+                        <!--Read More Button-->
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-4" >
+                    <div class="item-box-blog">
+                        <div class="item-box-blog-image">
+                        <!--Date-->
+                        <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Augu 01</span> </div>
+                        <!--Image-->
+                        <figure> <img alt="" src="https://cdn.pixabay.com/photo/2017/02/08/14/25/computer-2048983_960_720.jpg"> </figure>
+                        </div>
+                        <div class="item-box-blog-body">
+                        <!--Heading-->
+                        <div class="item-box-blog-heading">
+                            <a href="#" tabindex="0">
+                            <h5>News Title</h5>
+                            </a>
+                        </div>
+                        <!--Data-->
+                        <div class="item-box-blog-data" style="padding: px 15px;">
+                            <p><i class="fa fa-user-o"></i> Admin, <i class="fa fa-comments-o"></i> Comments(3)</p>
+                        </div>
+                        <!--Text-->
+                        <div class="item-box-blog-text">
+                            <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
+                        </div>
+                            <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
+                        <!--Read More Button-->
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!--.row-->
+                </div>
+                <!--.item-->
+            </div>
+            <!--.carousel-inner-->
+            </div>
+            <!--.Carousel-->
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col text-center">
-        <a type="button" href="{% url 'recent_posts' %}" class="btn btn-dark ">See All Posts</a>
-
-    </div>
-  </div>
 
 
 {%endblock%}

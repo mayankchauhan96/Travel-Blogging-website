@@ -84,14 +84,14 @@ class Post(models.Model):
     slug = AutoSlugField(populate_from='title')
     cover = models.ImageField(upload_to='images/', null = True)
     # author = models.ForeignKey(User, on_delete= models.CASCADE,related_name='blog_posts')
-    author = models.CharField(max_length=200)
+    author = models.CharField(max_length=80)
     updated_on = models.DateTimeField(auto_now= True)
     content = RichTextField()
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
-    state_choice = models.CharField(max_length=200,choices=STATE_CHOICES, default="UK")
-    location = models.CharField(max_length=200, default="kashipur")
-    email = models.EmailField(default="xyz@gmail.com")
+    state_choice = models.CharField(max_length=80,choices=STATE_CHOICES)
+    location = models.CharField(max_length=80)
+    email = models.EmailField()
     category =MultiSelectField(choices=CATEGORY, max_choices= 4, blank=True, null=True )
 
     class Meta:
@@ -109,7 +109,17 @@ class Comment(models.Model):
     active = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['created_on']
+        ordering = ['-created_on']
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
+
+class ContactUs(models.Model):
+    sno = models.AutoField
+    name = models.CharField(max_length=80)
+    email = models.EmailField(max_length=100)
+    created_on = models.DateTimeField(auto_now_add=True)
+    content = models.TextField(max_length=500)
+
+    class Meta:
+        ordering = ['-created_on']

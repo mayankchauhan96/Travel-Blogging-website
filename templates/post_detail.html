@@ -36,8 +36,8 @@
       <div class="card-body">
         <h1>{% block title %} {{ post.title }} {% endblock title %}</h1>
         <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
+        <div class="fb-share-button" data-href="{{ post.slug }}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A8000%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
         <img class="card__image" src="{{ post.cover.url }}" alt="{{ post.title }}">
-        {% comment %} <img src="{{ post.cover.url }}" alt="{{ post.title }}"> {% endcomment %}
         <p class="card-text ">{{ post.content | safe }}</p>
       </div>
     </div>

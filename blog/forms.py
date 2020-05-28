@@ -1,4 +1,4 @@
-from .models import Comment,Post
+from .models import Comment,Post,ContactUs
 from django import forms
 from djrichtextfield.widgets import RichTextWidget
 
@@ -14,3 +14,8 @@ class BlogForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('author', 'email', 'title','cover','location','state_choice','content','category')
+
+class ContactUsForm(forms.ModelForm):
+    class Meta:
+        model = ContactUs
+        fields = ('name', 'email', 'content')

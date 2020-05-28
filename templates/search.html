@@ -91,17 +91,30 @@
     {% comment %} {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %} {% endcomment %}
 
 
-<h1 style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:red;" >Recent</span>  Blogs</h1>
+<h1 style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:red;" >Search</span>  Results:</h1>
 
 
     <div class="container">
         <div class="row infinite-container align-center ">
 
+            {% if queryset|length < 1 %}
+            <p> Your search <strong>" {{query}} " </strong> did not found in any blogposts.</p> <br>
+            <p>
+            <b>Suggestions:</b>  
+            </p>
+            <ul>
+
+            <li>Try a different keyword</li> 
+            <li>Try more general keywords</li> 
+            <li>Try fewer Keywords</li>
+            </ul>
+
+            
+            {% endif %}
 
             <!-- Blog Entries Column -->
-            {% for post in posts %}
+            {% for post in queryset %}
             {% comment %} {% if forloop.first %}<div class="row">{% endif %} {% endcomment %}
-            <div class="infinite-item">
                 <!-- Card Wider -->
 
                 <div class=" card-cascade wider  ">
@@ -137,45 +150,10 @@
                 </div>
                 
 
-            </div>
 
             {% endfor %}
         </div>
-
-         <div class="loading" style="display: none;">
-    Loading...
-  </div>
-  {% if page_obj.has_next %}
-    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
-  {% endif %}
-   <div class="d-flex justify-content-center" style="display:none;">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                </div>
-            </div>
-
-            
-  
-<script>
-    var infinite = new Waypoint.Infinite({
-        element: $('.infinite-container')[0],
-        handler: function(direction) {
-
-    },
-    offset: 'bottom-in-view',
-
-    onBeforePageLoad: function () {
-    $('.spinner-border').show();
-    },
-    onAfterPageLoad: function () {
-    $('.spinner-border').hide();
-    }
-
-    });
-
-    </script>
-
+    </div>
 
 
 {%endblock%}
