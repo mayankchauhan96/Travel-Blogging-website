@@ -9,6 +9,9 @@ urlpatterns = [
     path('search/',  views.search, name='search'),
     path('blog_form/',  views.blog_form, name='blog_form'),
     path('recent_post/',  views.PostInfiniteRecent.as_view(), name='recent_posts'),
+    path('signup/', views.signup_view, name="signup"),
+    path('sent/', views.activation_sent_view, name="activation_sent"),
+    path('activate/<slug:uidb64>/<slug:token>/', views.activate, name='activate'),
     path('', views.recent_post, name='home'),
     path('<slug:slug>/',  views.post_detail, name='post_detail'),
 

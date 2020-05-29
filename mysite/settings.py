@@ -24,6 +24,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -57,6 +59,7 @@ INSTALLED_APPS = [
     'fontawesome',
     'jquery',
     'djrichtextfield',
+    'six',
 ]
 
 MIDDLEWARE = [

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Comment,ContactUs
+from .models import Post, Comment,ContactUs,Profile
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('post_id','title', 'slug', 'status','created_on','location','email','author',"state_choice","category",)
@@ -24,3 +24,7 @@ admin.site.register(Comment, CommentAdmin)
 class ContactUsAdmin(admin.ModelAdmin):
     list_display = ('sno','name', 'email', 'content', 'created_on')
 admin.site.register(ContactUs, ContactUsAdmin)
+
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'email',)
+admin.site.register(Profile, ProfileAdmin)
