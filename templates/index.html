@@ -176,17 +176,17 @@
         border-top-left-radius: calc(.5rem - 1px);
         border-top-right-radius: calc(.5rem - 1px);
         box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
-        {% comment %} height:180px
-        width: 320px {% endcomment %}
+        /* {% comment %} height:180px
+        width: 320px {% endcomment %} */
     }
     .card-cascade {
-        {% comment %} width: 500px; {% endcomment %}
+        /* {% comment %} width: 500px; {% endcomment %} */
         height: 800px;
 
     }
        .card-cascade .content{
         widows: 400px;
-        padding: 30px
+        padding: 30px;
         box-sizing: border-box;
         
     }
@@ -195,10 +195,10 @@
     .card-body {
         -ms-flex: 1 1 auto;
         flex: 1 1 auto;
-        {% comment %} margin-right: 4%;
-        margin-left: 4%; {% endcomment %}
+        /* {% comment %} margin-right: 4%;
+        margin-left: 4%; {% endcomment %} */
         background: #fff;
-        {% comment %} padding: 1.25rem; {% endcomment %}
+        /* {% comment %} padding: 1.25rem; {% endcomment %} */
         box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
     }
         .col-md-8 img{
@@ -259,13 +259,25 @@
                 <h1 class="h1-reponsive black-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5" style="letter-spacing: 6px; margin-top:240px" ><strong>TALES BY TRAVELERS</strong></h1>
                 <hr class="hr-dark my-4">
                 <h5 class="text-uppercase mb-4 black-text" style="letter-spacing: 2px;" d><strong>A Travel Blogging Platform</strong></h5>
-                <a  class="btn btn-outline-black" href="{% url 'signup' %}">
-                REGISTER
-                </a>
-                <a  class="btn btn-outline-black" href="{% url 'signup' %}">
+                {% if user.is_authenticated %}
+                    Hi {{ user.username }}!
+                    <a  class="btn btn-outline-black" href="{% url 'logout' %}">
+                        Logout
+                        </a>
+                        <a  class="btn btn-outline-black" href="{% url 'password_reset' %}">
+                            Reset Password
+                            </a>
+                {% else %}
+                    <a  class="btn btn-outline-black" href="{% url 'signup' %}">
+                    REGISTER
+                    </a>
+                    <a  class="btn btn-outline-black" href="{% url 'login' %}">
                 Sign IN
                 </a>
-
+                <a  class="btn btn-outline-black" href="{% url 'password_reset' %}">
+                    Forgot Password
+                    </a>
+                {% endif %}
             </div>
         </div>
     </div>

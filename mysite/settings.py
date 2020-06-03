@@ -24,6 +24,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Quick-start development settings - unsuitable for production
@@ -35,7 +37,7 @@ SECRET_KEY = 'gh0=l5&5l8(t1jf!5(6zg^=80)%1(r=8w__yvh06w(rq-0vni4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["8ad8b9eb.ngrok.io",'127.0.0.1']
+ALLOWED_HOSTS = ["1649322a684e.ngrok.io",'127.0.0.1']
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'root')
 STATIC_URL = '/static/'

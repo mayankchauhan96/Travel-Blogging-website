@@ -11,7 +11,7 @@ from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_text
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,auth
 from django.db import IntegrityError
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_bytes
@@ -130,7 +130,13 @@ def search(request):
 def signup_view(request):
     if request.method  == 'POST':
         form = SignUpForm(request.POST)
-        if form.is_valid():
+        email = request.POST['email']
+        if User.objects.filter(email=email).exists() :
+            messages.error(request,"This Email is already registered")
+            print("email")
+            # return redirect('signup')
+
+        elif form.is_valid():
             user = form.save()
             user.refresh_from_db()
             user.profile.first_name = form.cleaned_data.get('first_name')
@@ -143,7 +149,7 @@ def signup_view(request):
             subject = 'Please Activate Your Account'
             # load a template like get_template() 
             # and calls its render() method immediately.
-            message = render_to_string('activation_request.html', {
+            message = render_to_string('registration/activation_request.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -152,13 +158,15 @@ def signup_view(request):
             })
             user.email_user(subject, message)
             return redirect('activation_sent')
+
+
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'registration/signup.html', {'form': form})
 
 
 def activation_sent_view(request):
-    return render(request, 'activation_sent.html')
+    return render(request, 'registration/activation_sent.html')
 
 
 
@@ -176,9 +184,37 @@ def activate(request, uidb64, token):
         user.profile.signup_confirmation = True
         user.save()
         login(request, user)
-        messages.success(request, 'Login completed')
+        messages.success(request, 'Registration completed. Please login now')
 
         return redirect('home')
     else:
         messages.error(request, 'Login not completed. please check your email')
         return render(request, 'home')
+
+
+def login_view(request):
+        if request.method == 'POST':
+            username = request.POST['username']
+            password = request.POST['password']
+            user = auth.authenticate(username=username, password=password)
+
+            if user is not None:
+                auth.login(request, user)
+                messages.success(request,"Login successfull")
+                return redirect('home')
+            else:
+
+                messages.warning(request,'invalid credentials')
+        else:
+
+
+            return render(request, "registration/login.html")
+
+
+
+def logout_view(request):
+
+    auth.logout(request)
+    messages.success(request, "Logged out successfully!")
+    return redirect(request,'registration/logout.html')
+    

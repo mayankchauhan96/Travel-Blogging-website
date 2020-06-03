@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block content %}
+
+<header class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h3 class=" site-heading my-4 mt-3 text-white"> Write your own blog </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% block title %}Logged Out{% endblock %}
+
+
+<h1>Thanks for spending some quality time with the Web site today.</h1>
+<p> You can log in again later on the <a href="{% url 'login' %}">log in page</a>.</p>
+
+{% endblock content %}
