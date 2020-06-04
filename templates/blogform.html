@@ -1,7 +1,8 @@
 {% extends 'base.html' %} {% block content %}
-{% load bootstrap4 %}
+{% load crispy_forms_tags %}
 
 {{ new_blog_form.media }}
+{% load static %}
 
 
 <style>
@@ -49,29 +50,25 @@
         </div>
     </div>
 </header>
+
 <div class="container">
   <div class="row">
-    <div class="col-md-8 card mb-4  mt-3 left  top">
+    <div class="col-md-8 card mb-4  mt-3 left top">
       <div class="card-body">
         {% if form_obj %}
         <div class="alert alert-success" role="alert">
           Great! Your blog is awaiting moderation
         </div>
-        {% comment %} {% elif new_blog_form.errors %}
-        <div class="alert alert-danger" role="alert">
-             Oh Crap! You can only a select maximum of 4 fields in Category
-        </div> {% endcomment %}
         {% else %}
-        <form  method= "post" enctype="multipart/form-data" style="margin-top: 1.3em;" >
-          {% comment %} {{ new_blog_form | crispy  }} {% endcomment %}
+        <form  method= "POST" enctype="multipart/form-data" style="margin-top: 1.3em;">
+          {{ new_blog_form | crispy  }}
           {% csrf_token %}
-          {% bootstrap_form new_blog_form %}
           <div class="alert alert-warning" role="alert">
            Attention! You can only a select maximum of 4 fields in Category
           </div>
-          {% buttons %}
-            <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
-          {% endbuttons %}
+          <script src='https://www.google.com/recaptcha/api.js'></script>
+         <div class="g-recaptcha" data-sitekey="6LdVaQAVAAAAAEx_ba36Gt2hoCT4vwmMEqX43Yrf"></div>
+          <button type="submit" method= "POST" class="btn btn-primary  btn-lg">Submit</button>
         </form>
         {% endif %}
         

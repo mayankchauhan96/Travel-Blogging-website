@@ -18,7 +18,9 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from .tokens import account_activation_token
 from django.template.loader import render_to_string
-
+from django.conf import settings
+import urllib
+import json
 
 # class PostList(generic.ListView):
 #     queryset = Post.objects.filter(status=1).order_by('-created_on')
@@ -43,11 +45,28 @@ def blog_form(request):
     print("coming")
     form_obj = None
     if request.method == 'POST':
+        print("hu")
         new_blog_form = BlogForm(data= request.POST, files=request.FILES)
         if new_blog_form.is_valid():
-            form_obj = new_blog_form.save(commit=False, )
-            form_obj.save()
-            print("submitted")
+            ''' Begin reCAPTCHA validation '''
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            url = 'https://www.google.com/recaptcha/api/siteverify'
+            values = {
+                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'response': recaptcha_response
+            }
+            data = urllib.parse.urlencode(values).encode()
+            req =  urllib.request.Request(url, data=data)
+            response = urllib.request.urlopen(req)
+            result = json.loads(response.read().decode())
+            ''' End reCAPTCHA validation '''
+
+            if result['success']:
+                form_obj = new_blog_form.save(commit=False, )
+                form_obj.save()
+            else:
+                messages.error(request, 'Invalid reCAPTCHA. Please try again.')
+
         else:
             messages.info(request, 'Alert! You can only a select maximum of 4 fields in Category ')
             print (new_blog_form.errors)
@@ -72,14 +91,30 @@ def post_detail(request, slug):
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
 
-            # Create Comment object but don't save to database yet
-            new_comment = comment_form.save(commit=False)
-            # Assign the current post to the comment
-            new_comment.post = post
-            # Save the comment to the database
-            new_comment.save()
+            ''' Begin reCAPTCHA validation '''
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            url = 'https://www.google.com/recaptcha/api/siteverify'
+            values = {
+                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'response': recaptcha_response
+            }
+            data = urllib.parse.urlencode(values).encode()
+            req =  urllib.request.Request(url, data=data)
+            response = urllib.request.urlopen(req)
+            result = json.loads(response.read().decode())
+            ''' End reCAPTCHA validation '''
+
+            if result['success']:
+                # Create Comment object but don't save to database yet
+                new_comment = comment_form.save(commit=False)
+                # Assign the current post to the comment
+                new_comment.post = post
+                # Save the comment to the database
+                new_comment.save()
+            else:
+                messages.error(request, 'Invalid reCAPTCHA. Please try again.')
     else:
-        comment_form = CommentForm()
+        comment_form = CommentForm()    
 
     return render(request, template_name, {'post': post,
                                         'comments': comments,
@@ -93,17 +128,34 @@ def contact_us(request):
     if request.method == 'POST':
         contact_us_form = ContactUsForm(data= request.POST)
         if contact_us_form.is_valid():
-            contact_us_obj = contact_us_form.save()
-            contact_us_obj.save()
-            print("submitted")
+            ''' Begin reCAPTCHA validation '''
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            url = 'https://www.google.com/recaptcha/api/siteverify'
+            values = {
+                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'response': recaptcha_response
+            }
+            data = urllib.parse.urlencode(values).encode()
+            req =  urllib.request.Request(url, data=data)
+            response = urllib.request.urlopen(req)
+            result = json.loads(response.read().decode())
+            ''' End reCAPTCHA validation '''
+
+            if result['success']:
+                contact_us_obj = contact_us_form.save()
+                contact_us_obj.save()
+            else:
+                messages.error(request, 'Invalid reCAPTCHA. Please try again.')
         else:
-            messages.info(request, 'Alert! Over exceed word limits ')
+            messages.info(request, 'Alert! Over exceeded word limits ')
             print (new_blog_form.errors)
             # return HttpResponse('You can only select 4 fields in Category')
 
     else:
         contact_us_form = ContactUsForm()
     return render(request, 'contact_us.html', {'contact_us_form': contact_us_form, 'contact_us_obj':contact_us_obj})
+
+
 
 def search(request):
     if request.method == 'GET':
@@ -137,27 +189,43 @@ def signup_view(request):
             # return redirect('signup')
 
         elif form.is_valid():
-            user = form.save()
-            user.refresh_from_db()
-            user.profile.first_name = form.cleaned_data.get('first_name')
-            user.profile.last_name = form.cleaned_data.get('last_name')
-            user.profile.email = form.cleaned_data.get('email')
-            # user can't login until link confirmed
-            user.is_active = False
-            user.save()
-            current_site = get_current_site(request)
-            subject = 'Please Activate Your Account'
-            # load a template like get_template() 
-            # and calls its render() method immediately.
-            message = render_to_string('registration/activation_request.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                # method will generate a hash value with user related data
-                'token': account_activation_token.make_token(user),
-            })
-            user.email_user(subject, message)
-            return redirect('activation_sent')
+            ''' Begin reCAPTCHA validation '''
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            url = 'https://www.google.com/recaptcha/api/siteverify'
+            values = {
+                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'response': recaptcha_response
+            }
+            data = urllib.parse.urlencode(values).encode()
+            req =  urllib.request.Request(url, data=data)
+            response = urllib.request.urlopen(req)
+            result = json.loads(response.read().decode())
+            ''' End reCAPTCHA validation '''
+            
+            if result['success']:
+                user = form.save()
+                user.refresh_from_db()
+                user.profile.first_name = form.cleaned_data.get('first_name')
+                user.profile.last_name = form.cleaned_data.get('last_name')
+                user.profile.email = form.cleaned_data.get('email')
+                # user can't login until link confirmed
+                user.is_active = False
+                user.save()
+                current_site = get_current_site(request)
+                subject = 'Please Activate Your Account'
+                # load a template like get_template() 
+                # and calls its render() method immediately.
+                message = render_to_string('registration/activation_request.html', {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    # method will generate a hash value with user related data
+                    'token': account_activation_token.make_token(user),
+                })
+                user.email_user(subject, message)
+                return redirect('activation_sent')
+            else:
+                messages.error(request, 'Invalid reCAPTCHA. Please try again.')
 
 
     else:
@@ -184,7 +252,7 @@ def activate(request, uidb64, token):
         user.profile.signup_confirmation = True
         user.save()
         login(request, user)
-        messages.success(request, 'Registration completed. Please login now')
+        messages.success(request, 'Registration completed.')
 
         return redirect('home')
     else:
@@ -216,5 +284,5 @@ def logout_view(request):
 
     auth.logout(request)
     messages.success(request, "Logged out successfully!")
-    return redirect(request,'registration/logout.html')
+    return render(request,'registration/logout.html')
     

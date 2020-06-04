@@ -73,6 +73,8 @@
         <form method="post" style="margin-top: 1.3em;">
           {{ comment_form | crispy }}
           {% csrf_token %}
+          <script src='https://www.google.com/recaptcha/api.js'></script>
+          <div class="g-recaptcha" data-sitekey="6LdVaQAVAAAAAEx_ba36Gt2hoCT4vwmMEqX43Yrf"></div>
           <button type="submit" method= "post" class="btn btn-primary btn-lg">Submit</button>
         </form>
         {% endif %}

@@ -28,6 +28,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+GOOGLE_RECAPTCHA_SECRET_KEY = '6LdVaQAVAAAAADSswlf1DE5EFyJdVN9geJlRBI2b'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -60,7 +62,6 @@ INSTALLED_APPS = [
     'bootstrap4',
     'fontawesome',
     'jquery',
-    'djrichtextfield',
     'six',
 ]
 
@@ -76,16 +77,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'mysite.urls'
 
-DJRICHTEXTFIELD_CONFIG = {
-    'js': ['//cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js'],
-    'init_template': 'djrichtextfield/init/tinymce.js',
-    'settings': {
-        'menubar': True,
-        'plugins': 'link image',
-        'toolbar': 'bold italic | link image | removeformat',
-        'width': 700
-    }
-}
 
 TEMPLATES = [
     {

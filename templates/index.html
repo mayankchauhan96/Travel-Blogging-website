@@ -261,7 +261,7 @@
                 <h5 class="text-uppercase mb-4 black-text" style="letter-spacing: 2px;" d><strong>A Travel Blogging Platform</strong></h5>
                 {% if user.is_authenticated %}
                     Hi {{ user.username }}!
-                    <a  class="btn btn-outline-black" href="{% url 'logout' %}">
+                    <a  class="btn btn-outline-black" href="{% url 'logout' %}?next=/logout">
                         Logout
                         </a>
                         <a  class="btn btn-outline-black" href="{% url 'password_reset' %}">
