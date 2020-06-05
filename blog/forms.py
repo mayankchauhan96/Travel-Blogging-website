@@ -12,7 +12,7 @@ class CommentForm(forms.ModelForm):
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('author', 'email', 'title','cover','location','state_choice','content','category')
+        fields = ('title','cover','location','state_choice','content','category')
 
 class ContactUsForm(forms.ModelForm):
     class Meta:

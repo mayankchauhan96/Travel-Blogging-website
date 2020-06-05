@@ -42,7 +42,6 @@ DEBUG = True
 ALLOWED_HOSTS = ["1649322a684e.ngrok.io",'127.0.0.1']
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'root')
-STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
@@ -150,3 +149,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+LOGIN_REDIRECT_URL = '/blog_form/'

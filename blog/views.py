@@ -19,6 +19,7 @@ from django.utils.http import urlsafe_base64_encode
 from .tokens import account_activation_token
 from django.template.loader import render_to_string
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 import urllib
 import json
 
@@ -41,6 +42,7 @@ def recent_post(request):
     return render(request,'index.html', params)
 
 
+@login_required(login_url='login')
 def blog_form(request):
     print("coming")
     form_obj = None
@@ -48,25 +50,10 @@ def blog_form(request):
         print("hu")
         new_blog_form = BlogForm(data= request.POST, files=request.FILES)
         if new_blog_form.is_valid():
-            ''' Begin reCAPTCHA validation '''
-            recaptcha_response = request.POST.get('g-recaptcha-response')
-            url = 'https://www.google.com/recaptcha/api/siteverify'
-            values = {
-                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-                'response': recaptcha_response
-            }
-            data = urllib.parse.urlencode(values).encode()
-            req =  urllib.request.Request(url, data=data)
-            response = urllib.request.urlopen(req)
-            result = json.loads(response.read().decode())
-            ''' End reCAPTCHA validation '''
-
-            if result['success']:
-                form_obj = new_blog_form.save(commit=False, )
-                form_obj.save()
-            else:
-                messages.error(request, 'Invalid reCAPTCHA. Please try again.')
-
+            
+            form_obj = new_blog_form.save(commit=False, )
+            form_obj.author = request.user
+            form_obj.save()
         else:
             messages.info(request, 'Alert! You can only a select maximum of 4 fields in Category ')
             print (new_blog_form.errors)

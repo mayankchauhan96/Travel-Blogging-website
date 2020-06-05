@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Post, Comment,ContactUs,Profile
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('post_id','title', 'slug', 'status','created_on','location','email','author',"state_choice","category",)
+    list_display = ('post_id','title', 'slug', 'status','created_on','location','author',"state_choice","category",)
     list_filter = ("status","state_choice","category",)
     search_fields = ['title', 'content','author']
     actions = ['approve_posts']

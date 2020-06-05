@@ -84,15 +84,13 @@ class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = AutoSlugField(populate_from='title')
     cover = models.ImageField(upload_to='images/', null = True)
-    # author = models.ForeignKey(User, on_delete= models.CASCADE,related_name='blog_posts')
-    author = models.CharField(max_length=80)
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name= "posts")
     updated_on = models.DateTimeField(auto_now= True)
-    content = models.CharField(max_length=80)
+    content = models.TextField(max_length=80)
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
     state_choice = models.CharField(max_length=80,choices=STATE_CHOICES)
     location = models.CharField(max_length=80)
-    email = models.EmailField()
     category =MultiSelectField(choices=CATEGORY, max_choices= 4, blank=True, null=True )
 
     class Meta:
@@ -104,8 +102,8 @@ class Post(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
     name = models.CharField(max_length=80)
-    email = models.EmailField()
-    body = models.CharField(max_length=80)
+    email = models.EmailField(max_length=100)
+    body = models.TextField(max_length=80)
     created_on = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=False)
 
