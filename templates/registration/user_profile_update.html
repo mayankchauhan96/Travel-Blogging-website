@@ -1,0 +1,78 @@
+{% extends 'base.html' %} {% block content %}
+{% load crispy_forms_tags %}
+
+{{ profile_form.media }}
+{% load static %}
+
+
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+    }
+    
+    .head_text {
+        color: white;
+    }
+    
+    .card {
+        box-shadow: 0 32px 48px #E3E7EB;
+    }
+
+    .container{
+      max-width: 1600px;
+    }
+    
+    .notification{
+      position:absolute;
+      top: 5rem;
+      right: 1rem;
+      width:300px;
+      min-height:100px;
+      margin-top:100px;
+      border:1px solid #666;
+      background-color:#3073BB;
+      background-repeat:no-repeat;
+      background-position:20px 30px;
+    }
+    
+</style>
+<header class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h3 class=" site-heading my-4 mt-3 text-white"> Profile Details </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 card mb-4  mt-3 left top">
+      <div class="card-body">
+        {% if form_obj %}
+        <div class="alert alert-success" role="alert">
+          Great! Changes saved.
+        </div>
+        {% else %}
+        <form method="post">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            <button type="submit">Save changes</button>
+          </form>
+        {% endif %}
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block content %}
+
+<header class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h3 class=" site-heading my-4 mt-3 text-white"> Write your own blog </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+        {{ user.username }}
+        {{ user.email }}
+        <a href="{{  user.profile.facebook_link }}" target="_blank">{{  user.profile.facebook_link }}</a>
+        
+
+        <a href= "{% url 'update_profile' user.id %}" > Update Details</a>
+
+        
+
+        {% for post in user_posts %}
+    
+            <div class="post">
+
+                <div class="date">
+                    <p>{{ post.published_date }}</p>
+                    <p>{{ post.author }}</p>
+                </div>
+
+                <h1><a href="{% url 'post_detail' post.slug  %}">{{ post.title }}</a></h1>
+                <p>{{ post.content|linebreaksbr }}</p>
+
+            </div>
+    {% endfor %}
+
+{% endblock content %}

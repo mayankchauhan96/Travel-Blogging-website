@@ -26,5 +26,5 @@ class ContactUsAdmin(admin.ModelAdmin):
 admin.site.register(ContactUs, ContactUsAdmin)
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email',)
+    list_display = ('email','facebook_link')
 admin.site.register(Profile, ProfileAdmin)

@@ -324,7 +324,7 @@
                                     <!-- Title -->
                                     <h4 class="font-weight-bold card-title">{{ i.title }}</h4>
 
-                                    <h6 class="blue-text pb-2 pt-1"><i class="fa fa-pencil"></i> {{ i.author }} | {{ i.updated_on}} </h6>
+                                    <a class="blue-text pb-2 pt-1" href= "{% url 'get_user_profile' i.author.id %}"><i class="fa fa-pencil"></i> {{ i.author }} | {{ i.updated_on}} </a>
                                     <!-- Text -->
                                     <p style="font-size:15px" class="card-text">{{i.content|striptags|slice:":150" }}...</p>
                                     <!-- Button -->

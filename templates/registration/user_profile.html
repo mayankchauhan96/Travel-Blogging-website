@@ -1,0 +1,85 @@
+{% extends 'base.html' %} {% block content %}
+{% load crispy_forms_tags %}
+
+{{ profile_form.media }}
+{% load static %}
+
+
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+    }
+    
+    .head_text {
+        color: white;
+    }
+    
+    .card {
+        box-shadow: 0 32px 48px #E3E7EB;
+    }
+
+    .container{
+      max-width: 1600px;
+    }
+    
+    .notification{
+      position:absolute;
+      top: 5rem;
+      right: 1rem;
+      width:300px;
+      min-height:100px;
+      margin-top:100px;
+      border:1px solid #666;
+      background-color:#3073BB;
+      background-repeat:no-repeat;
+      background-position:20px 30px;
+    }
+    
+</style>
+<header class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h3 class=" site-heading my-4 mt-3 text-white"> Profile Details </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 card mb-4  mt-3 left top">
+      <div class="card-body">
+        {{ user.username }} 
+        {{ user.email }}
+        {{ user.first_name }} 
+        {{ user.last_name }}
+        {{ profile.bio}}
+        
+        {% for post in posts %}
+    
+        <div class="post">
+
+            <div class="date">
+                <p>{{ post.published_date }}</p>
+                <p>{{ post.author }}</p>
+            </div>
+
+            <h1><a href="{% url 'post_detail' post.slug  %}">{{ post.title }}</a></h1>
+            <p>{{ post.content|linebreaksbr }}</p>
+
+        </div>
+{% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock content %}

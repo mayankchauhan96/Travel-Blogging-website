@@ -125,10 +125,16 @@ class ContactUs(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=100, blank=True)
-    last_name = models.CharField(max_length=100, blank=True)
     email = models.EmailField(max_length=150)
     signup_confirmation = models.BooleanField(default=False)
+    facebook_link = models.CharField(max_length=100,blank=True, null=True)
+    instagram_link = models.CharField(max_length=100,blank=True, null=True)
+    bio = models.CharField(max_length=400,blank=True, null=True)
+    # city = models.CharField(max_length=100,blank=True, null=True)
+    # Website/blog = models.CharField(max_length=100,blank=True, null=True)
+
+
+    
 
     def __str__(self):
         return self.user.username

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post,Comment,ContactUs,Profile
-from .forms import CommentForm,BlogForm,ContactUsForm,SignUpForm
+from .models import Post, Comment, ContactUs, Profile
+from .forms import CommentForm, BlogForm, ContactUsForm, SignUpForm, ProfileForm, UserForm
 from django.views import generic
 from django.http import HttpResponse
 from django.contrib import messages
@@ -22,6 +22,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 import urllib
 import json
+from django.db import transaction
 
 # class PostList(generic.ListView):
 #     queryset = Post.objects.filter(status=1).order_by('-created_on')
@@ -195,6 +196,7 @@ def signup_view(request):
                 user.profile.first_name = form.cleaned_data.get('first_name')
                 user.profile.last_name = form.cleaned_data.get('last_name')
                 user.profile.email = form.cleaned_data.get('email')
+
                 # user can't login until link confirmed
                 user.is_active = False
                 user.save()
@@ -268,8 +270,47 @@ def login_view(request):
 
 
 def logout_view(request):
-
     auth.logout(request)
     messages.success(request, "Logged out successfully!")
     return render(request,'registration/logout.html')
     
+
+
+@login_required(login_url='login')
+def userprofileposts(request, user_id):
+    # profile = get_object_or_404(Profile, pk=id)
+    user = request.user
+    user_posts = Post.objects.filter(author = request.user).order_by('-created_on')
+    template = 'registration/user_profile_posts.html'
+    return render(request, template, {'user_posts':user_posts,'user': user,})
+
+
+@login_required
+@transaction.atomic
+def update_profile(request, user_id):
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request,'Your profile was successfully updated!')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'registration/user_profile_update.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
+
+
+def get_user_profile(request, user_id):
+    profile = Profile.objects.get(user_id= user_id)
+    user = User.objects.get(id = user_id)
+    posts = Post.objects.filter(author_id = user_id).order_by('-created_on')
+
+
+
+    return render(request, 'registration/user_profile.html', {"user":user,"profile":profile,"posts":posts})
