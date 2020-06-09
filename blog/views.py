@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post, Comment, ContactUs, Profile
-from .forms import CommentForm, BlogForm, ContactUsForm, SignUpForm, ProfileForm, UserForm
+from .models import Post, Comment, ContactUs, Profile, Category
+from .forms import CommentForm, BlogForm, EditForm, ContactUsForm, SignUpForm, ProfileForm, UserForm
 from django.views import generic
 from django.http import HttpResponse
 from django.contrib import messages
 from django.views.generic.list import ListView
+from django.views.generic import RedirectView
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
@@ -23,6 +24,12 @@ from django.contrib.auth.decorators import login_required
 import urllib
 import json
 from django.db import transaction
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
+from django.utils.decorators import method_decorator
+from django.core.exceptions import PermissionDenied
+
 
 # class PostList(generic.ListView):
 #     queryset = Post.objects.filter(status=1).order_by('-created_on')
@@ -45,33 +52,71 @@ def recent_post(request):
 
 @login_required(login_url='login')
 def blog_form(request):
-    print("coming")
-    form_obj = None
+    post = None
     if request.method == 'POST':
-        print("hu")
         new_blog_form = BlogForm(data= request.POST, files=request.FILES)
         if new_blog_form.is_valid():
             
-            form_obj = new_blog_form.save(commit=False, )
-            form_obj.author = request.user
-            form_obj.save()
+            post = new_blog_form.save(commit=False, )
+            post.author = request.user
+            post.save()
+
+
+            for k in new_blog_form.cleaned_data['category']:
+                selection = Category(category = k)
+                selection.save()
+                post.category.add(selection)
+
         else:
-            messages.info(request, 'Alert! You can only a select maximum of 4 fields in Category ')
-            print (new_blog_form.errors)
-            # return HttpResponse('You can only select 4 fields in Category')
+            messages.info(request, 'Alert! Something Goes Wrong. Please try again ')
 
     else:
         new_blog_form = BlogForm()
-    return render(request, 'blogform.html', {'new_blog_form': new_blog_form, 'form_obj':form_obj})
+    return render(request, 'blogform.html', {'new_blog_form': new_blog_form, 'post':post})
 
 
-def about_us(request):
-    return render(request, 'aboutus.html')
+@login_required
+def post_update(request, slug):
+    instance = get_object_or_404(Post, slug=slug)
+    if instance.author == request.user:
+        new_blog_form = EditForm(request.POST or None, request.FILES or None, instance=instance)
 
+        if request.method == 'POST':
+        
+            if new_blog_form.is_valid():
+                instance = new_blog_form.save(commit=False)
+                instance.save()
+
+                messages.success(request, "Blog Updated")
+                return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        raise PermissionDenied 
+        return redirect("blog:home")
+
+
+    return render(request, "blogform.html", {"instance": instance,"new_blog_form":new_blog_form})
+
+@login_required
+def post_delete(request,  slug):
+
+    instance = get_object_or_404(Post, slug=slug)
+    
+    if instance.author == request.user:
+
+        instance.delete() 
+        messages.success(request, "Successfully Deleted")
+        return redirect("blog:home")
+    else:
+        raise PermissionDenied 
+        return redirect("blog:home")
+
+    return redirect("blog:home")
 
 def post_detail(request, slug):
     template_name = 'post_detail.html'
     post = get_object_or_404(Post, slug=slug)
+    post.views = post.views + 1
+    post.save()
     comments = post.comments.filter(active=True)
     new_comment = None
     # Comment posted
@@ -110,6 +155,62 @@ def post_detail(request, slug):
                                         'comment_form': comment_form})
 
 
+
+class PostLikeToggle(RedirectView):
+
+    def get_redirect_url(self, *args, **kwargs):
+        slug = self.kwargs.get("slug")
+        obj = get_object_or_404(Post, slug=slug)
+        url_ = obj.get_absolute_url()
+        user = self.request.user
+        if user.is_authenticated:
+            if user in obj.like.all():
+                obj.like.remove(user)
+            else:
+                obj.like.add(user)
+        return url_ 
+
+class PostLikeAPIToggle(APIView):
+    authentication_classes = (authentication.SessionAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+
+    def get(self, request, slug=None, format=None):
+        # slug = self.kwargs.get("slug")
+        obj = get_object_or_404(Post, slug=slug)
+        url_ = obj.get_absolute_url()
+        user = self.request.user
+        updated = False
+        liked = False
+        if user.is_authenticated:
+            if user in obj.like.all():
+                liked = False
+                obj.like.remove(user)
+            else:
+                liked = True
+                obj.like.add(user)
+            updated = True
+        data = {
+            "updated": updated,
+            "liked": liked
+        }
+        return Response(data)
+
+def post_view(request, slug):
+
+    post = get_object_or_404(Post, slug=slug)
+
+    if not PostView.objects.filter(
+                    post=post,
+                    session=request.session.session_key):
+        view = PostView(post=post,
+                            ip=request.META['REMOTE_ADDR'],
+                            created=datetime.datetime.now(),
+                            session=request.session.session_key)
+        view.save()
+    views_count = PostView.objects.filter(post=post).count()
+    return render(request, 'post_detail.html', {"views_count":views_count})
+
 def contact_us(request):
     print("coming")
     contact_us_obj = None
@@ -143,7 +244,8 @@ def contact_us(request):
         contact_us_form = ContactUsForm()
     return render(request, 'contact_us.html', {'contact_us_form': contact_us_form, 'contact_us_obj':contact_us_obj})
 
-
+def about_us(request):
+    return render(request, 'aboutus.html')
 
 def search(request):
     if request.method == 'GET':
@@ -153,10 +255,10 @@ def search(request):
             queryset= Post.objects.none()
             
         if len(query)== 0:
-            return redirect("home")
+            return redirect("blog:home")
 
         else:
-            lookups= Q(title__icontains=query) | Q(content__icontains=query) | Q(location__icontains=query) | Q(state_choice__icontains=query) | Q(author__icontains=query) | Q(email__icontains=query) | Q(category__icontains=query)
+            lookups= Q(title__icontains=query) | Q(content__icontains=query) | Q(location__icontains=query) | Q(state__icontains=query) | Q(author__username__icontains=query) | Q(category__category__icontains=query)
             queryset = Post.objects.filter(lookups).distinct()
 
         if queryset.count() == 0:
@@ -173,8 +275,6 @@ def signup_view(request):
         email = request.POST['email']
         if User.objects.filter(email=email).exists() :
             messages.error(request,"This Email is already registered")
-            print("email")
-            # return redirect('signup')
 
         elif form.is_valid():
             ''' Begin reCAPTCHA validation '''
@@ -212,7 +312,7 @@ def signup_view(request):
                     'token': account_activation_token.make_token(user),
                 })
                 user.email_user(subject, message)
-                return redirect('activation_sent')
+                return redirect('blog:activation_sent')
             else:
                 messages.error(request, 'Invalid reCAPTCHA. Please try again.')
 
@@ -243,10 +343,10 @@ def activate(request, uidb64, token):
         login(request, user)
         messages.success(request, 'Registration completed.')
 
-        return redirect('home')
+        return redirect('blog:home')
     else:
         messages.error(request, 'Login not completed. please check your email')
-        return render(request, 'home')
+        return render(request, 'blog:home')
 
 
 def login_view(request):
@@ -258,7 +358,7 @@ def login_view(request):
             if user is not None:
                 auth.login(request, user)
                 messages.success(request,"Login successfull")
-                return redirect('home')
+                return redirect('blog:home')
             else:
 
                 messages.warning(request,'invalid credentials')

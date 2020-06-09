@@ -55,20 +55,23 @@
   <div class="row">
     <div class="col-md-8 card mb-4  mt-3 left top">
       <div class="card-body">
-        {% if form_obj %}
+        {% if post %}
         <div class="alert alert-success" role="alert">
           Great! Your blog is awaiting moderation
         </div>
         {% else %}
-        <form  method= "POST" enctype="multipart/form-data" style="margin-top: 1.3em;">
+        <form  method= "POST" enctype="multipart/form-data" action="" style="margin-top: 1.3em;" novalidate>
           {{ new_blog_form | crispy  }}
           {% csrf_token %}
-          <div class="alert alert-warning" role="alert">
-           Attention! You can only a select maximum of 4 fields in Category
+          <div class="alert alert-info" role="alert">
+           You can select multiple Tags related to your Blog. <br>
+           Keep that number low for clean Blog.
           </div>
-          <script src='https://www.google.com/recaptcha/api.js'></script>
-         <div class="g-recaptcha" data-sitekey="6LdVaQAVAAAAAEx_ba36Gt2hoCT4vwmMEqX43Yrf"></div>
-          <button type="submit" method= "POST" class="btn btn-primary  btn-lg">Submit</button>
+          <div class="alert alert-warning" role="alert">
+          You cannot edit the tags afterwords.
+          </div>
+
+          <button type="submit" method= "POST" class="btn btn-primary btn-lg">Submit</button>
         </form>
         {% endif %}
         

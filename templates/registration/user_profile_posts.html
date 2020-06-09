@@ -19,7 +19,7 @@
         <a href="{{  user.profile.facebook_link }}" target="_blank">{{  user.profile.facebook_link }}</a>
         
 
-        <a href= "{% url 'update_profile' user.id %}" > Update Details</a>
+        <a href= "{% url 'blog:update_profile' user.id %}" > Update Details</a>
 
         
 
@@ -32,7 +32,7 @@
                     <p>{{ post.author }}</p>
                 </div>
 
-                <h1><a href="{% url 'post_detail' post.slug  %}">{{ post.title }}</a></h1>
+                <h1><a href="{% url 'blog:post_detail' post.slug  %}">{{ post.title }}</a></h1>
                 <p>{{ post.content|linebreaksbr }}</p>
 
             </div>

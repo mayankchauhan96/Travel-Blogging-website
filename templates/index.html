@@ -261,17 +261,17 @@
                 <h5 class="text-uppercase mb-4 black-text" style="letter-spacing: 2px;" d><strong>A Travel Blogging Platform</strong></h5>
                 {% if user.is_authenticated %}
                     Hi {{ user.username }}!
-                    <a  class="btn btn-outline-black" href="{% url 'logout' %}?next=/logout">
+                    <a  class="btn btn-outline-black" href="{% url 'blog:logout' %}?next=/logout">
                         Logout
                         </a>
                         <a  class="btn btn-outline-black" href="{% url 'password_reset' %}">
                             Reset Password
                             </a>
                 {% else %}
-                    <a  class="btn btn-outline-black" href="{% url 'signup' %}">
+                    <a  class="btn btn-outline-black" href="{% url 'blog:signup' %}">
                     REGISTER
                     </a>
-                    <a  class="btn btn-outline-black" href="{% url 'login' %}">
+                    <a  class="btn btn-outline-black" href="{% url 'blog:login' %}">
                 Sign IN
                 </a>
                 <a  class="btn btn-outline-black" href="{% url 'password_reset' %}">
@@ -311,28 +311,34 @@
                                 <!-- Card image -->
                                 <div class="shadow view view-cascade overlay waves-effect">
                                     <img class=" card-img-top"  src="{{ i.cover.url }}" alt="{{ i.title }}">
-                                    <a href="{% url 'post_detail' i.slug  %}">
+                                    <a href="{% url 'blog:post_detail' i.slug  %}">
                                     <div class="mask waves-effect waves-light rgba-white-slight"></div>
                                     </a>
                                 </div>
 
                                 <!-- Card content -->
                                 <div class=" shadow card-body card-body-cascade">
-
+                                    
                                     <!-- Label -->
-                                    <h5 class="pink-text pb-2 pt-1"><i class="fa fa-tags"></i> {{ i.category }}</h5>
+                                    <h5 class="pink-text pb-2 pt-1">
+                                    {% for cat in i.category.all %} 
+                                        
+                                        <i class="fa fa-tags"></i> 
+                                        {{ cat.category }} 
+                                        {% empty %}
+                                         {% endfor %}</h5>
                                     <!-- Title -->
                                     <h4 class="font-weight-bold card-title">{{ i.title }}</h4>
 
-                                    <a class="blue-text pb-2 pt-1" href= "{% url 'get_user_profile' i.author.id %}"><i class="fa fa-pencil"></i> {{ i.author }} | {{ i.updated_on}} </a>
+                                    <a class="blue-text pb-2 pt-1" href= "{% url 'blog:get_user_profile' i.author.id %}"><i class="fa fa-pencil"></i> {{ i.author }} | {{ i.updated_on}} </a>
                                     <!-- Text -->
                                     <p style="font-size:15px" class="card-text">{{i.content|striptags|slice:":150" }}...</p>
                                     <!-- Button -->
-                                    <a href="{% url 'post_detail' i.slug  %}" class="btn btn-info waves-effect">Read More &rarr;</a>
+                                    <a href="{% url 'blog:post_detail' i.slug  %}" class="btn btn-info waves-effect">Read More &rarr;</a>
 
                                     <!-- Card footer -->
                                     <div class="card-footer text-muted text-center mt-4"><i class="fa fa-automobile"></i>
-                                        {{ i.state_choice}} | {{ i.location}}
+                                        {{ i.state}} | {{ i.location}}
                                     </div>
                                 </div>
                             </div>
@@ -356,7 +362,7 @@
                 </a>
             </div>
             <div class="col text-center">
-                <a type="button" href="{% url 'recent_posts' %}" class="btn btn-dark ">See All Posts</a>
+                <a type="button" href="{% url 'blog:recent_posts' %}" class="btn btn-dark ">See All Posts</a>
 
             </div>
         </div>

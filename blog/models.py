@@ -4,8 +4,10 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from autoslug import AutoSlugField
 from django.utils import timezone
+from django.urls import reverse
 import json
-from multiselectfield import MultiSelectField
+import datetime
+from ckeditor.fields import RichTextField
 
 
 STATUS = (
@@ -14,35 +16,40 @@ STATUS = (
 )
 
 CATEGORY= (
-    ("BE","Beaches"),
-    ("IL","Islands"),
-    ("HI","Hiking"),
-    ("CA","Camping"),
-    ("MT","Mountains"),
-    ("DE","Deserts"),
-    ("FO","Forests"),
-    ("HP","Historic Places"),
-    ("MO","Monuments"),
-    ("TE","Temples"),
-    ("MU","Museums"),
-    ("ZO","Zoos"),
-    ("TP","Theme Parks"),
-    ("GA","Gardens"),
-    ("AQ","Aquaria"),
-    ("WC","Winter Carnival"),
-    ("MA","Markets & Shopping"),
-    ("UA","Urban"),
-    ("RU","Rural"),
-    ("RL","Rivers & Lakes"),
-    ("CF","Couples Friendly"),
-    ("ST","Sports Tourism"),
-    ("JF","Just for Food "),
-    ("RE","Resorts"),
-    ("CU","Culture"),
-    ("AD","Adventure"),
+    ("Beaches ","Beaches"),
+    ("Islands ","Islands"),
+    ("Hiking","Hiking"),
+    ("Camping ","Camping"),
+    ("Mountains ","Mountains"),
+    ("Deserts ","Deserts"),
+    ("Forests ","Forests"),
+    ("Historic Places ","Historic Places"),
+    ("Monuments ","Monuments"),
+    ("Temples ","Temples"),
+    ("Museums ","Museums"),
+    ("Zoos ","Zoos"),
+    ("Theme Parks ","Theme Parks"),
+    ("Gardens ","Gardens"),
+    ("Aquaria ","Aquaria"),
+    ("Winter ","Winter Carnival"),
+    ("Markets & Shopping ","Markets & Shopping"),
+    ("Urban ","Urban"),
+    ("Rural ","Rural"),
+    ("Rivers & Lakes ","Rivers & Lakes"),
+    ("Couples Friendly ","Couples Friendly"),
+    ("Sports Tourism ","Sports Tourism"),
+    ("Just for Food ","Just for Food "),
+    ("Resorts ","Resorts"),
+    ("Culture ","Culture"),
+    ("Adventure ","Adventure"),
+    ("Moto Blogs ","Moto Blogs"),
+    ("Solo ","Solo Travel"),
+    ("Summer ","Summer Special"),
 )
 
 STATE_CHOICES = (
+    ("II","Somewhere In India"),
+    ("OI","Out Of India"),
     ("AP","Andhra Pradesh"),
     ("AR","Arunachal Pradesh"),
     ("AS","Assam"),
@@ -78,6 +85,12 @@ STATE_CHOICES = (
     ("WB","West Bengal"),
 )
 
+class Category(models.Model):
+
+    category = models.CharField(max_length=100, blank=True, null=True, choices=CATEGORY)
+
+    def __str__(self):
+        return self.category
 
 class Post(models.Model):
     post_id = models.AutoField
@@ -86,12 +99,14 @@ class Post(models.Model):
     cover = models.ImageField(upload_to='images/', null = True)
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name= "posts")
     updated_on = models.DateTimeField(auto_now= True)
-    content = models.TextField(max_length=80)
+    content = RichTextField(max_length=2000, blank = True , null= True)
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
-    state_choice = models.CharField(max_length=80,choices=STATE_CHOICES)
-    location = models.CharField(max_length=80)
-    category =MultiSelectField(choices=CATEGORY, max_choices= 4, blank=True, null=True )
+    state = models.CharField(max_length=80,choices=STATE_CHOICES)
+    location = models.CharField(max_length=200)
+    category = models.ManyToManyField(Category, blank = True, related_name="posts" )
+    views = models.IntegerField(default= 0)
+    like = models.ManyToManyField('auth.User', blank= True, related_name="post_liked")
 
     class Meta:
         ordering = ['-created_on']
@@ -99,19 +114,40 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('home')
+
+    def get_absolute_url(self):
+        return reverse("blog:post_detail", kwargs={"slug": self.slug})
+
+    def get_like_url(self):
+        return reverse("blog:like-toggle", kwargs={"slug": self.slug})
+
+    def get_api_like_url(self):
+        return reverse("blog:like-api-toggle", kwargs={"slug": self.slug})
+
+class PostView(models.Model):
+    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='post_views')
+    ip = models.CharField(max_length=40)
+    session = models.CharField(max_length=40)
+    created = models.DateTimeField(default=datetime.datetime.now())
+
+
 class Comment(models.Model):
+
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
     name = models.CharField(max_length=80)
     email = models.EmailField(max_length=100)
     body = models.TextField(max_length=80)
     created_on = models.DateTimeField(auto_now_add=True)
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
 
     class Meta:
         ordering = ['-created_on']
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
+
 
 class ContactUs(models.Model):
     sno = models.AutoField
@@ -127,14 +163,13 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.EmailField(max_length=150)
     signup_confirmation = models.BooleanField(default=False)
-    facebook_link = models.CharField(max_length=100,blank=True, null=True)
-    instagram_link = models.CharField(max_length=100,blank=True, null=True)
-    bio = models.CharField(max_length=400,blank=True, null=True)
-    # city = models.CharField(max_length=100,blank=True, null=True)
-    # Website/blog = models.CharField(max_length=100,blank=True, null=True)
+    facebook_link = models.CharField(max_length=100, blank=True, null=True)
+    instagram_link = models.CharField(max_length=100, blank=True, null=True)
+    bio = models.CharField(max_length=400, blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True, null=True)
+    Website = models.CharField(max_length=100, blank=True, null=True)
+    youtube_channel = models.CharField(max_length=100, blank=True, null=True)
 
-
-    
 
     def __str__(self):
         return self.user.username

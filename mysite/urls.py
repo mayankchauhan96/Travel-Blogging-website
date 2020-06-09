@@ -19,10 +19,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import include, url
 
+admin.site.site_header= "Tales BY Travellers"
+admin.site.site_title= "TBT Admin "
+admin.site.index_title= "Admin Panel"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include('blog.urls')),
+    path("", include(('blog.urls', 'blog'), namespace="blog")),
     path('accounts/', include('django.contrib.auth.urls')),
+    
 ]
 
 if settings.DEBUG: # new

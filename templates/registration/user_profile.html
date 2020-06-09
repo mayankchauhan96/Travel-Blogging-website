@@ -70,7 +70,7 @@
                 <p>{{ post.author }}</p>
             </div>
 
-            <h1><a href="{% url 'post_detail' post.slug  %}">{{ post.title }}</a></h1>
+            <h1><a href="{% url 'blog:post_detail' post.slug  %}">{{ post.title }}</a></h1>
             <p>{{ post.content|linebreaksbr }}</p>
 
         </div>

@@ -1,10 +1,12 @@
 from django.contrib import admin
-from .models import Post, Comment,ContactUs,Profile
+from .models import Post, Comment,ContactUs,Profile, PostView
+from blog.forms import PostAdminModelForm
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('post_id','title', 'slug', 'status','created_on','location','author',"state_choice","category",)
-    list_filter = ("status","state_choice","category",)
-    search_fields = ['title', 'content','author']
+    form = PostAdminModelForm
+    list_display = ('post_id','title', 'slug', 'status','created_on','location','author',"state","views")
+    list_filter = ("status","state","category","like",)
+    search_fields = ['title', 'content','author',"category",]
     actions = ['approve_posts']
 
     def approve_posts(self, request, queryset):
@@ -28,3 +30,9 @@ admin.site.register(ContactUs, ContactUsAdmin)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('email','facebook_link')
 admin.site.register(Profile, ProfileAdmin)
+
+class PostViewAdmin(admin.ModelAdmin):
+    list_display = ('ip','session','created','post')
+    list_filter = ('session',)
+
+admin.site.register(PostView, PostViewAdmin)

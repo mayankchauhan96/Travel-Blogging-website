@@ -62,6 +62,8 @@ INSTALLED_APPS = [
     'fontawesome',
     'jquery',
     'six',
+    'rest_framework',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [

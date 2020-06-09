@@ -122,7 +122,7 @@
                     <!-- Card image -->
                     <div class="shadow view view-cascade overlay waves-effect">
                         <img class=" card-img-top"  src="{{ post.cover.url }}" alt="{{ post.title }}">
-                        <a href="{% url 'post_detail' post.slug  %}">
+                        <a href="{% url 'blog:post_detail' post.slug  %}">
                         <div class="mask waves-effect waves-light rgba-white-slight"></div>
                         </a>
                     </div>
@@ -139,7 +139,7 @@
                         <!-- Text -->
                         <p class="card-text">{{post.content|striptags|slice:":150" }}</p>
                         <!-- Button -->
-                        <a href="{% url 'post_detail' post.slug  %}" class="btn btn-primary waves-effect">Read More &rarr;</a>
+                        <a href="{% url 'blog:post_detail' post.slug  %}" class="btn btn-primary waves-effect">Read More &rarr;</a>
 
                         <!-- Card footer -->
                         <div class="card-footer text-muted text-center mt-4"><i class="fa fa-automobile"></i>
