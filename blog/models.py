@@ -45,6 +45,8 @@ CATEGORY= (
     ("Moto Blogs ","Moto Blogs"),
     ("Solo ","Solo Travel"),
     ("Summer ","Summer Special"),
+    ("Travel Tips ","Travel Tips"),
+
 )
 
 STATE_CHOICES = (
@@ -83,6 +85,7 @@ STATE_CHOICES = (
     ("UP","Uttar Pradesh"),
     ("UK","Uttarakhand"),
     ("WB","West Bengal"),
+
 )
 
 class Category(models.Model):
@@ -94,12 +97,12 @@ class Category(models.Model):
 
 class Post(models.Model):
     post_id = models.AutoField
-    title = models.CharField(max_length=200, unique=True)
+    title = models.CharField(max_length=400, unique=True)
     slug = AutoSlugField(populate_from='title')
     cover = models.ImageField(upload_to='images/', null = True)
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name= "posts")
     updated_on = models.DateTimeField(auto_now= True)
-    content = RichTextField(max_length=2000, blank = True , null= True)
+    content = RichTextField(blank = True , null= True)
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
     state = models.CharField(max_length=80,choices=STATE_CHOICES)

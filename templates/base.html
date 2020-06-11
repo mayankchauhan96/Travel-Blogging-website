@@ -9,7 +9,7 @@
         <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
         {% comment %} <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}"> {% endcomment %}
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <!-- Material Design for Bootstrap -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/css/mdb.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
@@ -60,7 +60,7 @@
             border-color: #dc281e;
         }
         .masthead {
-            background: #3398E1;
+            background: rgb(0, 0, 0);
             height: auto;
             padding-bottom: 15px;
             box-shadow: 0 16px 48px #E3E7EB;
@@ -80,7 +80,7 @@
         .dropright {
             position: relative;
             cursor: pointer;
-            color: black;
+            color: black; 
             padding-bottom: 10px;
             padding-top: 10px;
             /* {% comment %} margin-left: 15px; {% endcomment %} */
@@ -92,22 +92,22 @@
         margin-top: -1px;
         }
 
-        .fa-facebook {
-        background: #3B5998 150%;
+        .fa-facebook-f {
+        background: #3B5998 200%;
         color: white;
         }
 
-        .fa-twitter {
+        .fa-twitter-square {
         background: #55ACEE;
         color: white;
         }
 
-        .fa-google {
+        .fa-google-plus-square {
         background: #dd4b39;
         color: white;
         }
 
-        .fa-youtube {
+        .fa-youtube-play {
         background: #bb0000;
         color: white;
         }
@@ -117,7 +117,7 @@
         color: white;
         }
 
-        .fa-pinterest {
+        .fa-pinterest-p {
         background: #cb2027;
         color: white;
         }
@@ -181,6 +181,10 @@
             left: -10%;
         }
         }
+        /* .navbar-collapse{
+            background-color: #1C2331;
+
+        } */
 
 
         </style>
@@ -241,12 +245,12 @@
                 </ul>
 
                     <!-- social_media -->
-                    <buttton class="btn-floating btn-lg btn-fb"><a href="https://www.facebook.com/Tales-by-Travelers-100648714955907" target="_blank" class="fa fa-facebook"></a></buttton>
-                    <buttton class="btn-floating btn-lg btn-tw"><a href="" target="_blank" class="fa fa-twitter"></a></buttton>
-                    <buttton class="btn-floating btn-lg btn-gplus"><a href="" target="_blank" class="fa fa-google-plus"></a></buttton>
+                    <buttton class="btn-floating btn-lg btn-fb"><a href="https://www.facebook.com/Tales-by-Travelers-100648714955907" target="_blank" class="fa fa-facebook-f"></a></buttton>
+                    <buttton class="btn-floating btn-lg btn-tw"><a href="" target="_blank" class="fa fa-twitter-square"></a></buttton>
+                    <buttton class="btn-floating btn-lg btn-gplus"><a href="" target="_blank" class="fa fa-google-plus-square"></a></buttton>
                     <buttton class="btn-floating btn-lg btn-ins"><a href="https://www.instagram.com/talesbytravelers/" target="_blank" class="fa fa-instagram"></a></buttton>
-                    <buttton class="btn-floating btn-lg btn-pin"><a href="" target="_blank" class="fa fa-pinterest"></a></buttton>
-                    <buttton class="btn-floating btn-lg btn-yt"><a href="" target="_blank" class="fa fa-youtube"></a></buttton>
+                    <buttton class="btn-floating btn-lg btn-pin"><a href="" target="_blank" class="fa fa-pinterest-p"></a></buttton>
+                    <buttton class="btn-floating btn-lg btn-yt"><a href="" target="_blank" class="fa fa-youtube-play"></a></buttton>
                     <buttton class="btn-floating btn-lg btn-email"><a onclick="location.href='mailto:talebytravellers@gmail.com';" target="_blank" class="fa fa-envelope pr-1"></a></buttton>
                 <form class="form-inline" action="/search" method= "get">
                     <div class="md-form my-0">
@@ -353,6 +357,11 @@
                 $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
             });
         });
+        </script>
+        <script>
+            $(".navbar-toggler").click(function () {
+            $("nav").toggleClass("bg-dark");
+            })
         </script>
 
         <script src="{% static 'js/bootstrap.min.js' %}"></script>

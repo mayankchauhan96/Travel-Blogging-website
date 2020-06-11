@@ -34,6 +34,7 @@ CATEGORY= (
     ("Moto Blogs ","Moto Blogs"),
     ("Solo ","Solo Travel"),
     ("Summer ","Summer Special"),
+    ("Travel Tips ","Travel Tips"),
 )
 
 

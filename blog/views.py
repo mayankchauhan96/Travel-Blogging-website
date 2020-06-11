@@ -63,9 +63,10 @@ def blog_form(request):
 
 
             for k in new_blog_form.cleaned_data['category']:
-                selection = Category(category = k)
+                selection = Category.objects.create(category = k)
                 selection.save()
                 post.category.add(selection)
+
 
         else:
             messages.info(request, 'Alert! Something Goes Wrong. Please try again ')
@@ -209,7 +210,7 @@ def post_view(request, slug):
                             session=request.session.session_key)
         view.save()
     views_count = PostView.objects.filter(post=post).count()
-    return render(request, 'post_detail.html', {"views_count":views_count})
+    return render(request, 'post_detail.html', {"views_count":views_count, "view":view})
 
 def contact_us(request):
     print("coming")
@@ -411,6 +412,6 @@ def get_user_profile(request, user_id):
     user = User.objects.get(id = user_id)
     posts = Post.objects.filter(author_id = user_id).order_by('-created_on')
 
-
-
     return render(request, 'registration/user_profile.html', {"user":user,"profile":profile,"posts":posts})
+
+
