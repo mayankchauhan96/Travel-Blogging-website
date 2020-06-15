@@ -44,7 +44,22 @@
         border-bottom-right-radius: calc(1.5rem - 2px);
 
     }
+    [data-style=mypops] + .popover {
+background: rgb(202, 198, 198);
+}
+[data-style=mypops] + .popover.bottom .arrow:after {
+border-bottom-color: #000000;
+}
 
+.popovermenu {
+list-style: none;
+padding: 2px;
+margin: 1px;
+}
+
+.popovermenu li a {
+color: rgb(0, 0, 0);
+}
 
 </style>
 <header class="masthead">
@@ -65,7 +80,7 @@
     <div class="col-md-8 card mb-4  mt-3 left  top">
       <div class="card-body">
         <h1>{% block title %} {{ post.title }} {% endblock title %}</h1>
-        <a class="black-text pb-2 pt-1" ><i class="fa fa-user"></i> <a class="black-text pb-2 pt-1" href= "{% url 'blog:get_user_profile' post.author.id %}">{{ post.author }}</a>  | {{ post.updated_on}} </a> <br>
+        <a class="black-text pb-2 pt-1" target="_blank" ><i class="fa fa-user"></i> <a class="black-text pb-2 pt-1" data-html="true" data-toggle="popover" data-placement="right" target="_blank" title="" data-style="mypops" id="Pops" data-content="Bio: {{ post.author.profile.bio }} <br>  Insta <a href='{{ post.author.profile.instagram_link }}' title='click here to visit Insta profile'>link </a> <br> Website: <a href='{{ post.author.profile.Website }}' title='click here to visit website'>{{ post.author.profile.Website }} </a>" href= "{% url 'blog:get_user_profile' post.author.id %}">{{ post.author }}</a>  | {{ post.updated_on}} </a> <br>
       
             {% if user.is_authenticated and user == post.author %}
             <a href="{% url 'blog:post_update' post.slug  %}" class="btn btn-dark btn-sm active" role="button" aria-pressed="true" > <span class="fa fa-pencil"></span>   Edit</a>
@@ -83,11 +98,11 @@
               </div>
             </div>
             {% endif %}
-         
+         <p></p>
 
         <img class="card__image" src="{{ post.cover.url }}" alt="{{ post.title }}">
-        <div ><i class="fa fa-automobile"></i>
-          {{ post.state}} | {{ post.location}}
+        <div ><i class="fa fa-camera"></i> <a class="black-text pb-2 pt-1" href="{% url 'blog:get_state' post.slug_st %}">
+          {{ post.state}}</a> |<a class="black-text pb-2 pt-1" href="{% url 'blog:get_location' post.slug_lc %}"> {{ post.location}} </a>
         </div>
         <p class="card-text ">{{ post.content | safe }}</p>
           <p></p>
@@ -110,7 +125,7 @@
           <p>
         
               {% for cat in post.category.all %} &ensp;
-                   <a href="{% url 'blog:get_category' cat.id %}" id = "tags" class= "btn btn-dark btn-sm active" role="button" aria-pressed="true">
+                <a href="{% url 'blog:get_category' cat.category %}" id = "tags" class= "btn btn-dark btn-sm active" role="button" aria-pressed="true">
                   {{ cat.category }}
                 </a>
                    
@@ -138,7 +153,7 @@
             </span>
           </p>
           {{ comment.body | linebreaks }}
-        </div>
+        </div>url
         {% endfor %}
       </div>
     </div>
@@ -180,6 +195,10 @@
   });
 
 });
+</script>
+<script>
+jQuery(document.links) .filter(function() { return this.hostname != window.location.hostname; }) .attr('target', '_blank');
+
 </script>
 
 {% endblock content %}

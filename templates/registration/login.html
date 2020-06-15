@@ -1,4 +1,28 @@
 {% extends 'base.html' %} {% block content %}
+{% include 'message.html' %}
+
+<style>
+      .masthead{
+      height: 100px;
+      padding: 100px 0 0 0;   
+      background-color: #1C2331;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .notification{
+      position:absolute;
+      top: 5rem;
+      right: 1rem;
+      width:300px;
+      min-height:100px;
+      margin-top:100px;
+      border:1px solid #666;
+      background-color:#3073BB;
+      background-repeat:no-repeat;
+      background-position:20px 30px;
+    }
+</style>
 
 <header class="masthead">
     <div class="overlay"></div>
@@ -6,29 +30,43 @@
         <div class="row">
             <div class=" col-md-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h3 class=" site-heading my-4 mt-3 text-white"> Write your own blog </h3>
+                    <h3 class=" site-heading my-4 mt-3 text-white"> </h3>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<div class="container">
-    <h2> Login</h2>
+
+<div class="container ">
+  <p></p><br>
+  <p></p><br>
+  <p></p>
+
+  <h2>SIGN IN</h2>
     <form action="{% url 'login' %}" method="post">
       {% csrf_token %}
      
       <div class="form-group">
-        <label for="Password">Username:</label>
+        <label for="Password">Username or Email:</label>
         <input type="text" class="form-control" placeholder="Enter User Name" name="username">
       </div>
        <div class="form-group">
         <label for="Password">Password:</label>
         <input type="password" class="form-control"  placeholder="Enter Password" name="password">
       </div>
-      <button type="submit" class="btn btn-default">Submit</button>
+      <button type="submit" class="btn btn-dark">Sign In</button> &ensp; <a  class="" href="{% url 'password_reset' %}">
+        Forgot Password?
+        </a>
+      <p>Don't have an account? <a  class="" href="{% url 'blog:signup' %}">
+        REGISTER NOW
+        </a></p> 
     </form>
+
+    <p></p><br>
+    <p></p><br>
+    <p></p><br>
   </div>
-  
+
 
 {% endblock content %}

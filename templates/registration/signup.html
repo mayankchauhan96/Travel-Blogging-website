@@ -1,18 +1,41 @@
 {% extends 'base.html' %} {% block content %}
 
+<style>
+    .masthead{
+    height: 100px;
+    padding: 100px 0 0 0;   
+    background-color: #1C2331;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .notification{
+    position:absolute;
+    top: 5rem;
+    right: 1rem;
+    width:300px;
+    min-height:100px;
+    margin-top:100px;
+    border:1px solid #666;
+    background-color:#3073BB;
+    background-repeat:no-repeat;
+    background-position:20px 30px;
+  }
+</style>
 <header class="masthead">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class=" col-md-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h3 class=" site-heading my-4 mt-3 text-white"> Write your own blog </h3>
+                    <h3 class=" site-heading my-4 mt-3 text-white">  </h3>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
+<div class="container">
 <h2>Sign up</h2>
 <form method="post">
 {% csrf_token %}
@@ -30,7 +53,9 @@
 {% endfor %}
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <div class="g-recaptcha" data-sitekey="6LdVaQAVAAAAAEx_ba36Gt2hoCT4vwmMEqX43Yrf"></div>
-<button type="submit">Sign up</button>
+<button type="submit" class="btn btn-dark" >Sign up</button> &ensp; <span>Already have an account?</span> <a  class="" href="{% url 'blog:login' %}">
+    Log In
+    </a>
 </form>
-
+</div>
 {% endblock content %}

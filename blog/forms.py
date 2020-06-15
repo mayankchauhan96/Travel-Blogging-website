@@ -5,36 +5,37 @@ from django.contrib.auth.forms import UserCreationForm
 from django.apps import apps
 
 CATEGORY= (
-    ("Beaches ","Beaches"),
-    ("Islands ","Islands"),
+    ("Beaches","Beaches"),
+    ("Islands","Islands"),
     ("Hiking","Hiking"),
-    ("Camping ","Camping"),
-    ("Mountains ","Mountains"),
-    ("Deserts ","Deserts"),
-    ("Forests ","Forests"),
-    ("Historic Places ","Historic Places"),
-    ("Monuments ","Monuments"),
-    ("Temples ","Temples"),
-    ("Museums ","Museums"),
-    ("Zoos ","Zoos"),
-    ("Theme Parks ","Theme Parks"),
-    ("Gardens ","Gardens"),
-    ("Aquaria ","Aquaria"),
-    ("Winter ","Winter Carnival"),
-    ("Markets & Shopping ","Markets & Shopping"),
-    ("Urban ","Urban"),
-    ("Rural ","Rural"),
-    ("Rivers & Lakes ","Rivers & Lakes"),
-    ("Couples Friendly ","Couples Friendly"),
-    ("Sports Tourism ","Sports Tourism"),
-    ("Just for Food ","Just for Food "),
-    ("Resorts ","Resorts"),
-    ("Culture ","Culture"),
-    ("Adventure ","Adventure"),
-    ("Moto Blogs ","Moto Blogs"),
-    ("Solo ","Solo Travel"),
-    ("Summer ","Summer Special"),
-    ("Travel Tips ","Travel Tips"),
+    ("Camping","Camping"),
+    ("Mountains","Mountains"),
+    ("Deserts","Deserts"),
+    ("Forests","Forests"),
+    ("Historic","Historic"),
+    ("Monuments","Monuments"),
+    ("Temples","Temples"),
+    ("Museums","Museums"),
+    ("Zoos","Zoos"),
+    ("ThemeParks","ThemeParks"),
+    ("Gardens","Gardens"),
+    ("Aquaria","Aquaria"),
+    ("Winter","Winter"),
+    ("Market","Market"),
+    ("Urban","Urban"),
+    ("Rural","Rural"),
+    ("Rivers","Rivers"),
+    ("Lakes","Lakes"),
+    ("Couple","Couple"),
+    ("Sports","Sports"),
+    ("Food","Food "),
+    ("Resorts","Resorts"),
+    ("Culture","Culture"),
+    ("Adventure","Adventure"),
+    ("MotoBlogs","MotoBlogs"),
+    ("Solo","Solo"),
+    ("Summer","Summer"),
+    ("TravelTips","TravelTips"),
 )
 
 
@@ -52,7 +53,7 @@ class CommentForm(forms.ModelForm):
 class BlogForm(forms.ModelForm):
     category = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple,
     choices=CATEGORY)
-    location = forms.CharField(max_length=200, help_text='Place you Visited')
+    location = forms.CharField(max_length=200, help_text='Location of the place you Visited')
 
     class Meta:
         model = Post
@@ -61,7 +62,7 @@ class BlogForm(forms.ModelForm):
 class EditForm(forms.ModelForm):
     # category = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple,
     # choices=CATEGORY)
-    location = forms.CharField(max_length=200, help_text='Place you Visited')
+    location = forms.CharField(max_length=200, help_text='Location of the place you Visited')
 
     class Meta:
         model = Post
@@ -74,7 +75,9 @@ class ContactUsForm(forms.ModelForm):
 
 
 class SignUpForm(UserCreationForm):
-    email = forms.EmailField(max_length=150, help_text='Enter your working Email Id')
+    email = forms.EmailField(max_length=60, help_text='Enter your working Email Id')
+    username = forms.CharField(max_length=60, help_text='It will be displayed on your BlogPost.')
+
     class Meta:
         model = User
         fields = ('username','email', 'password1', 'password2', )

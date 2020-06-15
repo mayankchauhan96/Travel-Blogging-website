@@ -10,18 +10,18 @@
         background-color: #fdfdfd;
         min-height: 100vh;
     }
-    .btn-info{
+    .btn-dark{
         border-bottom-left-radius: calc(1.5rem - 1px);
         border-top-right-radius: calc(1.5rem - 1px);
 
     }
-    .container-2{
+    /* .container-2{
         max-width: fit-content;
         padding-left: 50px;
         padding-right: 50px;
         margin-left: 80px;
         margin-right: 80px;
-    }
+    } */
 
     /*for container-2    */
 
@@ -140,10 +140,10 @@
     font-size: 12px;
     }
 
-    .item-box-blog-text {
+    /* .item-box-blog-text {
     max-height: 100px;
-    overflow: hidden;
-    }
+    overflow:-moz-hidden-unscrollable ;
+    } */
 
     .mt-10 {
     float: left;
@@ -193,8 +193,9 @@
 
 
     .card-body {
-        -ms-flex: 1 1 auto;
-        flex: 1 1 auto;
+        /* -ms-flex: 1 1 auto;
+        flex: 1 1 auto; */
+        overflow: hidden;
         /* {% comment %} margin-right: 4%;
         margin-left: 4%; {% endcomment %} */
         background: #fff;
@@ -261,22 +262,15 @@
                 <h5 class="text-uppercase mb-4 black-text" style="letter-spacing: 2px;" d><strong>A Travel Blogging Platform</strong></h5>
                 {% if user.is_authenticated %}
                     Hi {{ user.username }}!
-                    <a  class="btn btn-outline-black" href="{% url 'blog:logout' %}?next=/logout">
-                        Logout
-                        </a>
-                        <a  class="btn btn-outline-black" href="{% url 'password_reset' %}">
-                            Reset Password
-                            </a>
+            
                 {% else %}
                     <a  class="btn btn-outline-black" href="{% url 'blog:signup' %}">
-                    REGISTER
+                    Sign UP
                     </a>
                     <a  class="btn btn-outline-black" href="{% url 'blog:login' %}">
                 Sign IN
                 </a>
-                <a  class="btn btn-outline-black" href="{% url 'password_reset' %}">
-                    Forgot Password
-                    </a>
+
                 {% endif %}
             </div>
         </div>
@@ -284,14 +278,14 @@
 </header> 
 
 
-<h1 class: "scrolled" style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:red;" >Recent</span>  Blogs</h1>
 
 <div class="container"> 
-    {% comment %} <div class="row">
-        <div class="col "> {% endcomment %}
+    <div class="row">
+        <div class="col-md-8 mb-4  mt-3 left  top">
+<h1 class: "scrolled" style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:red;" >TOP</span>  Blogs</h1>
+
             <div id = "demo{{forloop.counter}}" class = "carousel slide  " data-ride = "carousel">
                 <ol class="carousel-indicators">
-                    {% comment %} <li data-target="#demo" data-slide-to="1" class="active"></li> {% endcomment %}
                     {% for i in range %}
                     <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}" ></li>
                     {% endfor %}
@@ -302,7 +296,7 @@
 
                     <div class="carousel-item active">
 
-                        {% for i in recent|slice:"0:20"%}
+                        {% for i in top_posts|slice:"0:20"%}
                         <div class= "col-md-8 col-sm-8 mx-auto">
                     
                             <!-- Card Wider -->
@@ -311,7 +305,7 @@
                                 <!-- Card image -->
                                 <div class="shadow view view-cascade overlay waves-effect">
                                     <img class=" card-img-top"  src="{{ i.cover.url }}" alt="{{ i.title }}">
-                                    <a href="{% url 'blog:post_detail' i.slug  %}">
+                                    <a href="{% url 'blog:post_detail' i.slug  %}" target="_blank"> 
                                     <div class="mask waves-effect waves-light rgba-white-slight"></div>
                                     </a>
                                 </div>
@@ -320,25 +314,29 @@
                                 <div class=" shadow card-body card-body-cascade">
                                     
                                     <!-- Label -->
-                                    <h5 class="pink-text pb-2 pt-1">
-                                    {% for cat in i.category.all %} 
+                                    <h6 class="pink-text pb-2 pt-1">
+                                    {% for cat in i.category.all|slice:":2" %} 
                                         
                                         <i class="fa fa-tags"></i> 
-                                        {{ cat.category }} 
+                                        <a href="{% url 'blog:get_category' cat.category %}" target="_blank" id = "tags" class= "pink-text pb-2 pt-1" role="button" aria-pressed="true">
+                                            {{ cat.category }}
+                                          </a> 
                                         {% empty %}
-                                         {% endfor %}</h5>
+                                         {% endfor %}</h6>
                                     <!-- Title -->
-                                    <h4 class="font-weight-bold card-title">{{ i.title }}</h4>
+                                    <h5 class="font-weight-bold card-title">{{ i.title|truncatewords:15 }}</h5>
 
-                                    <a class="blue-text pb-2 pt-1" href= "{% url 'blog:get_user_profile' i.author.id %}"><i class="fa fa-pencil"></i> {{ i.author }} | {{ i.updated_on}} </a>
+                                    <a class="black-text pb-2 pt-1" target="_blank" href= "{% url 'blog:get_user_profile' i.author.id %}"><i class="fa fa-pencil"></i> {{ i.author }} </a>| {{ i.updated_on}} 
+                                    <p></p>
                                     <!-- Text -->
-                                    <p style="font-size:15px" class="card-text">{{i.content|striptags|slice:":150" }}...</p>
+                                    <p style="font-size:15px" class="card-text">{{i.content|striptags|truncatewords:10 }}...</p>
                                     <!-- Button -->
-                                    <a href="{% url 'blog:post_detail' i.slug  %}" class="btn btn-info waves-effect">Read More &rarr;</a>
+                                    <a target="_blank" href="{% url 'blog:post_detail' i.slug  %}" class="btn btn-dark waves-effect">Read More &rarr;</a>
 
                                     <!-- Card footer -->
                                     <div class="card-footer text-muted text-center mt-4"><i class="fa fa-automobile"></i>
-                                        {{ i.state}} | {{ i.location}}
+                                        <a class="black-text pb-2 pt-1" target="_blank" href="{% url 'blog:get_state' i.slug_st %}">
+                                            {{ i.state}}</a> |<a class="black-text pb-2 pt-1" target="_blank" href="{% url 'blog:get_location' i.slug_lc %}"> {{ i.location}} </a>
                                     </div>
                                 </div>
                             </div>
@@ -361,214 +359,16 @@
                     <span class = "carousel-control-next-icon"></span>
                 </a>
             </div>
-            <div class="col text-center">
+            <!-- <div class="col text-center">
                 <a type="button" href="{% url 'blog:recent_posts' %}" class="btn btn-dark ">See All Posts</a>
 
-            </div>
+            </div> -->
         </div>
 
     </div>
 </div>
     
 
-<div class='container-2'>   
-
-    <div class="row blog">
-        <div class="col-md-12">
-            <div id="blogCarousel" class="carousel slide carousel-fade container-blog" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#blogCarousel" data-slide-to="1"></li>
-            </ol>
-            <!-- Carousel items -->
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                <div class="row">
-                    <div class="col-md-4" >
-                    <div class="item-box-blog">
-                        <div class="item-box-blog-image">
-                        <!--Date-->
-                        <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Augu 01</span> </div>
-                        <!--Image-->
-                        <figure> <img alt="" src="https://cdn.pixabay.com/photo/2017/02/08/14/25/computer-2048983_960_720.jpg"> </figure>
-                        </div>
-                        <div class="item-box-blog-body">
-                        <!--Heading-->
-                        <div class="item-box-blog-heading">
-                            <a href="#" tabindex="0">
-                            <h5>News Title</h5>
-                            </a>
-                        </div>
-                        <!--Data-->
-                        <div class="item-box-blog-data" style="padding: px 15px;">
-                            <p><i class="fa fa-user-o"></i> Admin, <i class="fa fa-comments-o"></i> Comments(3)</p>
-                        </div>
-                        <!--Text-->
-                        <div class="item-box-blog-text">
-                            <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
-                        </div>
-                        <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
-                        <!--Read More Button-->
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-4" >
-                    <div class="item-box-blog">
-                        <div class="item-box-blog-image">
-                        <!--Date-->
-                        <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Augu 01</span> </div>
-                        <!--Image-->
-                        <figure> <img alt="" src="https://cdn.pixabay.com/photo/2017/02/08/14/25/computer-2048983_960_720.jpg"> </figure>
-                        </div>
-                        <div class="item-box-blog-body">
-                        <!--Heading-->
-                        <div class="item-box-blog-heading">
-                            <a href="#" tabindex="0">
-                            <h5>News Title</h5>
-                            </a>
-                        </div>
-                        <!--Data-->
-                        <div class="item-box-blog-data" style="padding: px 15px;">
-                            <p><i class="fa fa-user-o"></i> Admin, <i class="fa fa-comments-o"></i> Comments(3)</p>
-                        </div>
-                        <!--Text-->
-                        <div class="item-box-blog-text">
-                            <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
-                        </div>
-                        <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
-                        <!--Read More Button-->
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-4" >
-                    <div class="item-box-blog">
-                        <div class="item-box-blog-image">
-                        <!--Date-->
-                        <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Augu 01</span> </div>
-                        <!--Image-->
-                        <figure> <img alt="" src="https://cdn.pixabay.com/photo/2017/02/08/14/25/computer-2048983_960_720.jpg"> </figure>
-                        </div>
-                        <div class="item-box-blog-body">
-                        <!--Heading-->
-                        <div class="item-box-blog-heading">
-                            <a href="#" tabindex="0">
-                            <h5>News Title</h5>
-                            </a>
-                        </div>
-                        <!--Data-->
-                        <div class="item-box-blog-data" style="padding: px 15px;">
-                            <p><i class="fa fa-user-o"></i> Admin, <i class="fa fa-comments-o"></i> Comments(3)</p>
-                        </div>
-                        <!--Text-->
-                        <div class="item-box-blog-text">
-                            <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
-                        </div>
-                        <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
-                        <!--Read More Button-->
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <!--.row-->
-                </div>
-                <!--.item-->
-                <div class="carousel-item ">
-                <div class="row">
-                    <div class="col-md-4" >
-                    <div class="item-box-blog">
-                        <div class="item-box-blog-image">
-                        <!--Date-->
-                        <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Augu 01</span> </div>
-                        <!--Image-->
-                        <figure> <img alt="" src="https://cdn.pixabay.com/photo/2017/02/08/14/25/computer-2048983_960_720.jpg"> </figure>
-                        </div>
-                        <div class="item-box-blog-body">
-                        <!--Heading-->
-                        <div class="item-box-blog-heading">
-                            <a href="#" tabindex="0">
-                            <h5>News Title</h5>
-                            </a>
-                        </div>
-                        <!--Data-->
-                        <div class="item-box-blog-data" style="padding: px 15px;">
-                            <p><i class="fa fa-user-o"></i> Admin, <i class="fa fa-comments-o"></i> Comments(3)</p>
-                        </div>
-                        <!--Text-->
-                        <div class="item-box-blog-text">
-                            <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
-                        </div>
-                        <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
-                        <!--Read More Button-->
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-4" >
-                    <div class="item-box-blog">
-                        <div class="item-box-blog-image">
-                        <!--Date-->
-                        <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Augu 01</span> </div>
-                        <!--Image-->
-                        <figure> <img alt="" src="https://cdn.pixabay.com/photo/2017/02/08/14/25/computer-2048983_960_720.jpg"> </figure>
-                        </div>
-                        <div class="item-box-blog-body">
-                        <!--Heading-->
-                        <div class="item-box-blog-heading">
-                            <a href="#" tabindex="0">
-                            <h5>News Title</h5>
-                            </a>
-                        </div>
-                        <!--Data-->
-                        <div class="item-box-blog-data" style="padding: px 15px;">
-                            <p><i class="fa fa-user-o"></i> Admin, <i class="fa fa-comments-o"></i> Comments(3)</p>
-                        </div>
-                        <!--Text-->
-                        <div class="item-box-blog-text">
-                            <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
-                        </div>
-                        <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
-                        <!--Read More Button-->
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-4" >
-                    <div class="item-box-blog">
-                        <div class="item-box-blog-image">
-                        <!--Date-->
-                        <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Augu 01</span> </div>
-                        <!--Image-->
-                        <figure> <img alt="" src="https://cdn.pixabay.com/photo/2017/02/08/14/25/computer-2048983_960_720.jpg"> </figure>
-                        </div>
-                        <div class="item-box-blog-body">
-                        <!--Heading-->
-                        <div class="item-box-blog-heading">
-                            <a href="#" tabindex="0">
-                            <h5>News Title</h5>
-                            </a>
-                        </div>
-                        <!--Data-->
-                        <div class="item-box-blog-data" style="padding: px 15px;">
-                            <p><i class="fa fa-user-o"></i> Admin, <i class="fa fa-comments-o"></i> Comments(3)</p>
-                        </div>
-                        <!--Text-->
-                        <div class="item-box-blog-text">
-                            <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
-                        </div>
-                            <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
-                        <!--Read More Button-->
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <!--.row-->
-                </div>
-                <!--.item-->
-            </div>
-            <!--.carousel-inner-->
-            </div>
-            <!--.Carousel-->
-        </div>
-    </div>
-</div>
 
 
 {%endblock%}

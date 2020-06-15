@@ -36,7 +36,10 @@
       background-repeat:no-repeat;
       background-position:20px 30px;
     }
-    
+    .heart {
+      font-size: 15px;
+    color:red;
+    }
 </style>
 <header class="masthead">
     <div class="overlay"></div>
@@ -53,30 +56,63 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-8 card mb-4  mt-3 left top">
-      <div class="card-body">
-        {{ user.username }} 
-        {{ user.email }}
-        {{ user.first_name }} 
-        {{ user.last_name }}
-        {{ profile.bio}}
-        
-        {% for post in posts %}
-    
-        <div class="post">
+      <div class="col-md-12 card mb-4 mt-3 ">
 
-            <div class="date">
-                <p>{{ post.published_date }}</p>
-                <p>{{ post.author }}</p>
-            </div>
+          <dl class="row mt-3">
+            
+              <dt class="col-sm-3">Social Info</dt>
+              <dd class="col-sm-9">
+                <dl class="row">
+                  <dt class="col-sm-4">Name</dt>
+                  <dd class="col-sm-8">{{ user.first_name }} {{ user.last_name }}</dd>
+                </dl>
+                <dl class="row">
+                  <dt class="col-sm-4">Bio</dt>
+                  <dd class="col-sm-8">{{ user.profile.bio }}</dd>
+                </dl>
+                <dl class="row">
+                  <dt class="col-sm-4">City</dt>
+                  <dd class="col-sm-8">{{ user.profile.city }}</dd>
+                </dl>
+                <dl class="row">
+                  <dt class="col-sm-4">Website</dt>
+                  <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.Website }}">{{ user.profile.Website }}</a></dd>
+                </dl>
+                <dl class="row">
+                  <dt class="col-sm-4">Insta</dt>
+                  <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.instagram_link }}">{{ user.profile.instagram_link }}</a></dd>
+                </dl>
+                <dl class="row">
+                  <dt class="col-sm-4">Facebook Profile</dt>
+                  <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.facebook_link }}">{{ user.profile.facebook_link }}</a></dd>
+                </dl>
+                <dl class="row">
+                  <dt class="col-sm-4">YouTube Channel</dt>
+                  <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.facebook_link }}">{{ user.profile.youtube_channel }}</a></dd>
+                </dl>
+              </dd>
+            </dl>
 
-            <h1><a href="{% url 'blog:post_detail' post.slug  %}">{{ post.title }}</a></h1>
-            <p>{{ post.content|linebreaksbr }}</p>
 
-        </div>
-{% endfor %}
       </div>
-    </div>
+      <div class="col-md-12 mb-4 mt-3 ">
+
+
+      <h1 class: "scrolled" style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:red;" >BLOG</span>posts</h1>
+
+      <div class="card-deck">
+          {% for post in posts %}
+          <div class="card">
+           <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
+            <div class="card-body">
+              <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
+              <p class="card-text " ><a class = 'like-btn black-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a> <a class="black-text pb-2 pt-1">{{ views_count }} {{ view.ip.count }} <i class="fa fa-eye"></i>       {{ post.views }} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.updated_on }}</small></p>
+            </div>
+          </div>
+          {% endfor %}
+      </div>
+      
+      </div>
   </div>
 </div>
 

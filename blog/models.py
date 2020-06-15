@@ -16,75 +16,76 @@ STATUS = (
 )
 
 CATEGORY= (
-    ("Beaches ","Beaches"),
-    ("Islands ","Islands"),
+    ("Beaches","Beaches"),
+    ("Islands","Islands"),
     ("Hiking","Hiking"),
-    ("Camping ","Camping"),
-    ("Mountains ","Mountains"),
-    ("Deserts ","Deserts"),
-    ("Forests ","Forests"),
-    ("Historic Places ","Historic Places"),
-    ("Monuments ","Monuments"),
-    ("Temples ","Temples"),
-    ("Museums ","Museums"),
-    ("Zoos ","Zoos"),
-    ("Theme Parks ","Theme Parks"),
-    ("Gardens ","Gardens"),
-    ("Aquaria ","Aquaria"),
-    ("Winter ","Winter Carnival"),
-    ("Markets & Shopping ","Markets & Shopping"),
-    ("Urban ","Urban"),
-    ("Rural ","Rural"),
-    ("Rivers & Lakes ","Rivers & Lakes"),
-    ("Couples Friendly ","Couples Friendly"),
-    ("Sports Tourism ","Sports Tourism"),
-    ("Just for Food ","Just for Food "),
-    ("Resorts ","Resorts"),
-    ("Culture ","Culture"),
-    ("Adventure ","Adventure"),
-    ("Moto Blogs ","Moto Blogs"),
-    ("Solo ","Solo Travel"),
-    ("Summer ","Summer Special"),
-    ("Travel Tips ","Travel Tips"),
+    ("Camping","Camping"),
+    ("Mountains","Mountains"),
+    ("Deserts","Deserts"),
+    ("Forests","Forests"),
+    ("Historic","Historic"),
+    ("Monuments","Monuments"),
+    ("Temples","Temples"),
+    ("Museums","Museums"),
+    ("Zoos","Zoos"),
+    ("ThemeParks","ThemeParks"),
+    ("Gardens","Gardens"),
+    ("Aquaria","Aquaria"),
+    ("Winter","Winter"),
+    ("Market","Market"),
+    ("Urban","Urban"),
+    ("Rural","Rural"),
+    ("Rivers","Rivers"),
+    ("Lakes","Lakes"),
+    ("Couple","Couple"),
+    ("Sports","Sports"),
+    ("Food","Food "),
+    ("Resorts","Resorts"),
+    ("Culture","Culture"),
+    ("Adventure","Adventure"),
+    ("MotoBlogs","MotoBlogs"),
+    ("Solo","Solo"),
+    ("Summer","Summer"),
+    ("TravelTips","TravelTips"),
 
 )
 
 STATE_CHOICES = (
-    ("II","Somewhere In India"),
-    ("OI","Out Of India"),
-    ("AP","Andhra Pradesh"),
-    ("AR","Arunachal Pradesh"),
-    ("AS","Assam"),
-    ("BR","Bihar"),
-    ("CT","Chhattisgarh"),
-    ("CH","Chandigarh"),
-    ("DN","Dadra and Nagar Haveli"),
-    ("DD","Daman and Diu"),
-    ("DL","Delhi"),
-    ("GA","Goa"),
-    ("GJ","Gujarat"),
-    ("HR","Haryana"),
-    ("HP","Himachal Pradesh"),
-    ("JK","Jammu and Kashmir"),
-    ("JH","Jharkhand"),
-    ("KA","Karnataka"),
-    ("KL","Kerala"),
-    ("MP","Madhya Pradesh"),
-    ("MH","Maharashtra"),
-    ("MN","Manipur"),
-    ("ML","Meghalaya"),
-    ("MZ","Mizoram"),
-    ("NL","Nagaland"),
-    ("OR","Orissa"),
-    ("PB","Punjab"),
-    ("PY","Pondicherry"),
-    ("RJ","Rajasthan"),
-    ("SK","Sikkim"),
-    ("TN","Tamil Nadu"),
-    ("TR","Tripura"),
-    ("UP","Uttar Pradesh"),
-    ("UK","Uttarakhand"),
-    ("WB","West Bengal"),
+    ("Somewhere In India","Somewhere In India"),
+    ("Out Of India","Out Of India"),
+    ("Andhra Pradesh","Andhra Pradesh"),
+    ("Arunachal Pradesh","Arunachal Pradesh"),
+    ("Assam","Assam"),
+    ("Bihar","Bihar"),
+    ("Chhattisgarh","Chhattisgarh"),
+    ("Chandigarh","Chandigarh"),
+    ("Dadra and Nagar Haveli","Dadra and Nagar Haveli"),
+    ("Daman and Diu","Daman and Diu"),
+    ("Delhi","Delhi"),
+    ("Goa","Goa"),
+    ("Gujarat","Gujarat"),
+    ("Haryana","Haryana"),
+    ("Himachal Pradesh","Himachal Pradesh"),
+    ("Jammu and Kashmir","Jammu and Kashmir"),
+    ("Jharkhand","Jharkhand"),
+    ("Karnataka","Karnataka"),
+    ("Kerala","Kerala"),
+    ("Madhya Pradesh","Madhya Pradesh"),
+    ("Maharashtra","Maharashtra"),
+    ("Manipur","Manipur"),
+    ("Meghalaya","Meghalaya"),
+    ("Mizoram","Mizoram"),
+    ("Nagaland","Nagaland"),
+    ("Orissa","Orissa"),
+    ("Punjab","Punjab"),
+    ("Pondicherry","Pondicherry"),
+    ("Rajasthan","Rajasthan"),
+    ("Sikkim","Sikkim"),
+    ("Tamil Nadu","Tamil Nadu"),
+    ("Tripura","Tripura"),
+    ("Uttar Pradesh","Uttar Pradesh"),
+    ("Uttarakhand","Uttarakhand"),
+    ("West Bengal","West Bengal"),
 
 )
 
@@ -97,7 +98,7 @@ class Category(models.Model):
 
 class Post(models.Model):
     post_id = models.AutoField
-    title = models.CharField(max_length=400, unique=True)
+    title = models.CharField(max_length=200, unique=True)
     slug = AutoSlugField(populate_from='title')
     cover = models.ImageField(upload_to='images/', null = True)
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name= "posts")
@@ -106,7 +107,9 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
     state = models.CharField(max_length=80,choices=STATE_CHOICES)
+    slug_st = AutoSlugField(populate_from='state')
     location = models.CharField(max_length=200)
+    slug_lc = AutoSlugField(populate_from='location')
     category = models.ManyToManyField(Category, blank = True, related_name="posts" )
     views = models.IntegerField(default= 0)
     like = models.ManyToManyField('auth.User', blank= True, related_name="post_liked")
@@ -168,7 +171,7 @@ class Profile(models.Model):
     signup_confirmation = models.BooleanField(default=False)
     facebook_link = models.CharField(max_length=100, blank=True, null=True)
     instagram_link = models.CharField(max_length=100, blank=True, null=True)
-    bio = models.CharField(max_length=400, blank=True, null=True)
+    bio = models.CharField(max_length=100, blank=True, null=True)
     city = models.CharField(max_length=100, blank=True, null=True)
     Website = models.CharField(max_length=100, blank=True, null=True)
     youtube_channel = models.CharField(max_length=100, blank=True, null=True)

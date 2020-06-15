@@ -1,41 +1,127 @@
 {% extends 'base.html' %} {% block content %}
 
+<style>
+    .masthead{
+    height: 100px;
+    padding: 100px 0 0 0;   
+    background-color: #1C2331;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .notification{
+    position:absolute;
+    top: 5rem;
+    right: 1rem;
+    width:300px;
+    min-height:100px;
+    margin-top:100px;
+    border:1px solid #666;
+    background-color:#3073BB;
+    background-repeat:no-repeat;
+    background-position:20px 30px;
+  }
+  .heart {
+      font-size: 15px;
+    color:red;
+    }
+</style>
 <header class="masthead">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class=" col-md-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h3 class=" site-heading my-4 mt-3 text-white"> Write your own blog </h3>
+                    <h3 class=" site-heading my-4 mt-3 text-white">  </h3>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
+<div>
 
-        {{ user.username }}
-        {{ user.email }}
-        <a href="{{  user.profile.facebook_link }}" target="_blank">{{  user.profile.facebook_link }}</a>
-        
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 card mb-4 mt-3 ">
 
-        <a href= "{% url 'blog:update_profile' user.id %}" > Update Details</a>
+            <dl class="row mt-3">
+              
+                <dt class="col-sm-3">Basic Details</dt>
+                <dd class="col-sm-9">
+                  <dl class="row">
+                    <dt class="col-sm-4">Username</dt>
+                    <dd class="col-sm-8">{{ user.username }}</dd>
+                  </dl>
+                  <dl class="row">
+                    <dt class="col-sm-4">Name</dt>
+                    <dd class="col-sm-8">{{ user.first_name }} {{ user.last_name }}</dd>
+                  </dl>
+                  <dl class="row">
+                    <dt class="col-sm-4">Email</dt>
+                    <dd class="col-sm-8">{{ user.email }}</dd>
+                  </dl>
+                  <dl class="row">
+                    <dt class="col-sm-4">Account created</dt>
+                    <dd class="col-sm-8">{{ user.date_joined }}</dd>
+                  </dl>
+                </dd>
+                <dt class="col-sm-3">Social Info</dt>
+                <dd class="col-sm-9">
+                  <dl class="row">
+                    <dt class="col-sm-4">Bio</dt>
+                    <dd class="col-sm-8">{{ user.profile.bio }}</dd>
+                  </dl>
+                  <dl class="row">
+                    <dt class="col-sm-4">City</dt>
+                    <dd class="col-sm-8">{{ user.profile.city }}</dd>
+                  </dl>
+                  <dl class="row">
+                    <dt class="col-sm-4">Website</dt>
+                    <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.Website }}">{{ user.profile.Website }}</a></dd>
+                  </dl>
+                  <dl class="row">
+                    <dt class="col-sm-4">Insta</dt>
+                    <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.instagram_link }}">{{ user.profile.instagram_link }}</a></dd>
+                  </dl>
+                  <dl class="row">
+                    <dt class="col-sm-4">Facebook Profile</dt>
+                    <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.facebook_link }}">{{ user.profile.facebook_link }}</a></dd>
+                  </dl>
+                  <dl class="row">
+                    <dt class="col-sm-4">YouTube Channel</dt>
+                    <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.facebook_link }}">{{ user.profile.youtube_channel }}</a></dd>
+                  </dl>
+                </dd>
+              </dl>
 
-        
+            <a class="btn btn-outline-dark" href= "{% url 'blog:update_profile' user.id %}" > Update Profile</a>
 
-        {% for post in user_posts %}
-    
-            <div class="post">
+            
 
-                <div class="date">
-                    <p>{{ post.published_date }}</p>
-                    <p>{{ post.author }}</p>
-                </div>
+           
 
-                <h1><a href="{% url 'blog:post_detail' post.slug  %}">{{ post.title }}</a></h1>
-                <p>{{ post.content|linebreaksbr }}</p>
+        </div>
+        <div class="col-md-12 mb-4 mt-3 ">
 
+
+        <h1 class: "scrolled" style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:red;" >BLOG</span>posts</h1>
+
+        <div class="card-deck">
+            {% for post in user_posts %}
+            <div class="card">
+             <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
+              <div class="card-body">
+                <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
+                <p class="card-text " ><a class = 'like-btn black-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a> <a class="black-text pb-2 pt-1">{{ views_count }} {{ view.ip.count }} <i class="fa fa-eye"></i>       {{ post.views }} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.updated_on }}</small></p>
+              </div>
             </div>
             {% endfor %}
+        </div>
+        
+        </div>
+    </div>
+</div>
+
 
 {% endblock content %}

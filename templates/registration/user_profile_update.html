@@ -36,15 +36,24 @@
       background-repeat:no-repeat;
       background-position:20px 30px;
     }
+    .masthead{
+  height: 100px;
+  padding: 100px 0 0 0;   
+  background-color: #1C2331;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
     
 </style>
+
 <header class="masthead">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class=" col-md-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h3 class=" site-heading my-4 mt-3 text-white"> Profile Details </h3>
+                    <h3 class=" site-heading my-4 mt-3 text-white">  </h3>
                 </div>
             </div>
         </div>
@@ -53,7 +62,10 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-8 card mb-4  mt-3 left top">
+    <div class="col-md-8 card mb-4 mt-3 ">
+  <p></p>
+  <h2>Update your profile</h2>
+
       <div class="card-body">
         {% if form_obj %}
         <div class="alert alert-success" role="alert">
@@ -63,14 +75,18 @@
         <form method="post">
             {% csrf_token %}
             {{ user_form.as_p }}
-            {{ profile_form.as_p }}
-            <button type="submit">Save changes</button>
+            {{ profile_form.as_p  }}
+            <div class="alert alert-warning" role="alert">
+              These fields will be visible to everyone.
+              </div>
+            <button type="submit"  class="btn btn-dark">Save changes</button>
           </form>
         {% endif %}
         
       </div>
     </div>
   </div>
+
 </div>
 
 

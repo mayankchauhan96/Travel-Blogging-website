@@ -4,75 +4,45 @@
 
 
 <style>
- body {
+    body {
         font-family: "Roboto", sans-serif;
         font-size: 18px;
         background-color: #fdfdfd;
     }
-    .card-img-top {
-        border-top-left-radius: calc(.5rem - 1px);
-        border-top-right-radius: calc(.5rem - 1px);
-        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
-    }
-    .btn-primary{
-        border-bottom-left-radius: calc(2rem - 1px);
-        border-top-right-radius: calc(2rem - 1px);
-
-    }
-
-    .view img, .view video {
-        position: relative;
-        display: block;
-        max-height: 400px;
-        max-width: 600px;
-        min-width: -webkit-fill-available;
-        min-height: -webkit-fill-available;
-        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
-    }
-
-    .card-cascade wider {
-        margin:25px
-    }
-
-    .row {
-        display: flex;
-        align-items: flex-start;
-        margin-right: 20px;
-        justify-content: space-between;
-        margin-left: 20px;
-        flex: 1;
-        display: flex;
-        justify-content: center;
-    }
-
-    .card-body {
-        -ms-flex: 1 1 auto;
-        flex: 1 1 auto;
-        margin-right: 4%;
-        margin-left: 4%;
-        background: #fff;
-        padding: 1.25rem;
-        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
-        margin-bottom: 90px;
-    }
-
     
     .head_text {
         color: white;
     }
-
-
-    .masthead{
-     background: url("/static/img/new.jpg") 50% 0 no-repeat fixed;
-     color: red;
-     height: 1000px;
-     padding: 100px 0 0 0;   
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    
+    .card {
+        box-shadow: 0 32px 48px #E3E7EB;
     }
 
-
+    .container{
+      max-width: 1600px;
+    }
+    
+    .notification{
+      position:absolute;
+      top: 5rem;
+      right: 1rem;
+      width:300px;
+      min-height:100px;
+      margin-top:100px;
+      border:1px solid #666;
+      background-color:#3073BB;
+      background-repeat:no-repeat;
+      background-position:20px 30px;
+    }
+    .masthead{
+  height: 100px;
+  padding: 100px 0 0 0;   
+  background-color: #1C2331;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+    
 </style>
 
 <header class="masthead">
@@ -81,65 +51,39 @@
         <div class="row">
             <div class=" col-md-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h3 class=" site-heading my-4 mt-3 text-white"> We are here to take you there </h3>
+                    <h3 class=" site-heading my-4 mt-3 text-white"> </h3>
                     
                 </div>
             </div>
         </div>
     </div>
 </header>
-    {% comment %} {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %} {% endcomment %}
 
 
-<h1 style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:red;" >Recent</span>  Blogs</h1>
+
+<h1 style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:red;" >Blogs</span>posts</h1>
 
 
     <div class="container">
-        <div class="row infinite-container align-center ">
 
-
+        <div class="row infinite-container ">
+            <div class="col-md-12 mb-4 mt-3 ">
             <!-- Blog Entries Column -->
-            {% for post in posts %}
-            {% comment %} {% if forloop.first %}<div class="row">{% endif %} {% endcomment %}
-            <div class="infinite-item">
-                <!-- Card Wider -->
+                <div class="infinite-item">
 
-                <div class=" card-cascade wider  ">
-
-                    <!-- Card image -->
-                    <div class="shadow view view-cascade overlay waves-effect">
-                        <img class=" card-img-top"  src="{{ post.cover.url }}" alt="{{ post.title }}">
-                        <a href="{% url 'blog:post_detail' post.slug  %}">
-                        <div class="mask waves-effect waves-light rgba-white-slight"></div>
-                        </a>
-                    </div>
-
-                    <!-- Card content -->
-                    <div class=" shadow card-body card-body-cascade">
-
-                        <!-- Label -->
-                        <h5 class="pink-text pb-2 pt-1"><i class="fa fa-tags"></i> {{ post.category }}</h5>
-                        <!-- Title -->
-                        <h4 class="font-weight-bold card-title">{{ post.title }}</h4>
-
-                        <h6 class="blue-text pb-2 pt-1"><i class="fa fa-pencil"></i> {{ post.author }} | {{ post.updated_on}} </h6>
-                        <!-- Text -->
-                        <p class="card-text">{{post.content|striptags|slice:":150" }}</p>
-                        <!-- Button -->
-                        <a href="{% url 'blog:post_detail' post.slug  %}" class="btn btn-primary waves-effect">Read More &rarr;</a>
-
-                        <!-- Card footer -->
-                        <div class="card-footer text-muted text-center mt-4"><i class="fa fa-automobile"></i>
-                            {{ post.state_choice}} | {{ post.location}}
+                    <div class="card-deck">
+                        {% for post in posts %}
+                        <div class="card">
+                        <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
+                        <div class="card-body">
+                            <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
+                            <p class="card-text " ><a class = 'like-btn black-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a> <a class="black-text pb-2 pt-1">{{ views_count }} {{ view.ip.count }} <i class="fa fa-eye"></i>       {{ post.views }} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.updated_on }}</small></p>
                         </div>
-
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
-                
-
             </div>
-
-            {% endfor %}
         </div>
 
          <div class="loading" style="display: none;">

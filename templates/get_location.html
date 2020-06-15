@@ -1,4 +1,9 @@
 {% extends 'base.html' %} {% block content %}
+{% load crispy_forms_tags %}
+
+{{ profile_form.media }}
+{% load static %}
+
 
 <style>
     body {
@@ -31,14 +36,6 @@
       background-repeat:no-repeat;
       background-position:20px 30px;
     }
-    .masthead{
-      height: 100px;
-      padding: 100px 0 0 0;   
-      background-color: #1C2331;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
     
 </style>
 <header class="masthead">
@@ -47,32 +44,37 @@
         <div class="row">
             <div class=" col-md-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h3 class=" site-heading my-4 mt-3 text-white">  </h3>
+                    <h3 class=" site-heading my-4 mt-3 text-white"> Place </h3>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-
 <div class="container">
-{% if validlink %}
-<p></p><br>
+  <div class="row">
+    <div class="col-md-8 card mb-4  mt-3 left top">
+      <div class="card-body">
+        
+        {% for post in posts %}
+    
+        <div class="post">
 
-<h1>Set a new password!</h1>
-<p></p><br>
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Change my password">
-</form>
+            <div class="date">
+                <p>{{ post.published_date }}</p>
+                <p>{{ post.author }}</p>
+            </div>
 
-{% else %}
-<p></p><br>
+            <h1><a href="{% url 'blog:post_detail' post.slug  %}">{{ post.title }}</a></h1>
+            <!-- <p>{{ post.content|linebreaksbr }}</p> -->
 
-<p>  "The password reset link was invalid, possibly because it has already been used.  Please request a new password reset." </p>
-
-
-{% endif %}
+        </div>
+{% endfor %}
+      </div>
+    </div>
+  </div>
 </div>
+
+
+
 {% endblock content %}

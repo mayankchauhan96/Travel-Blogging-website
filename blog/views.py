@@ -7,8 +7,8 @@ from django.contrib import messages
 from django.views.generic.list import ListView
 from django.views.generic import RedirectView
 from django.db.models import Q
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login, authenticate, get_user_model 
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_text
@@ -29,7 +29,7 @@ from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
-
+from django.contrib.auth.backends import ModelBackend
 
 # class PostList(generic.ListView):
 #     queryset = Post.objects.filter(status=1).order_by('-created_on')
@@ -44,9 +44,10 @@ class PostInfiniteRecent(generic.ListView):
 
 def recent_post(request):
     recent_posts = Post.objects.filter(status=1).all()
-    n = len(recent_posts)
+    top_posts = Post.objects.filter(status=1,).order_by('-views')
+    n = len(top_posts)
     nslides = n
-    params = {"no_of_slides":nslides,"range": range(1,nslides),"recent":recent_posts}
+    params = {"no_of_slides":nslides,"range": range(1,nslides),"recent":recent_posts,"top_posts":top_posts}
     return render(request,'index.html', params)
 
 
@@ -351,23 +352,26 @@ def activate(request, uidb64, token):
 
 
 def login_view(request):
-        if request.method == 'POST':
+
+    if request.method == 'POST':
+        userinput = request.POST['username']
+        try:
+            username = User.objects.get(email=userinput).username
+        except User.DoesNotExist:
             username = request.POST['username']
-            password = request.POST['password']
-            user = auth.authenticate(username=username, password=password)
+        password = request.POST['password']
+        user = auth.authenticate(username=username, password=password)
 
-            if user is not None:
-                auth.login(request, user)
-                messages.success(request,"Login successfull")
-                return redirect('blog:home')
-            else:
-
-                messages.warning(request,'invalid credentials')
+        if user is not None:
+            auth.login(request, user)
+            messages.success(request,"Login successfull")
+            return redirect('blog:home')
         else:
 
+            messages.error(request,'Invalid credentials, Please check username/email or password. ')
 
-            return render(request, "registration/login.html")
 
+    return render(request, "registration/login.html")
 
 
 def logout_view(request):
@@ -412,6 +416,25 @@ def get_user_profile(request, user_id):
     user = User.objects.get(id = user_id)
     posts = Post.objects.filter(author_id = user_id).order_by('-created_on')
 
-    return render(request, 'registration/user_profile.html', {"user":user,"profile":profile,"posts":posts})
+    return render(request, 'registration/user_profile.html',{"user":user,"profile":profile,"posts":posts})
 
+def get_category(request, category):
+    query = category
+    lookups= Q(category__category__icontains=query)
 
+    posts = Post.objects.filter(lookups).distinct()
+
+    return render(request, 'get_category.html', {"posts":posts,'query':query})
+
+  
+def get_state(request, slug_st):
+    query = slug_st
+    posts = Post.objects.filter(slug_st=query)
+
+    return render(request, 'get_state.html', {"posts":posts,"query":query})
+
+def get_location(request, slug_lc):
+    query = slug_lc
+    posts = Post.objects.filter(slug_lc=query)
+
+    return render(request, 'get_location.html', {"posts":posts,"query":query})
