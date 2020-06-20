@@ -4,7 +4,7 @@
     .masthead{
     height: 100px;
     padding: 100px 0 0 0;   
-    background-color: #1C2331;
+    background-color: black;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -52,7 +52,8 @@
     </p>
 {% endfor %}
 <script src='https://www.google.com/recaptcha/api.js'></script>
-<div class="g-recaptcha" data-sitekey="6LdVaQAVAAAAAEx_ba36Gt2hoCT4vwmMEqX43Yrf"></div>
+<div class="g-recaptcha" data-sitekey="6LdVaQAVAAAAAEx_ba36Gt2hoCT4vwmMEqX43Yrf"></div><br>
+<p>By signing up you are accepting our <span> <a href="{% url 'blog:terms_and_conditions' %}">terms and conditions</a></span> and<span> <a href="{% url 'blog:privacy' %}">privacy policy</a></span>.</p>   
 <button type="submit" class="btn btn-dark" >Sign up</button> &ensp; <span>Already have an account?</span> <a  class="" href="{% url 'blog:login' %}">
     Log In
     </a>

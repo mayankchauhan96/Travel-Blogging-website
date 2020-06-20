@@ -181,7 +181,7 @@
     }
     .card-cascade {
         /* {% comment %} width: 500px; {% endcomment %} */
-        height: 800px;
+        height: 700px;
 
     }
        .card-cascade .content{
@@ -237,19 +237,29 @@
     }
     
     .masthead{
-        background: url("/static/img/new.jpg") 50% 0 no-repeat fixed;
-        color: red;
+        background: url("/static/img/home2.jpg"), url("/static/img/home.jpg") 50% 0 no-repeat fixed;
         height: 100vh;
-        padding: 100px 0 0 0;   
+        padding: 100px 0 0 0;
         background-position: center center;
         background-repeat: no-repeat;
         background-size: cover;
     }
+    
     .hr-dark {
-        border-top: 3px solid #fff;
+        border-top: 3px solid rgb(0, 0, 0);
         width: 80px;
     }
-    
+    #broad{
+        max-width: 8280px;
+        background-color: black;
+    }
+    #blackcard{
+        background-color: black;
+    }
+    .heart {
+      font-size: 15px;
+    color:red;
+    }
 
 </style>
  <header class="masthead">
@@ -257,15 +267,15 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 mb-4 black-text text-center">
-                <h1 class="h1-reponsive black-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5" style="letter-spacing: 6px; margin-top:240px" ><strong>TALES BY TRAVELERS</strong></h1>
+                <h1 class="h1-reponsive black-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5" style="letter-spacing: 6px; margin-top:20px" ><strong>TALES BY TRAVELERS</strong></h1>
                 <hr class="hr-dark my-4">
                 <h5 class="text-uppercase mb-4 black-text" style="letter-spacing: 2px;" d><strong>A Travel Blogging Platform</strong></h5>
                 {% if user.is_authenticated %}
-                    Hi {{ user.username }}!
+                   <h5> Hi {{ user.username }}!</h5>
             
                 {% else %}
                     <a  class="btn btn-outline-black" href="{% url 'blog:signup' %}">
-                    Sign UP
+                    Register
                     </a>
                     <a  class="btn btn-outline-black" href="{% url 'blog:login' %}">
                 Sign IN
@@ -277,12 +287,51 @@
     </div>
 </header> 
 
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mb-4 mt-3 ">
+            <h1 class: "scrolled" style="text-align:left; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:red;" >Recent</span> Blogs</h1>
 
+            <div class="card-deck">
+                {% for post in recent_posts|slice:"0:15" %}
+                <div class="card" >
+                 <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
+                  <div class="card-body">
+                    <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
+                    <p class="card-text " ><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="black-text pb-2 pt-1">{{ post.author}} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.updated_on }}</small></p>
+                  </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" id="broad">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mb-4 mt-3 ">
+            <h1 class: "scrolled" style="text-align:left; font-family:verdana; margin-top:50px; margin-bottom:50px; color:white; "><span style="color:red;" >Recommended</span> Blogs</h1>
+
+            <div class="card-deck">
+                {% for post in recom_posts|slice:"0:6" %}
+                <div class="card" style="box-shadow: none; border: black;">
+                 <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
+                  <div class="card-body" id="blackcard">
+                    <h5 class="card-title "><a class = 'white-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
+                    <p class="card-text"  ><a class = 'like-btn white-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="white-text pb-2 pt-1">{{ post.author}}</a>&ensp;<small class="white-text">|&ensp; {{ post.updated_on }}</small></p>
+                  </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
 <div class="container"> 
     <div class="row">
-        <div class="col-md-8 mb-4  mt-3 left  top">
-<h1 class: "scrolled" style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:red;" >TOP</span>  Blogs</h1>
+        <div class="col-md-8 mb-4  mt-4 left  top">
+<h1 class: "scrolled" style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:red;" >Trending</span>  Blogs</h1>
 
             <div id = "demo{{forloop.counter}}" class = "carousel slide  " data-ride = "carousel">
                 <ol class="carousel-indicators">
@@ -296,7 +345,7 @@
 
                     <div class="carousel-item active">
 
-                        {% for i in top_posts|slice:"0:20"%}
+                        {% for i in top_posts|slice:"0:10"%}
                         <div class= "col-md-8 col-sm-8 mx-auto">
                     
                             <!-- Card Wider -->
@@ -324,19 +373,18 @@
                                         {% empty %}
                                          {% endfor %}</h6>
                                     <!-- Title -->
-                                    <h5 class="font-weight-bold card-title">{{ i.title|truncatewords:15 }}</h5>
+                                    <h5 class="font-weight-bold card-title"><a class="black-text" href="{% url 'blog:post_detail' i.slug  %}">{{ i.title|truncatewords:15 }}</a></h5>
 
-                                    <a class="black-text pb-2 pt-1" target="_blank" href= "{% url 'blog:get_user_profile' i.author.id %}"><i class="fa fa-pencil"></i> {{ i.author }} </a>| {{ i.updated_on}} 
+                                    <h6><a class="black-text pb-2 pt-1" href= "{% url 'blog:get_user_profile' i.author.id %}"><i class="fa fa-pencil"></i> {{ i.author }} </a>| {{ i.updated_on}} </h6>
                                     <p></p>
                                     <!-- Text -->
-                                    <p style="font-size:15px" class="card-text">{{i.content|striptags|truncatewords:10 }}...</p>
                                     <!-- Button -->
-                                    <a target="_blank" href="{% url 'blog:post_detail' i.slug  %}" class="btn btn-dark waves-effect">Read More &rarr;</a>
+                                    <a target="_blank" href="{% url 'blog:post_detail' i.slug  %}" class="btn btn-dark btn-sm waves-effect">Read &rarr;</a>
 
                                     <!-- Card footer -->
-                                    <div class="card-footer text-muted text-center mt-4"><i class="fa fa-automobile"></i>
+                                    <div class="card-footer text-muted text-center mt-4"><h6><i class="fa fa-automobile"></i>
                                         <a class="black-text pb-2 pt-1" target="_blank" href="{% url 'blog:get_state' i.slug_st %}">
-                                            {{ i.state}}</a> |<a class="black-text pb-2 pt-1" target="_blank" href="{% url 'blog:get_location' i.slug_lc %}"> {{ i.location}} </a>
+                                            {{ i.state}}</a> |<a class="black-text pb-2 pt-1" target="_blank" href="{% url 'blog:get_location' i.slug_lc %}"> {{ i.location}} </a></h6>
                                     </div>
                                 </div>
                             </div>
@@ -359,12 +407,8 @@
                     <span class = "carousel-control-next-icon"></span>
                 </a>
             </div>
-            <!-- <div class="col text-center">
-                <a type="button" href="{% url 'blog:recent_posts' %}" class="btn btn-dark ">See All Posts</a>
-
-            </div> -->
         </div>
-
+        {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
     </div>
 </div>
     

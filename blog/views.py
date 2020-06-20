@@ -35,19 +35,20 @@ from django.contrib.auth.backends import ModelBackend
 #     queryset = Post.objects.filter(status=1).order_by('-created_on')
 #     template_name = 'index.html'
 
-class PostInfiniteRecent(generic.ListView):
-    queryset = Post.objects.filter(status=1).all()
-    paginate_by = 2
-    context_object_name = 'posts'
-    template_name = 'infinite.html'
-    ordering = ['-created_on']
+# class PostInfiniteRecent(generic.ListView):
+#     queryset = Post.objects.filter(status=1).all()
+#     paginate_by = 2
+#     context_object_name = 'posts'
+#     template_name = 'infinite.html'
+#     ordering = ['-created_on']
 
 def recent_post(request):
-    recent_posts = Post.objects.filter(status=1).all()
     top_posts = Post.objects.filter(status=1,).order_by('-views')
+    recent_posts = Post.objects.filter(status=1,).order_by('-created_on')
+    recom_posts = Post.objects.filter(status=1,).order_by('like')
     n = len(top_posts)
     nslides = n
-    params = {"no_of_slides":nslides,"range": range(1,nslides),"recent":recent_posts,"top_posts":top_posts}
+    params = {"no_of_slides":nslides,"range": range(1,nslides), "top_posts":top_posts,"recent_posts":recent_posts,"recom_posts":recom_posts}
     return render(request,'index.html', params)
 
 
@@ -210,7 +211,7 @@ def post_view(request, slug):
                             created=datetime.datetime.now(),
                             session=request.session.session_key)
         view.save()
-    views_count = PostView.objects.filter(post=post).count()
+    views_count = PostView.objects.filter(post=post).values("ip").distinct().count()
     return render(request, 'post_detail.html', {"views_count":views_count, "view":view})
 
 def contact_us(request):
@@ -422,19 +423,32 @@ def get_category(request, category):
     query = category
     lookups= Q(category__category__icontains=query)
 
-    posts = Post.objects.filter(lookups).distinct()
+    posts = Post.objects.filter(lookups).distinct().order_by('-created_on')
 
     return render(request, 'get_category.html', {"posts":posts,'query':query})
 
   
 def get_state(request, slug_st):
     query = slug_st
-    posts = Post.objects.filter(slug_st=query)
+    posts = Post.objects.filter(slug_st=query).order_by('-created_on')
 
     return render(request, 'get_state.html', {"posts":posts,"query":query})
 
 def get_location(request, slug_lc):
     query = slug_lc
-    posts = Post.objects.filter(slug_lc=query)
+    lookups = Q(location__icontains=query)
+    posts_sr= Post.objects.filter(lookups).distinct().order_by('-created_on')
 
-    return render(request, 'get_location.html', {"posts":posts,"query":query})
+    return render(request, 'get_location.html', {"query":query,"posts_sr":posts_sr})
+
+def explore(request):
+    categories = Category.objects.values_list('category',flat=True).distinct()
+    posts = Post.objects.filter(status=1).all().order_by('-updated_on')
+
+    return render(request, 'infinite.html', {"categories":categories,"posts":posts})
+
+def terms_view(request):
+    return render(request, 'terms.html')
+
+def privacy_view(request):
+    return render(request, 'privacy.html')

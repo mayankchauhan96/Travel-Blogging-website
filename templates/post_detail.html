@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% load thumbnail %} {% block content %}
 {% load crispy_forms_tags %}
 {{ comment_form.media }}
 
@@ -21,8 +21,8 @@
     }
 
     .card__image{
-      max-width: 100%;
-      max-height: 50%;
+      max-width: -webkit-fill-available;
+      min-width: -webkit-fill-available;
     }
 
     .heart {
@@ -32,7 +32,7 @@
     .masthead{
       height: 100px;
       padding: 100px 0 0 0;   
-      background-color: #1C2331;
+      background-color: black;
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
@@ -77,7 +77,7 @@ color: rgb(0, 0, 0);
 
 <div class="container">
   <div class="row">
-    <div class="col-md-8 card mb-4  mt-3 left  top">
+    <div class="col-md-12 card mb-4  mt-3 left  top">
       <div class="card-body">
         <h1>{% block title %} {{ post.title }} {% endblock title %}</h1>
         <a class="black-text pb-2 pt-1" target="_blank" ><i class="fa fa-user"></i> <a class="black-text pb-2 pt-1" data-html="true" data-toggle="popover" data-placement="right" target="_blank" title="" data-style="mypops" id="Pops" data-content="Bio: {{ post.author.profile.bio }} <br>  Insta <a href='{{ post.author.profile.instagram_link }}' title='click here to visit Insta profile'>link </a> <br> Website: <a href='{{ post.author.profile.Website }}' title='click here to visit website'>{{ post.author.profile.Website }} </a>" href= "{% url 'blog:get_user_profile' post.author.id %}">{{ post.author }}</a>  | {{ post.updated_on}} </a> <br>
@@ -100,11 +100,20 @@ color: rgb(0, 0, 0);
             {% endif %}
          <p></p>
 
-        <img class="card__image" src="{{ post.cover.url }}" alt="{{ post.title }}">
+        <img class="card__image" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
+    srcset="
+    {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+    {% thumbnail post.cover '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+    {% thumbnail post.cover '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+    {% thumbnail post.cover '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+    {% thumbnail post.cover '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+        alt="{{ post.title }}"
+    sizes="100vw"
+      />
         <div ><i class="fa fa-camera"></i> <a class="black-text pb-2 pt-1" href="{% url 'blog:get_state' post.slug_st %}">
           {{ post.state}}</a> |<a class="black-text pb-2 pt-1" href="{% url 'blog:get_location' post.slug_lc %}"> {{ post.location}} </a>
         </div>
-        <p class="card-text ">{{ post.content | safe }}</p>
+        <p class="card-text ">{{ post.content| safe }}</p>
           <p></p>
        
           
@@ -136,9 +145,8 @@ color: rgb(0, 0, 0);
 
       </div>
     </div>
-    {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
 
-    <div class="col-md-8 card mb-4  mt-3 ">
+    <div class="col-md-12 card mb-4  mt-3 ">
       <div class="card-body">
       
         <!-- comments -->
@@ -157,7 +165,7 @@ color: rgb(0, 0, 0);
         {% endfor %}
       </div>
     </div>
-    <div class="col-md-8 card mb-4  mt-3 ">
+    <div class="col-md-12 card mb-4  mt-3 ">
       <div class="card-body">
         {% if new_comment %}
         <div class="alert alert-success" role="alert">

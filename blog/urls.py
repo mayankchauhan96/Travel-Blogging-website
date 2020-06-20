@@ -6,9 +6,12 @@ urlpatterns = [
     # path('', views.PostList.as_view(), name='home'),
     path('about_us/',  views.about_us, name='about_us'),
     path('contact_us/',  views.contact_us, name='contact_us'),
+    path('privacy/',  views.privacy_view, name='privacy'),
+    path('terms_and_conditions/',  views.terms_view, name='terms_and_conditions'),
     path('search/',  views.search, name='search'),
     path('blog_form/',  views.blog_form, name='blog_form'),
-    path('recent_post/',  views.PostInfiniteRecent.as_view(), name='recent_posts'),
+
+    path('explore/',  views.explore, name='explore'),
 
     #autharisation
     path('signup/', views.signup_view, name="signup"),

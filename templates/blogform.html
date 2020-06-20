@@ -19,23 +19,15 @@
     .card {
         box-shadow: 0 32px 48px #E3E7EB;
     }
+    .masthead{
+      height: 100px;
+      padding: 100px 0 0 0;   
+      background-color: black;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
 
-    .container{
-      max-width: 1600px;
-    }
-    
-    .notification{
-      position:absolute;
-      top: 5rem;
-      right: 1rem;
-      width:300px;
-      min-height:100px;
-      margin-top:100px;
-      border:1px solid #666;
-      background-color:#3073BB;
-      background-repeat:no-repeat;
-      background-position:20px 30px;
-    }
     
 </style>
 <header class="masthead">
@@ -44,7 +36,7 @@
         <div class="row">
             <div class=" col-md-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h3 class=" site-heading my-4 mt-3 text-white"> Write your own blog </h3>
+                    <h3 class=" site-heading my-4 mt-3 text-white">  </h3>
                 </div>
             </div>
         </div>
@@ -53,7 +45,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-8 card mb-4  mt-3 left top">
+    <div class="col-md-12 card mb-4  mt-3 left top">
       <div class="card-body">
         {% if post %}
         <div class="alert alert-success" role="alert">
@@ -71,7 +63,7 @@
           You cannot edit the tags afterwords.
           </div>
 
-          <button type="submit" method= "POST" class="btn btn-primary btn-lg">Submit</button>
+          <button type="submit" method= "POST" class="btn btn-dark ">Submit</button>
         </form>
         {% endif %}
         

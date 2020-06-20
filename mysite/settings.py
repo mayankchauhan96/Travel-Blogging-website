@@ -39,7 +39,7 @@ SECRET_KEY = 'gh0=l5&5l8(t1jf!5(6zg^=80)%1(r=8w__yvh06w(rq-0vni4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["d9d73f33303e.ngrok.io",'127.0.0.1']
+ALLOWED_HOSTS = ["ced316ff95fd.ngrok.io",'127.0.0.1']
 
 
 # Application definition
@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     'six',
     'rest_framework',
     'ckeditor',
-    
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
@@ -107,11 +107,15 @@ CKEDITOR_CONFIGS = {
             ['NumberedList','BulletedList'],
             ['Indent','Outdent'],
             ['Maximize'],
+            ['Youtube'],
+            ['Embed'],
+
         ],
-        'extraPlugins': 'justify,liststyle,indent',
+        'extraPlugins': 'justify,liststyle,indent,link,iframe,colorbutton,autogrow,youtube,embed',
+        'width': '100%',
    },
 }
-
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 

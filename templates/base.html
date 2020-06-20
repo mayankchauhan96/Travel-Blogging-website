@@ -7,7 +7,7 @@
         <!--textricheditor-->
         <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
         <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
-        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"> -->
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <!-- Material Design for Bootstrap -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/css/mdb.min.css" rel="stylesheet">
@@ -24,7 +24,12 @@
         <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
         <script src="{% static 'js/infinite.min.js' %}"></script>
         <!--for infinite-->
-   
+
+        <script>
+            // Picture element HTML5 shiv
+            document.createElement( "picture" );
+          </script>
+          <!-- <script src="picturefill.js" async></script> -->
         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v7.0"></script>  
                 <!--import bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -114,11 +119,11 @@
         }
 
         .page-footer{
-            background-color:#1C2331
+            background-color:black
         }
 
         .navbar-fixed-top.scrolled {
-            background-color: #1C2331 !important;
+            background-color: black !important;
             transition: background-color 200ms linear;
         }
  
@@ -180,17 +185,18 @@
             top: 5rem;
             right: 1rem;
         }
-        /* .navbar-collapse{
-            background-color: #1C2331;
-
-        } */
+        #logo{
+            width: 70px;
+            height: inherit;
+        }
+     
 
 
         </style>
 
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-dark navbar-fixed-top fixed-top scrolling-navbar ">
-            <a class="navbar-brand" href="{% url 'blog:home' %}">TBT</a>
+           <a href="{% url 'blog:home' %}"> <img class="navbar-brand" id="logo"  src="/static/img/LOGO.png" alt="TBT"> </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -203,30 +209,9 @@
                         <a class="nav-link" href="{% url 'blog:about_us' %}">About us</a>
                     </li>
                     
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Destinations
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <ul class="dropdown-submenu">
-                                <a class="dropright" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Uttarakhand </a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-item" href="#">Chopta</li>
-                                    <li class="dropdown-item" href="#">Rishikesh</li>
-                                </ul>
-                            </ul>
-                            <div class="dropdown-divider"></div>
-                            <ul class="dropdown-submenu">
-                                <a class="dropright" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Himachal </a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-item" href="#">Dharamshala</li>
-                                    <li class="dropdown-item" href="#">Kasol</li>
-                                </ul>
-                            </ul>
-                        </ul>
-                    </li>
+       
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'blog:recent_posts' %}" tabindex="-1" aria-disabled="true">Blogs</a>
+                        <a class="nav-link" href="{% url 'blog:explore' %}" tabindex="-1" aria-disabled="true">Explore</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'blog:contact_us' %}">Contact us</a>
@@ -282,7 +267,7 @@
                         </ul>
                         {% else %}
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        SignIn | SIgnUp
+                        Sign In | Register
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <ul class="dropdown-submenu">
@@ -310,29 +295,46 @@
 
             <!--Call to action-->
             <div class="pt-4">
-            <a class="btn btn-outline-white" href="{% url 'blog:blog_form' %}" target="_blank" role="button">Write Your Own Blog
+            <a class="btn btn-outline-white btn-sm" href="{% url 'blog:blog_form' %}" target="_blank" role="button">Write Your Own Blog
             </a>
+            
             </div>
             <!--/.Call to action-->
 
-            <hr class="my-4">
+            <!-- Social icons -->
+            <div class="pb-4 mt-4">
+                <!-- social_media -->
+                   <buttton class="btn-floating btn-lg btn-fb"><a href="https://www.facebook.com/Tales-by-Travelers-100648714955907" target="_blank" class="fa fa-facebook"></a></buttton>
+                   <buttton class="btn-floating btn-lg btn-tw"><a href="" target="_blank" class="fa fa-twitter"></a></buttton>
+                   <buttton class="btn-floating btn-lg btn-gplus"><a href="" target="_blank" class="fa fa-google-plus"></a></buttton>
+                   <buttton class="btn-floating btn-lg btn-ins"><a href="https://www.instagram.com/talesbytravelers/" target="_blank" id="instagram" class="fa fa-instagram"></a></buttton>
+                   <buttton class="btn-floating btn-lg btn-pin"><a href="" target="_blank" class="fa fa-pinterest"></a></buttton>
+                   <buttton class="btn-floating btn-lg btn-yt"><a href="" target="_blank" class="fa fa-youtube"></a></buttton>
+                   <buttton class="btn-floating btn-lg btn-email"><a onclick="location.href='mailto:talebytravellers@gmail.com';" target="_blank" class="fa fa-envelope pr-1"></a></buttton>
+               </div>
+               <!-- Social icons -->
 
-            <!-- Social icons -->
-            <div class="pb-4">
-             <!-- social_media -->
-                <buttton class="btn-floating btn-lg btn-fb"><a href="https://www.facebook.com/Tales-by-Travelers-100648714955907" target="_blank" class="fa fa-facebook"></a></buttton>
-                <buttton class="btn-floating btn-lg btn-tw"><a href="" target="_blank" class="fa fa-twitter"></a></buttton>
-                <buttton class="btn-floating btn-lg btn-gplus"><a href="" target="_blank" class="fa fa-google-plus"></a></buttton>
-                <buttton class="btn-floating btn-lg btn-ins"><a href="https://www.instagram.com/talesbytravelers/" target="_blank" id="instagram" class="fa fa-instagram"></a></buttton>
-                <buttton class="btn-floating btn-lg btn-pin"><a href="" target="_blank" class="fa fa-pinterest"></a></buttton>
-                <buttton class="btn-floating btn-lg btn-yt"><a href="" target="_blank" class="fa fa-youtube"></a></buttton>
-                <buttton class="btn-floating btn-lg btn-email"><a onclick="location.href='mailto:talebytravellers@gmail.com';" target="_blank" class="fa fa-envelope pr-1"></a></buttton>
-            </div>
-            <!-- Social icons -->
+    
+            <ul class="list-unstyled list-inline text-center py-2 ">
+                <li class="list-inline-item">
+                    <a href="{% url 'blog:privacy' %}">Privacy Policy</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="{% url 'blog:terms_and_conditions' %}">Terms & Conditions</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="{% url 'blog:about_us' %}">Help</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="{% url 'blog:contact_us' %}">Feedback & Suggestions</a>
+                </li>
+              </ul>
+           
+
 
             <!--Copyright-->
             <div class="footer-copyright py-3">
-            © 2019 Copyright:
+            © 2020 Copyright:
             <a href="{% url 'blog:home' %}" target="_blank"> talesbytravellers.com </a>
             </div>
             <!--/.Copyright-->

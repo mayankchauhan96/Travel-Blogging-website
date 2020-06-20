@@ -1,0 +1,24 @@
+{% block sidebar %}
+
+<style>
+        .card{
+            box-shadow: 0 16px 48px #E3E7EB;
+        }
+       
+</style>
+
+<!-- Sidebar Widgets Column -->
+<div class="col-md-4 float-right mt-4 ">
+    <div class="card my-4">
+   <center> <h5>Categories</h5></center>
+   <ul class="list-group">
+        {% for category in categories %}
+        <li><a class="list-group-item black-text" href="{% url 'blog:get_category' category %}">{{ category }}</a></li>
+        {% endfor %}
+    </ul>
+    </div>
+
+</div>
+
+
+{% endblock sidebar %}

@@ -13,13 +13,13 @@
     .head_text {
         color: white;
     }
+    .heart {
+      font-size: 20px;
+    color:red;
+    }
     
     .card {
         box-shadow: 0 32px 48px #E3E7EB;
-    }
-
-    .container{
-      max-width: 1600px;
     }
     
     .notification{
@@ -37,7 +37,7 @@
     .masthead{
   height: 100px;
   padding: 100px 0 0 0;   
-  background-color: #1C2331;
+  background-color: black;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -64,10 +64,13 @@
 <h1 style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:red;" >Blogs</span>posts</h1>
 
 
+
     <div class="container">
 
         <div class="row infinite-container ">
-            <div class="col-md-12 mb-4 mt-3 ">
+        {% block sidebar2 %} {% include 'sidebar2.html' %} {% endblock sidebar2 %}
+
+            <div class="col-md-8 mb-4 mt-5 ">
             <!-- Blog Entries Column -->
                 <div class="infinite-item">
 
@@ -77,13 +80,14 @@
                         <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
                         <div class="card-body">
                             <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
-                            <p class="card-text " ><a class = 'like-btn black-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a> <a class="black-text pb-2 pt-1">{{ views_count }} {{ view.ip.count }} <i class="fa fa-eye"></i>       {{ post.views }} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.updated_on }}</small></p>
+                            <p class="card-text " ><a class = 'like-btn black-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }} </a>|<small class="text-muted"> {{ post.updated_on }}</small></p>
                         </div>
                         </div>
                         {% endfor %}
                     </div>
                 </div>
             </div>
+
         </div>
 
          <div class="loading" style="display: none;">

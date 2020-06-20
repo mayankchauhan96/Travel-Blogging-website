@@ -8,6 +8,7 @@ from django.urls import reverse
 import json
 import datetime
 from ckeditor.fields import RichTextField
+from sorl.thumbnail import ImageField
 
 
 STATUS = (
@@ -100,7 +101,7 @@ class Post(models.Model):
     post_id = models.AutoField
     title = models.CharField(max_length=200, unique=True)
     slug = AutoSlugField(populate_from='title')
-    cover = models.ImageField(upload_to='images/', null = True)
+    cover = ImageField(upload_to='images/', null = True, blank= True,)
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name= "posts")
     updated_on = models.DateTimeField(auto_now= True)
     content = RichTextField(blank = True , null= True)
