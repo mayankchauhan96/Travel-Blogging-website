@@ -37,7 +37,7 @@ GOOGLE_RECAPTCHA_SECRET_KEY = '6LdVaQAVAAAAADSswlf1DE5EFyJdVN9geJlRBI2b'
 SECRET_KEY = 'gh0=l5&5l8(t1jf!5(6zg^=80)%1(r=8w__yvh06w(rq-0vni4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['139.59.80.74','talesbytravelers.in']
 
