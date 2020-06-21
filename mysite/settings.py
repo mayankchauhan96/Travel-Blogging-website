@@ -39,7 +39,7 @@ SECRET_KEY = 'gh0=l5&5l8(t1jf!5(6zg^=80)%1(r=8w__yvh06w(rq-0vni4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["ced316ff95fd.ngrok.io",'127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -172,7 +172,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 STATIC_URL = '/static/'
-
 
 
 LOGIN_REDIRECT_URL = '/'

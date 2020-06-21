@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.apps import apps
 
+
 CATEGORY= (
     ("Beaches","Beaches"),
     ("Islands","Islands"),
