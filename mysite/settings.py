@@ -39,7 +39,7 @@ SECRET_KEY = 'gh0=l5&5l8(t1jf!5(6zg^=80)%1(r=8w__yvh06w(rq-0vni4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['139.59.80.74','talesbytravelers.in']
+ALLOWED_HOSTS = ['139.59.80.74','talesbytravelers.in','127.0.0.1']
 
 
 # Application definition
@@ -166,12 +166,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'root/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'root')
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static/'),
+    os.path.join(BASE_DIR, 'static'),
 ]
-STATIC_URL = '/static/'
 
 
 LOGIN_REDIRECT_URL = '/'
