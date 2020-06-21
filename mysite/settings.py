@@ -39,7 +39,7 @@ SECRET_KEY = 'gh0=l5&5l8(t1jf!5(6zg^=80)%1(r=8w__yvh06w(rq-0vni4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['139.59.80.74','talesbytravelers.in']
 
 
 # Application definition
