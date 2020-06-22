@@ -82,6 +82,8 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username','email', 'password1', 'password2', )
+    def __str__(self):
+        return self.Email
 
 class UserForm(forms.ModelForm):
     class Meta:

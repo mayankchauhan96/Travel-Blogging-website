@@ -30,6 +30,9 @@ from rest_framework import authentication, permissions
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.backends import ModelBackend
+from mysite.settings import EMAIL_HOST_USER
+from django.core.mail import send_mail
+
 
 # class PostList(generic.ListView):
 #     queryset = Post.objects.filter(status=1).order_by('-created_on')
@@ -276,8 +279,9 @@ def signup_view(request):
     if request.method  == 'POST':
         form = SignUpForm(request.POST)
         email = request.POST['email']
-        if User.objects.filter(email=email).exists() :
-            messages.error(request,"This Email is already registered")
+        username = request.POST['username']
+        if User.objects.filter(email=email).exists() or User.objects.filter(username=username).exists() :
+            messages.error(request,"This Email/username is already registered")
 
         elif form.is_valid():
             ''' Begin reCAPTCHA validation '''
@@ -314,7 +318,10 @@ def signup_view(request):
                     # method will generate a hash value with user related data
                     'token': account_activation_token.make_token(user),
                 })
-                user.email_user(subject, message)
+                recepient = str(form['email'].value())
+                # user.email_user(subject, message)
+                send_mail(subject, 
+            message, EMAIL_HOST_USER, [recepient], fail_silently = False)
                 return redirect('blog:activation_sent')
             else:
                 messages.error(request, 'Invalid reCAPTCHA. Please try again.')

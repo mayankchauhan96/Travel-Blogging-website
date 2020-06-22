@@ -266,8 +266,8 @@
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mb-4 black-text text-center">
-                <h1 class="h1-reponsive black-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5" style="letter-spacing: 6px; margin-top:20px" ><strong>TALES BY TRAVELERS</strong></h1>
+            <div class="col-md-12 mb-2 black-text text-center">
+                <h1 class="h1-reponsive black-text text-uppercase font-weight-bold mb-0 pt-md-1 pt-3" style="letter-spacing: 6px; margin-top:20px" ><strong>TALES BY TRAVELERS</strong></h1>
                 <hr class="hr-dark my-4">
                 <h5 class="text-uppercase mb-4 black-text" style="letter-spacing: 2px;" d><strong>A Travel Blogging Platform</strong></h5>
                 {% if user.is_authenticated %}
@@ -276,7 +276,7 @@
                 {% else %}
                     <a  class="btn btn-outline-black" href="{% url 'blog:signup' %}">
                     Register
-                    </a>
+                    </a> &ensp;
                     <a  class="btn btn-outline-black" href="{% url 'blog:login' %}">
                 Sign IN
                 </a>
@@ -290,7 +290,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 mb-4 mt-3 ">
-            <h1 class: "scrolled" style="text-align:left; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:red;" >Recent</span> Blogs</h1>
+            <h1 class: "scrolled" style="text-align:left; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:blue;" >Recent</span> Blogs</h1>
 
             <div class="card-deck">
                 {% for post in recent_posts|slice:"0:15" %}
@@ -310,7 +310,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 mb-4 mt-3 ">
-            <h1 class: "scrolled" style="text-align:left; font-family:verdana; margin-top:50px; margin-bottom:50px; color:white; "><span style="color:red;" >Recommended</span> Blogs</h1>
+            <h1 class: "scrolled" style="text-align:left; font-family:verdana; margin-top:50px; margin-bottom:50px; color:white; "><span style="color:blue;" >Recommended</span> Blogs</h1>
 
             <div class="card-deck">
                 {% for post in recom_posts|slice:"0:6" %}
@@ -331,7 +331,7 @@
 <div class="container"> 
     <div class="row">
         <div class="col-md-8 mb-4  mt-4 left  top">
-<h1 class: "scrolled" style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:red;" >Trending</span>  Blogs</h1>
+<h1 class: "scrolled" style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:blue;" >Trending</span>  Blogs</h1>
 
             <div id = "demo{{forloop.counter}}" class = "carousel slide  " data-ride = "carousel">
                 <ol class="carousel-indicators">

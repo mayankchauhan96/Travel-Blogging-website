@@ -26,7 +26,13 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'talesbytravelers@gmail.com'
+EMAIL_HOST_PASSWORD = 'travelninja'
 
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LdVaQAVAAAAADSswlf1DE5EFyJdVN9geJlRBI2b'
 
@@ -39,7 +45,7 @@ SECRET_KEY = 'gh0=l5&5l8(t1jf!5(6zg^=80)%1(r=8w__yvh06w(rq-0vni4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['139.59.80.74','talesbytravelers.in','127.0.0.1']
+ALLOWED_HOSTS = ['139.59.80.74','talesbytravelers.in','127.0.0.1','www.talesbytravelers.in']
 
 
 # Application definition
@@ -171,7 +177,6 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    '/usr/local/lib/python3.6/site-packages/django/contrib/admin/static',
 ]
 
 
