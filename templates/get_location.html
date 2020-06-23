@@ -63,15 +63,14 @@
 
     <div class="container">
 
-        <div class="row infinite-container ">
-            <div class="col-md-12 mb-4 mt-3 ">
+        <div class="row justify-content-center infinite-container ">
+            <div class="col-auto mb-3 ">
             <!-- Blog Entries Column -->
                 <div class="infinite-item">
 
-                    <div class="card-deck">
-    
+                    <!-- <div class="card-deck"> -->
                         {% for post in posts_sr %}
-                        <div class="card">
+                        <div class="card mt-5" style="width: 24rem;">
                         <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
                         <div class="card-body">
                             <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
@@ -79,11 +78,10 @@
                         </div>
                         </div>
                         {% endfor %}
-                    </div>
+                    <!-- </div> -->
                 </div>
             </div>
         </div>
-
          <div class="loading" style="display: none;">
     Loading...
   </div>

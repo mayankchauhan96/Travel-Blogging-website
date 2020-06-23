@@ -67,24 +67,25 @@
 
     <div class="container">
 
-        <div class="row infinite-container ">
+        <div class="row justify-content-center infinite-container ">
         {% block sidebar2 %} {% include 'sidebar2.html' %} {% endblock sidebar2 %}
 
-            <div class="col-md-8 mb-4 mt-5 ">
+
+        <div class="col-auto mb-3 ">
             <!-- Blog Entries Column -->
                 <div class="infinite-item">
 
-                    <div class="card-deck">
+                    <!-- <div class="card-deck"> -->
                         {% for post in posts %}
-                        <div class="card">
+                        <div class="card mt-5" style="width: 24rem;">
                         <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
                         <div class="card-body">
                             <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
-                            <p class="card-text " ><a class = 'like-btn black-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }} </a>|<small class="text-muted"> {{ post.updated_on }}</small></p>
+                            <p class="card-text " ><a class = 'like-btn black-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a> <a class="black-text pb-2 pt-1">{{ views_count }} {{ view.ip.count }} <i class="fa fa-eye"></i>       {{ post.views }} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.updated_on }}</small></p>
                         </div>
                         </div>
                         {% endfor %}
-                    </div>
+                    <!-- </div> -->
                 </div>
             </div>
 
@@ -101,7 +102,7 @@
                         <span class="sr-only">Loading...</span>
                     </div>
                 </div>
-            </div>
+            </div><br>
 
             
   

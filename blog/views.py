@@ -33,22 +33,31 @@ from django.contrib.auth.backends import ModelBackend
 from mysite.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail
 from django.db.models import Count
+from django.core.paginator import Paginator
 
 # class PostList(generic.ListView):
 #     queryset = Post.objects.filter(status=1).order_by('-created_on')
 #     template_name = 'index.html'
 
-# class PostInfiniteRecent(generic.ListView):
-#     queryset = Post.objects.filter(status=1).all()
-#     paginate_by = 2
-#     context_object_name = 'posts'
-#     template_name = 'infinite.html'
-#     ordering = ['-created_on']
+class PostInfiniteRecent(generic.ListView):
+    paginate_by = 2
+    context_object_name = 'posts'
+    template_name = 'infinite.html'
+
+    def get_queryset(self):
+        return Post.objects.filter(status=1).all().order_by('-created_on')
+
+    def get_context_data(self, **kwargs):
+        context = super(PostInfiniteRecent, self).get_context_data(**kwargs)
+        context['categories'] = Category.objects.values_list('category',flat=True).distinct()
+        # Add any other variables to the context here
+        ...
+        return context
 
 def recent_post(request):
     top_posts = Post.objects.filter(status=1,).order_by('-views')
     recent_posts = Post.objects.filter(status=1,).order_by('-created_on')
-    recom_posts = Post.objects.annotate(q_count=Count('like')) \
+    recom_posts = Post.objects.filter(status=1,).annotate(q_count=Count('like')) \
                                  .order_by('-q_count')
     n = len(top_posts)
     nslides = n
@@ -439,7 +448,6 @@ def get_category(request, category):
 def get_state(request, slug_st):
     query = slug_st
     posts = Post.objects.filter(slug_st=query).order_by('-created_on')
-
     return render(request, 'get_state.html', {"posts":posts,"query":query})
 
 def get_location(request, slug_lc):
@@ -449,11 +457,6 @@ def get_location(request, slug_lc):
 
     return render(request, 'get_location.html', {"query":query,"posts_sr":posts_sr})
 
-def explore(request):
-    categories = Category.objects.values_list('category',flat=True).distinct()
-    posts = Post.objects.filter(status=1).all().order_by('-updated_on')
-
-    return render(request, 'infinite.html', {"categories":categories,"posts":posts})
 
 def terms_view(request):
     return render(request, 'terms.html')

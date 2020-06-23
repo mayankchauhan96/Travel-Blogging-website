@@ -97,31 +97,66 @@
 
             <a class="btn btn-outline-dark" href= "{% url 'blog:update_profile' user.id %}" > Update Profile</a>
 
-            
-
-           
-
         </div>
         <div class="col-md-12 mb-4 mt-3 ">
 
 
         <h1 class: "scrolled" style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:blue;" >BLOG</span>posts</h1>
 
-        <div class="card-deck">
-            {% for post in user_posts %}
-            <div class="card">
-             <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
-              <div class="card-body">
-                <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
-                <p class="card-text " ><a class = 'like-btn black-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a> <a class="black-text pb-2 pt-1">{{ views_count }} {{ view.ip.count }} <i class="fa fa-eye"></i>       {{ post.views }} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.updated_on }}</small></p>
+        <div class="container">
+
+          <div class="row justify-content-center infinite-container ">
+              <div class="col-auto mb-3 ">
+              <!-- Blog Entries Column -->
+                  <div class="infinite-item">
+  
+                      <!-- <div class="card-deck"> -->
+                          {% for post in user_posts %}
+                          <div class="card mt-5" style="width: 24rem;">
+                          <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
+                          <div class="card-body">
+                              <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
+                              <p class="card-text " ><a class = 'like-btn black-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a> <a class="black-text pb-2 pt-1">{{ views_count }} {{ view.ip.count }} <i class="fa fa-eye"></i>       {{ post.views }} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.updated_on }}</small></p>
+                          </div>
+                          </div>
+                          {% endfor %}
+                      <!-- </div> -->
+                  </div>
               </div>
-            </div>
-            {% endfor %}
-        </div>
+          </div>
+           <div class="loading" style="display: none;">
+      Loading...
+    </div>
+    {% if page_obj.has_next %}
+      <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+    {% endif %}
+     <div class="d-flex justify-content-center" style="display:none;">
+                      <div class="spinner-border" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                  </div>
+              </div>
         
         </div>
     </div>
-</div>
-
-
+  </div>
+  
+  <script>
+    var infinite = new Waypoint.Infinite({
+        element: $('.infinite-container')[0],
+        handler: function(direction) {
+  
+    },
+    offset: 'bottom-in-view',
+  
+    onBeforePageLoad: function () {
+    $('.spinner-border').show();
+    },
+    onAfterPageLoad: function () {
+    $('.spinner-border').hide();
+    }
+  
+    });
+  
+    </script>
 {% endblock content %}

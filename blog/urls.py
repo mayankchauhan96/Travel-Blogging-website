@@ -10,7 +10,7 @@ urlpatterns = [
     path('terms_and_conditions/',  views.terms_view, name='terms_and_conditions'),
     path('search/',  views.search, name='search'),
     path('blog_form/',  views.blog_form, name='blog_form'),
-    path('explore/',  views.explore, name='explore'),
+    path('explore/',  views.PostInfiniteRecent.as_view(), name='explore'),
 
     #autharisation
     path('signup/', views.signup_view, name="signup"),
