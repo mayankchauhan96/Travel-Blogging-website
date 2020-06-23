@@ -176,6 +176,7 @@
         border-top-left-radius: calc(.5rem - 1px);
         border-top-right-radius: calc(.5rem - 1px);
         box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+        height: 260px;
         /* {% comment %} height:180px
         width: 320px {% endcomment %} */
     }
@@ -290,7 +291,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 mb-4 mt-3 ">
-            <h1 class: "scrolled" style="text-align:left; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:blue;" >Recent</span> Blogs</h1>
+            <h1 class: "scrolled" style="text-align:left; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:darkblue;" >Recent</span> Blogs</h1>
 
             <div class="card-deck">
                 {% for post in recent_posts|slice:"0:15" %}
@@ -305,16 +306,16 @@
             </div>
         </div>
     </div>
-</div>
+</div><br>
 <div class="container" id="broad">
 <div class="container">
     <div class="row">
         <div class="col-md-12 mb-4 mt-3 ">
-            <h1 class: "scrolled" style="text-align:left; font-family:verdana; margin-top:50px; margin-bottom:50px; color:white; "><span style="color:blue;" >Recommended</span> Blogs</h1>
+            <h1 class: "scrolled" style="text-align:left; font-family:verdana; margin-top:50px; margin-bottom:50px; color:white; "><span style="color:skyblue;" >Recommended</span> Blogs</h1>
 
             <div class="card-deck">
                 {% for post in recom_posts|slice:"0:6" %}
-                <div class="card" style="box-shadow: none; border: black;">
+                <div class="card" id="smallcards" style="box-shadow: none; border: black;">
                  <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
                   <div class="card-body" id="blackcard">
                     <h5 class="card-title "><a class = 'white-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
@@ -331,7 +332,7 @@
 <div class="container"> 
     <div class="row">
         <div class="col-md-8 mb-4  mt-4 left  top">
-<h1 class: "scrolled" style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:blue;" >Trending</span>  Blogs</h1>
+<h1 class: "scrolled" style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:darkblue;" >Trending</span>  Blogs</h1>
 
             <div id = "demo{{forloop.counter}}" class = "carousel slide  " data-ride = "carousel">
                 <ol class="carousel-indicators">

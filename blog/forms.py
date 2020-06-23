@@ -55,16 +55,14 @@ class BlogForm(forms.ModelForm):
     category = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple,
     choices=CATEGORY)
     location = forms.CharField(max_length=200, help_text='Location of the place you Visited')
-
+    cover = forms.ImageField(help_text='Image size must be under 20MB | Keep it landscaped for better view')
     class Meta:
         model = Post
         fields = ('title','cover','location','state','content','category')
 
 class EditForm(forms.ModelForm):
-    # category = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple,
-    # choices=CATEGORY)
     location = forms.CharField(max_length=200, help_text='Location of the place you Visited')
-
+    cover = forms.ImageField(help_text='Image size mus be under 20MB | Must be landscaped for better view')
     class Meta:
         model = Post
         fields = ('title','cover','location','state','content')
@@ -94,5 +92,5 @@ class UserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ( 'facebook_link','instagram_link','bio','city','Website',)
+        fields = ( 'facebook_link','instagram_link','bio','city','Website','youtube_channel')
 

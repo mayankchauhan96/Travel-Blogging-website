@@ -2,3 +2,6 @@
 .vscode
 pgadmin4-2.1-py2.py3-none-any.whl
 media
+mysite/.env
+/mysite/.env
+.env

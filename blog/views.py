@@ -32,7 +32,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth.backends import ModelBackend
 from mysite.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail
-
+from django.db.models import Count
 
 # class PostList(generic.ListView):
 #     queryset = Post.objects.filter(status=1).order_by('-created_on')
@@ -48,7 +48,8 @@ from django.core.mail import send_mail
 def recent_post(request):
     top_posts = Post.objects.filter(status=1,).order_by('-views')
     recent_posts = Post.objects.filter(status=1,).order_by('-created_on')
-    recom_posts = Post.objects.filter(status=1,).order_by('like')
+    recom_posts = Post.objects.annotate(q_count=Count('like')) \
+                                 .order_by('-q_count')
     n = len(top_posts)
     nslides = n
     params = {"no_of_slides":nslides,"range": range(1,nslides), "top_posts":top_posts,"recent_posts":recent_posts,"recom_posts":recom_posts}
