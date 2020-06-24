@@ -120,17 +120,17 @@ color: rgb(0, 0, 0);
           <hr style="height:2px;border-width:0;color:gray;background-color:gray"><br>
           <a class = 'like-btn' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }} </a> &ensp;
           <a class="black-text pb-2 pt-1">{{ views_count }} {{ view.ip.count }} <i class="fa fa-eye"></i>       {{ post.views }} </a> &ensp; <br>
-          <div class="fb-like " data-href="http://127.0.0.1:8000/{{ post.slug }}" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="false"></div> &ensp;
+          <div class="fb-like " data-href="http://talesbytravelers.in/{{ post.slug }}" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="false"></div> &ensp;
           
-          <div class="fb-share-button" data-href="{{ post.slug }}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A8000%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div> &ensp;
+          <div class="fb-share-button" data-href="http://talesbytravelers.in/{{ post.slug }}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Ftalesbytravelers.in%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div> &ensp;
           <a class="btn-sm btn-twitter"
-          href="https://twitter.com/share?url=http://127.0.0.1:8000/{{ post.slug }}&text=Please like and share" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Twitter">
+          href="https://twitter.com/share?url=http://talesbytravelers.in/{{ post.slug }}&text=Please like and share" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Twitter">
             <i class="fa fa-twitter-square" style="font-size:24px"></i></a>
-            <a href="whatsapp://send?text=http://127.0.0.1:8000/{{ post.slug }}" data-action="share/whatsapp/share" onClick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on whatsapp"><i class="fa fa-whatsapp" style="font-size:24px;color:green"></i></a>
+            <a href="whatsapp://send?text=http://talesbytravelers.in/{{ post.slug }}" data-action="share/whatsapp/share" onClick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on whatsapp"><i class="fa fa-whatsapp" style="font-size:24px;color:green"></i></a>
 
           <p></p>
                  
-          <div class="fb-comments" data-href="http://127.0.0.1:8000/{{ post.slug }}" data-numposts="2" data-width="10px"></div>
+          <div class="fb-comments" data-href="http://talesbytravelers.in/{{ post.slug }}" data-numposts="2" data-width="10px"></div>
           <p>
         
               {% for cat in post.category.all %} &ensp;
