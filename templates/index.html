@@ -299,7 +299,7 @@
                  <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
                   <div class="card-body">
                     <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
-                    <p class="card-text " ><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="black-text pb-2 pt-1">{{ post.author}} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.updated_on }}</small></p>
+                    <p class="card-text " ><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="black-text pb-2 pt-1">{{ post.author}} </a></p>
                   </div>
                 </div>
                 {% endfor %}
@@ -313,7 +313,7 @@
                  <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
                   <div class="card-body">
                     <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
-                    <p class="card-text " ><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="black-text pb-2 pt-1">{{ post.author}} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.updated_on }}</small></p>
+                    <p class="card-text " ><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="black-text pb-2 pt-1">{{ post.author}} </a></p>
                   </div>
                 </div>
                 {% endfor %}
@@ -327,7 +327,7 @@
                  <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
                   <div class="card-body">
                     <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
-                    <p class="card-text " ><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="black-text pb-2 pt-1">{{ post.author}} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.updated_on }}</small></p>
+                    <p class="card-text " ><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="black-text pb-2 pt-1">{{ post.author}} </a></p>
                   </div>
                 </div>
                 {% endfor %}
@@ -341,7 +341,7 @@
                  <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
                   <div class="card-body">
                     <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
-                    <p class="card-text " ><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="black-text pb-2 pt-1">{{ post.author}} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.updated_on }}</small></p>
+                    <p class="card-text " ><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="black-text pb-2 pt-1">{{ post.author}} </a></p>
                   </div>
                 </div>
                 {% endfor %}
@@ -352,12 +352,12 @@
 
 <div class="container" id="broad">
     <div class="container ">
-        <div class="row justify-content-center">
+        <div class="row ">&ensp;|&ensp;<small class="text-muted"> {{ post.updated_on }}</small>
             <div class="col-md-12 mb-4 mt-3">
                 <h1 class: "scrolled" style="text-align:left; font-family:verdana; margin-top:50px; margin-bottom:50px; color:white; "><span style="color:skyblue;" >Recommended</span> Blogs</h1>
                 <div class="card-deck">
                 {% for post in recom_posts|slice:"0:3" %}
-                <div class="card" id="smallcards" style="box-shadow: none; width: 18rem; border: black;">
+                <div class="card" id="smallcards" style="box-shadow: none; border: black;">
                  <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
                   <div class="card-body" id="blackcard">
                     <h5 class="card-title "><a class = 'white-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
@@ -370,7 +370,7 @@
             <div class="col-md-12 mb-4 mt-3">
                 <div class="card-deck">
                 {% for post in recom_posts|slice:"3:6" %}
-                <div class="card" id="smallcards" style="box-shadow: none; width: 18rem; border: black;">
+                <div class="card" id="smallcards" style="box-shadow: none; border: black;">
                  <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
                   <div class="card-body" id="blackcard">
                     <h5 class="card-title "><a class = 'white-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
