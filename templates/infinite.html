@@ -1,4 +1,4 @@
-{% extends "base.html" %} 
+{% extends "base.html" %} {% load thumbnail %}
 {% block content %}
 {% load static %}
 
@@ -77,8 +77,17 @@
 
                     <!-- <div class="card-deck"> -->
                         {% for post in posts %}
-                        <div class="card mt-5" style="width: 24rem;">
-                        <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
+                        <div class="card mt-5" style="width: 24rem; margin: 15px;">
+                            <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
+                                srcset="
+                                {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                {% thumbnail post.cover '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                {% thumbnail post.cover '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                {% thumbnail post.cover '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                {% thumbnail post.cover '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+                                    alt="{{ post.title }}"
+                                sizes="100vw"
+                                  /></a>
                         <div class="card-body">
                             <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
                             <p class="card-text " ><a class = 'like-btn black-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a> <a class="black-text pb-2 pt-1">{{ views_count }} {{ view.ip.count }} <i class="fa fa-eye"></i>       {{ post.views }} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.updated_on }}</small></p>

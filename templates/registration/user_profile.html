@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% load thumbnail %} {% block content %}
 {% load crispy_forms_tags %}
 
 {{ profile_form.media }}
@@ -107,60 +107,29 @@
       <h1 class: "scrolled" style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:blue;" >BLOG</span>posts</h1>
 
       <div class="container">
-
-        <div class="row justify-content-center infinite-container ">
-            <div class="col-auto mb-3 ">
-            <!-- Blog Entries Column -->
-                <div class="infinite-item">
-
-                    <!-- <div class="card-deck"> -->
-                        {% for post in posts %}
-                        <div class="card mt-5" style="width: 24rem;">
-                        <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
-                        <div class="card-body">
-                            <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
-                            <p class="card-text " ><a class = 'like-btn black-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a> <a class="black-text pb-2 pt-1">{{ views_count }} {{ view.ip.count }} <i class="fa fa-eye"></i>       {{ post.views }} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.updated_on }}</small></p>
-                        </div>
-                        </div>
-                        {% endfor %}
-                    <!-- </div> -->
-                </div>
-            </div>
-        </div>
-         <div class="loading" style="display: none;">
-    Loading...
-  </div>
-  {% if page_obj.has_next %}
-    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
-  {% endif %}
-   <div class="d-flex justify-content-center" style="display:none;">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
+        <div class="row justify-content-center">
+            <div class="col-auto md-12  mb-4  mt-3 left  top">
+                {% for post in posts|slice:"0:100" %}
+                <div class="card mt-5" style="width: 24rem;">
+                    <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
+                        srcset="
+                        {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+                            alt="{{ post.title }}"
+                        sizes="100vw"
+                            /></a>
+                    <div class="card-body">
+                        <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
+                        <p class="card-text " ><a class = 'like-btn black-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a> <a class="black-text pb-2 pt-1">{{ views_count }} {{ view.ip.count }} <i class="fa fa-eye"></i>       {{ post.views }} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.updated_on }}</small></p>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-      
-      </div>
-  </div>
-</div>
-
-<script>
-  var infinite = new Waypoint.Infinite({
-      element: $('.infinite-container')[0],
-      handler: function(direction) {
-
-  },
-  offset: 'bottom-in-view',
-
-  onBeforePageLoad: function () {
-  $('.spinner-border').show();
-  },
-  onAfterPageLoad: function () {
-  $('.spinner-border').hide();
-  }
-
-  });
-
-  </script>
-
+    
+        </div>
+    
+    </div><br>
 {% endblock content %}

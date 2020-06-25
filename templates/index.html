@@ -1,4 +1,4 @@
-{% extends "base.html" %} 
+{% extends "base.html" %} {% load thumbnail %}
 {% block content %}
 {% load static %}
 
@@ -15,15 +15,6 @@
         border-top-right-radius: calc(1.5rem - 1px);
 
     }
-    /* .container-2{
-        max-width: fit-content;
-        padding-left: 50px;
-        padding-right: 50px;
-        margin-left: 80px;
-        margin-right: 80px;
-    } */
-
-    /*for container-2    */
 
 
 
@@ -140,10 +131,6 @@
     font-size: 12px;
     }
 
-    /* .item-box-blog-text {
-    max-height: 100px;
-    overflow:-moz-hidden-unscrollable ;
-    } */
 
     .mt-10 {
     float: left;
@@ -296,7 +283,16 @@
             <div class="card-deck">
                 {% for post in recent_posts|slice:"0:3" %}
                 <div class="card" >
-                 <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
+                    <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
+                        srcset="
+                        {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+                            alt="{{ post.title }}"
+                        sizes="100vw"
+                          /></a>
                   <div class="card-body">
                     <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
                     <p class="card-text " ><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="black-text pb-2 pt-1">{{ post.author}} </a></p>
@@ -310,7 +306,16 @@
             <div class="card-deck">
                 {% for post in recent_posts|slice:"3:6" %}
                 <div class="card" >
-                 <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
+                 <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
+                    srcset="
+                    {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                    {% thumbnail post.cover '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                    {% thumbnail post.cover '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                    {% thumbnail post.cover '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                    {% thumbnail post.cover '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+                        alt="{{ post.title }}"
+                    sizes="100vw"|slice:"0:10"
+                      /></a>
                   <div class="card-body">
                     <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
                     <p class="card-text " ><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="black-text pb-2 pt-1">{{ post.author}} </a></p>
@@ -324,7 +329,16 @@
             <div class="card-deck">
                 {% for post in recent_posts|slice:"6:9" %}
                 <div class="card" >
-                 <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
+                    <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
+                        srcset="
+                        {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+                            alt="{{ post.title }}"
+                        sizes="100vw"
+                          /></a>
                   <div class="card-body">
                     <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
                     <p class="card-text " ><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="black-text pb-2 pt-1">{{ post.author}} </a></p>
@@ -338,7 +352,16 @@
             <div class="card-deck">
                 {% for post in recent_posts|slice:"9:12" %}
                 <div class="card" >
-                 <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
+                    <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
+                        srcset="
+                        {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+                            alt="{{ post.title }}"
+                        sizes="100vw"
+                          /></a>
                   <div class="card-body">
                     <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
                     <p class="card-text " ><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="black-text pb-2 pt-1">{{ post.author}} </a></p>
@@ -358,7 +381,16 @@
                 <div class="card-deck">
                 {% for post in recom_posts|slice:"0:3" %}
                 <div class="card" id="smallcards" style="box-shadow: none; border: black;">
-                 <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
+                    <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
+                        srcset="
+                        {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+                            alt="{{ post.title }}"
+                        sizes="100vw"
+                          /></a>
                   <div class="card-body" id="blackcard">
                     <h5 class="card-title "><a class = 'white-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
                     <p class="card-text"  ><a class = 'like-btn white-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="white-text pb-2 pt-1">{{ post.author}}</a>&ensp;<small class="white-text">|&ensp; {{ post.updated_on }}</small></p>
@@ -371,7 +403,16 @@
                 <div class="card-deck">
                 {% for post in recom_posts|slice:"3:6" %}
                 <div class="card" id="smallcards" style="box-shadow: none; border: black;">
-                 <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{{ post.cover.url }}" alt="{{ post.title }}"></a>
+                    <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
+                        srcset="
+                        {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+                            alt="{{ post.title }}"
+                        sizes="100vw"
+                          /></a>
                   <div class="card-body" id="blackcard">
                     <h5 class="card-title "><a class = 'white-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
                     <p class="card-text"  ><a class = 'like-btn white-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="white-text pb-2 pt-1">{{ post.author}}</a>&ensp;<small class="white-text">|&ensp; {{ post.updated_on }}</small></p>
@@ -401,7 +442,7 @@
 
                     <div class="carousel-item active">
 
-                        {% for i in top_posts|slice:"0:10"%}
+                        {% for i in top_posts|slice:"0:10" %}
                         <div class= "col-md-8 col-sm-8 mx-auto">
                     
                             <!-- Card Wider -->
@@ -409,7 +450,16 @@
 
                                 <!-- Card image -->
                                 <div class="shadow view view-cascade overlay waves-effect">
-                                    <img class=" card-img-top"  src="{{ i.cover.url }}" alt="{{ i.title }}">
+                                    <a href="{% url 'blog:post_detail' i.slug  %}"> <img class="card-img-top" src="{% thumbnail i.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
+                                        srcset="
+                                        {% thumbnail i.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                        {% thumbnail i.cover '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                        {% thumbnail i.cover '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                        {% thumbnail i.cover '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                        {% thumbnail i.cover '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+                                            alt="{{ i.title }}"
+                                        sizes="100vw"
+                                          /></a>
                                     <a href="{% url 'blog:post_detail' i.slug  %}" target="_blank"> 
                                     <div class="mask waves-effect waves-light rgba-white-slight"></div>
                                     </a>
