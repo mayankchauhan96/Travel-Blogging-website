@@ -1,4 +1,4 @@
-{% extends "base.html" %} 
+{% extends "base.html" %} {% load thumbnail %}
 {% block content %}
 {% load static %}
 
@@ -109,41 +109,58 @@
             {% endif %}
 
             <!-- Blog Entries Column -->
-            {% for post in queryset %}
-            {% comment %} {% if forloop.first %}<div class="row">{% endif %} {% endcomment %}
-                <!-- Card Wider -->
+            {% for i in queryset %}
 
-                <div class=" card-cascade wider  ">
+            <!-- Card Wider -->
+            <div class=" card-cascade wider ">
 
-                    <!-- Card image -->
-                    <div class="shadow view view-cascade overlay waves-effect">
-                        <img class=" card-img-top"  src="{{ post.cover.url }}" alt="{{ post.title }}">
-                        <a href="{% url 'blog:post_detail' post.slug  %}">
-                        <div class="mask waves-effect waves-light rgba-white-slight"></div>
-                        </a>
-                    </div>
+                <!-- Card image -->
+                <div class="shadow view view-cascade overlay waves-effect">
+                    <a href="{% url 'blog:post_detail' i.slug  %}"> <img class="card-img-top" src="{% thumbnail i.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
+                        srcset="
+                        {% thumbnail i.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail i.cover '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail i.cover '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail i.cover '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail i.cover '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+                            alt="{{ i.title }}"
+                        sizes="100vw"
+                            /></a>
+                    <a href="{% url 'blog:post_detail' i.slug  %}" target="_blank"> 
+                    <div class="mask waves-effect waves-light rgba-white-slight"></div>
+                    </a>
+                </div>
 
-                    <!-- Card content -->
-                    <div class=" shadow card-body card-body-cascade">
+                <!-- Card content -->
+                <div class=" shadow card-body card-body-cascade">
+                    
+                    <!-- Label -->
+                    <h6 class="pink-text pb-2 pt-1">
+                    {% for cat in i.category.all|slice:":5" %} 
+                        
+                        <i class="fa fa-tags"></i> 
+                        <a href="{% url 'blog:get_category' cat.category %}" target="_blank" id = "tags" class= "pink-text pb-2 pt-1" role="button" aria-pressed="true">
+                            {{ cat.category }}
+                            </a> 
+                        {% empty %}
+                            {% endfor %}</h6>
+                    <!-- Title -->
+                    <h5 class="font-weight-bold card-title"><a class="black-text" href="{% url 'blog:post_detail' i.slug  %}">{{ i.title }}</a></h5>
 
-                        <!-- Label -->
-                        <h5 class="pink-text pb-2 pt-1"><i class="fa fa-tags"></i> {{ post.category }}</h5>
-                        <!-- Title -->
-                        <h4 class="font-weight-bold card-title">{{ post.title }}</h4>
+                    <h6><a class="black-text pb-2 pt-1" href= "{% url 'blog:get_user_profile' i.author.id %}"><i class="fa fa-pencil"></i> {{ i.author }} </a>| {{ i.updated_on}} </h6>
+                    <p></p>
+                    <!-- Text -->
+                    <p class="card-text">{{i.content| safe |slice:":150" }}</p>
+                    <!-- Button -->
+                    <a target="_blank" href="{% url 'blog:post_detail' i.slug  %}" class="btn btn-dark btn-sm waves-effect">Read More&rarr;</a>
 
-                        <h6 class="blue-text pb-2 pt-1"><i class="fa fa-pencil"></i> {{ post.author }} | {{ post.updated_on}} </h6>
-                        <!-- Text -->
-                        <p class="card-text">{{post.content|striptags|slice:":150" }}</p>
-                        <!-- Button -->
-                        <a href="{% url 'blog:post_detail' post.slug  %}" class="btn btn-primary waves-effect">Read More &rarr;</a>
-
-                        <!-- Card footer -->
-                        <div class="card-footer text-muted text-center mt-4"><i class="fa fa-automobile"></i>
-                            {{ post.state_choice}} | {{ post.location}}
-                        </div>
-
+                    <!-- Card footer -->
+                    <div class="card-footer text-muted text-center mt-4"><h6><i class="fa fa-automobile"></i>
+                        <a class="black-text pb-2 pt-1" target="_blank" href="{% url 'blog:get_state' i.slug_st %}">
+                            {{ i.state}}</a> |<a class="black-text pb-2 pt-1" target="_blank" href="{% url 'blog:get_location' i.slug_lc %}"> {{ i.location}} </a></h6>
                     </div>
                 </div>
+            </div>
                 
 
 
