@@ -66,38 +66,38 @@
 
           <dl class="row mt-3">
             
-              <dt class="col-sm-3">Social Info</dt>
-              <dd class="col-sm-9">
-                <dl class="row">
-                  <dt class="col-sm-4">Name</dt>
-                  <dd class="col-sm-8">{{ user.first_name }} {{ user.last_name }}</dd>
-                </dl>
-                <dl class="row">
-                  <dt class="col-sm-4">Bio</dt>
-                  <dd class="col-sm-8">{{ user.profile.bio }}</dd>
-                </dl>
-                <dl class="row">
-                  <dt class="col-sm-4">City</dt>
-                  <dd class="col-sm-8">{{ user.profile.city }}</dd>
-                </dl>
-                <dl class="row">
-                  <dt class="col-sm-4">Website</dt>
-                  <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.Website }}">{{ user.profile.Website }}</a></dd>
-                </dl>
-                <dl class="row">
-                  <dt class="col-sm-4">Insta</dt>
-                  <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.instagram_link }}">{{ user.profile.instagram_link }}</a></dd>
-                </dl>
-                <dl class="row">
-                  <dt class="col-sm-4">Facebook Profile</dt>
-                  <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.facebook_link }}">{{ user.profile.facebook_link }}</a></dd>
-                </dl>
-                <dl class="row">
-                  <dt class="col-sm-4">YouTube Channel</dt>
-                  <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.facebook_link }}">{{ user.profile.youtube_channel }}</a></dd>
-                </dl>
-              </dd>
-            </dl>
+            <dt class="col-sm-3">Social Info</dt>
+            <dd class="col-sm-9">
+              <dl class="row">
+                <dt class="col-sm-4">Name</dt>
+                <dd class="col-sm-8">{{ user.first_name }} {{ user.last_name }}</dd>
+              </dl>
+              <dl class="row">
+                <dt class="col-sm-4">Bio</dt>
+                <dd class="col-sm-8">{{ user.profile.bio }}</dd>
+              </dl>
+              <dl class="row">
+                <dt class="col-sm-4">City</dt>
+                <dd class="col-sm-8">{{ user.profile.city }}</dd>
+              </dl>
+              <dl class="row">
+                <dt class="col-sm-4">Website</dt>
+                <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.Website }}">{{ user.profile.Website }}</a></dd>
+              </dl>
+              <dl class="row">
+                <dt class="col-sm-4">Insta</dt>
+                <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.instagram_link }}">{{ user.profile.instagram_link }}</a></dd>
+              </dl>
+              <dl class="row">
+                <dt class="col-sm-4">Facebook Profile</dt>
+                <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.facebook_link }}">{{ user.profile.facebook_link }}</a></dd>
+              </dl>
+              <dl class="row">
+                <dt class="col-sm-4">YouTube Channel</dt>
+                <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.facebook_link }}">{{ user.profile.youtube_channel }}</a></dd>
+              </dl>
+            </dd>
+          </dl>
 
 
       </div>
@@ -107,29 +107,31 @@
       <h1 class: "scrolled" style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:blue;" >BLOG</span>posts</h1>
 
       <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-auto md-12  mb-4  mt-3 left  top">
-                {% for post in posts|slice:"0:100" %}
-                <div class="card mt-5" style="width: 24rem;">
-                    <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
-                        srcset="
-                        {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
-                        {% thumbnail post.cover '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
-                        {% thumbnail post.cover '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
-                        {% thumbnail post.cover '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
-                        {% thumbnail post.cover '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
-                            alt="{{ post.title }}"
-                        sizes="100vw"
-                            /></a>
-                    <div class="card-body">
-                        <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
-                        <p class="card-text " ><a class = 'like-btn black-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a> <a class="black-text pb-2 pt-1">{{ views_count }} {{ view.ip.count }} <i class="fa fa-eye"></i>       {{ post.views }} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.updated_on }}</small></p>
-                    </div>
-                </div>
-                {% endfor %}
+        <div class="row justify-content-around">
+            <div class="col-md-8  mb-4  mt-3   top">
+              {% for post in posts|slice:"0:100" %}
+              <div class="card mt-5" >
+                  <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
+                      srcset="
+                      {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                      {% thumbnail post.cover '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                      {% thumbnail post.cover '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                      {% thumbnail post.cover '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                      {% thumbnail post.cover '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+                          alt="{{ post.title }}"
+                      sizes="100vw"
+                          /></a>
+                  <div class="card-body">
+                      <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
+                      <p class="card-text " ><a class = 'like-btn black-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a> <a class="black-text pb-2 pt-1">{{ views_count }} {{ view.ip.count }} <i class="fa fa-eye"></i>       {{ post.views }} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.updated_on }}</small></p>
+                  </div>
+              </div>
+              {% endfor %}
             </div>
-    
         </div>
-    
+      </div>
     </div><br>
+  </div>
+</div>
+  
 {% endblock content %}

@@ -104,10 +104,10 @@
         <h1 class: "scrolled" style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:blue;" >BLOG</span>posts</h1>
 
         <div class="container">
-          <div class="row justify-content-center">
-              <div class="col-auto md-12  mb-4  mt-3 left  top">
+          <div class="row justify-content-around">
+              <div class="col-md-8  mb-4  mt-3   top">
                   {% for post in user_posts|slice:"0:100" %}
-                  <div class="card mt-5" style="width: 24rem;">
+                  <div class="card mt-5" >
                       <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
                           srcset="
                           {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
@@ -129,4 +129,8 @@
           </div>
       
       </div><br>
+    </div>
+  </div>
+</div>
+
 {% endblock content %}

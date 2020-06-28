@@ -1,16 +1,47 @@
 from django.contrib import admin
 from .models import Post, Comment,ContactUs,Profile, PostView
 from blog.forms import PostAdminModelForm
+from mysite.settings import EMAIL_HOST_USER
+from django.core.mail import send_mail
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.http import urlsafe_base64_encode
+from django.template.loader import render_to_string
+from django.contrib.auth.models import User,auth
+
+
 
 class PostAdmin(admin.ModelAdmin):
     form = PostAdminModelForm
     list_display = ('post_id','title', 'slug', 'status','created_on','location','author',"state","views")
-    list_filter = ("status","state","category","like",)
-    search_fields = ['title', 'content','author',"category",]
+    list_filter = ("status","state","category","location",)
+    search_fields = ['title', 'location','author',"category",]
     actions = ['approve_posts']
 
     def approve_posts(self, request, queryset):
+        current_site = get_current_site(request)
+        subject = 'Congratulations! Your post is live now.'
+        user = queryset.values("author_id")
+        user = user[0]
+        user = user["author_id"]
+        slug = queryset.values("slug")
+        slug = slug[0]
+        slug = slug['slug']
+        usr = User.objects.filter(id=user)
+        usr = usr[0]
+        email = usr.email
+        username = usr.username
+        # load a template like get_template() 
+        # and calls its render() method immediately.
+        message = render_to_string('registration/publish.html', {
+            'user': username,
+            'domain': current_site.domain,
+            'slug': slug
+        })
+        recepient = email
+        send_mail(subject, 
+    message, EMAIL_HOST_USER, [recepient], fail_silently = False)
         queryset.update(status=1)
+
 admin.site.register(Post, PostAdmin)
 
 class CommentAdmin(admin.ModelAdmin):
