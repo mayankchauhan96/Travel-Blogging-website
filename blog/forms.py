@@ -93,4 +93,3 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ( 'facebook_link','instagram_link','bio','city','Website','youtube_channel')
-
