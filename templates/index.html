@@ -481,7 +481,7 @@
                                     <!-- Title -->
                                     <h5 class="font-weight-bold card-title"><a class="black-text" href="{% url 'blog:post_detail' i.slug  %}">{{ i.title|truncatewords:15 }}</a></h5>
 
-                                    <h6><a class="black-text pb-2 pt-1" href= "{% url 'blog:get_user_profile' i.author.id %}"><i class="fa fa-pencil"></i> {{ i.author }} </a>| {{ i.updated_on}} </h6>
+                                    <h6><a class="black-text pb-2 pt-1" href= "{% url 'blog:get_user_profile' i.author.id %}"><i class="fa fa-pencil"></i> {{ i.author }} </a>| <span class="text-muted"> {{ i.updated_on}}</span> </h6>
                                     <p></p>
                                     <!-- Text -->
                                     <!-- Button -->
