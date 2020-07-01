@@ -199,7 +199,7 @@ color: rgb(0, 0, 0);
  <center><strong class="black-text" style="margin-top: 10px; margin-left: 5px;">Also Read</strong></center>
   <div class="col-md-12 mb-4 mt-3">
       <div class="card-deck">
-      {% for post in other_posts|slice:"0:3" %}
+      {% for post in other_posts|slice:"1:4" %}
       <div class="card" id="smallcards" style="box-shadow: none; border: black;">
           <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
               srcset="
@@ -221,7 +221,7 @@ color: rgb(0, 0, 0);
   </div>
   <div class="col-md-12 mb-4 mt-3">
       <div class="card-deck">
-      {% for post in other_posts|slice:"3:6" %}
+      {% for post in other_posts|slice:"4:7" %}
       <div class="card" id="smallcards" style="box-shadow: none; border: black;">
           <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
               srcset="
