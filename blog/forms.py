@@ -37,6 +37,7 @@ CATEGORY= (
     ("Solo","Solo"),
     ("Summer","Summer"),
     ("TravelTips","TravelTips"),
+    ("Photography","Photography"),
 )
 
 

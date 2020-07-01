@@ -60,6 +60,15 @@ margin: 1px;
 .popovermenu li a {
 color: rgb(0, 0, 0);
 }
+.card-img-top {
+        border-top-left-radius: calc(.5rem - 1px);
+        border-top-right-radius: calc(.5rem - 1px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+        height: 260px;
+        /* {% comment %} height:180px
+        width: 320px {% endcomment %} */
+    }
+    
 
 </style>
 <header class="masthead">
@@ -183,8 +192,64 @@ color: rgb(0, 0, 0);
         {% endif %}
       </div>
     </div>
+    <div class="container ">
+      <p></p>
+<div class="row ">
+  <p></p><br>
+ <center><strong class="black-text" style="margin-top: 10px; margin-left: 5px;">Also Read</strong></center>
+  <div class="col-md-12 mb-4 mt-3">
+      <div class="card-deck">
+      {% for post in other_posts|slice:"0:3" %}
+      <div class="card" id="smallcards" style="box-shadow: none; border: black;">
+          <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
+              srcset="
+              {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+              {% thumbnail post.cover '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+              {% thumbnail post.cover '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+              {% thumbnail post.cover '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+              {% thumbnail post.cover '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+                  alt="{{ post.title }}"
+              sizes="100vw"
+                /></a>
+        <div class="card-body" id="blackcard">
+          <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
+          <p class="card-text"  ><a class = 'like-btn black-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="black-text pb-2 pt-1">{{ post.author}}</a>&ensp;<small class="black-text">|&ensp; {{ post.updated_on }}</small></p>
+        </div>
+      </div>
+      {% endfor %}
+      </div>
+  </div>
+  <div class="col-md-12 mb-4 mt-3">
+      <div class="card-deck">
+      {% for post in other_posts|slice:"3:6" %}
+      <div class="card" id="smallcards" style="box-shadow: none; border: black;">
+          <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
+              srcset="
+              {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+              {% thumbnail post.cover '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+              {% thumbnail post.cover '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+              {% thumbnail post.cover '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+              {% thumbnail post.cover '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+                  alt="{{ post.title }}"
+              sizes="100vw"
+                /></a>
+        <div class="card-body" id="blackcard">
+          <h5 class="card-title "><a class = 'black-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
+          <p class="card-text"  ><a class = 'like-btn black-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="black-text pb-2 pt-1">{{ post.author}}</a>&ensp;<small class="black-text">|&ensp; {{ post.updated_on }}</small></p>
+        </div>
+      </div>
+      {% endfor %}
+      </div>
+  </div>
+</div>
+</div>
+
+
+
   </div>
 </div><br>
+
+
 <script>
   $('button[name="remove_levels"]').on('click', function(e) {
   var $form = $(this).closest('form');

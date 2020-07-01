@@ -129,11 +129,18 @@ def post_delete(request,  slug):
     return redirect("blog:home")
 
 def post_detail(request, slug):
+    other_posts= []
     template_name = 'post_detail.html'
     post = get_object_or_404(Post, slug=slug)
     post.views = post.views + 1
     post.save()
     comments = post.comments.filter(active=True)
+    author_id = post.author_id
+    for i in Post.objects.filter(status=1,author_id=author_id).order_by('-created_on'):
+        other_posts.append(i)
+    for i in Post.objects.filter(status=1).order_by('-updated_on'):
+        if i not in other_posts:
+            other_posts.append(i)
     new_comment = None
     # Comment posted
     if request.method == 'POST':
@@ -168,7 +175,8 @@ def post_detail(request, slug):
     return render(request, template_name, {'post': post,
                                         'comments': comments,
                                         'new_comment': new_comment,
-                                        'comment_form': comment_form})
+                                        'comment_form': comment_form,
+                                        "other_posts":other_posts})
 
 
 
@@ -451,10 +459,15 @@ def get_state(request, slug_st):
     return render(request, 'get_state.html', {"posts":posts,"query":query})
 
 def get_location(request, slug_lc):
+    posts_sr=set()
     query = slug_lc
     lookups = Q(location__icontains=query)
-    posts_sr= Post.objects.filter(lookups).distinct().order_by('-created_on')
+        
+    for i in Post.objects.filter(lookups).distinct().order_by('-created_on'):
+        posts_sr.add(i)
 
+    for i in Post.objects.filter(slug_lc=query):
+        posts_sr.add(i)
     return render(request, 'get_location.html', {"query":query,"posts_sr":posts_sr})
 
 
