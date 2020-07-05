@@ -2,11 +2,13 @@ from django.contrib import admin
 from .models import Post, Comment,ContactUs,Profile, PostView
 from blog.forms import PostAdminModelForm
 from mysite.settings import EMAIL_HOST_USER
-from django.core.mail import send_mail
+from django.core.mail import send_mail, send_mass_mail
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User,auth
+import random
+from django.core.mail import get_connection, EmailMultiAlternatives
 
 
 
@@ -40,7 +42,36 @@ class PostAdmin(admin.ModelAdmin):
         recepient = email
         send_mail(subject, 
     message, EMAIL_HOST_USER, [recepient], fail_silently = False)
+
+        title = queryset.values("title")
+        title = title[0]
+        title = title['title']
+        subject = 'New blog is up: ' + title
+        emails = []
+        for i in User.objects.values_list('email',flat=True):
+            emails.append(i)
+        try:
+            for i in Comment.objects.values_list('email',flat=True):
+                if i not in emails:
+                    emails.append(i)
+        except:
+            pass
+        emails.remove(email)
+        random.shuffle(emails)
+        recepient = emails[:100]
+
+        message = render_to_string('registration/publishall.html', {
+            'user': username,
+            'domain': current_site.domain,
+            'slug': slug,
+            'title':title
+        })
         queryset.update(status=1)
+        msg = EmailMultiAlternatives(subject, 
+    message, EMAIL_HOST_USER, [recepient[0]], bcc=recepient)
+        msg.send() 
+    #     send_mail(subject, 
+    # message, EMAIL_HOST_USER, recepient, fail_silently = False)
 
 admin.site.register(Post, PostAdmin)
 
