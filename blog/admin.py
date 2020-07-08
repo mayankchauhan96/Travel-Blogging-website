@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Post, Comment,ContactUs,Profile, PostView
 from blog.forms import PostAdminModelForm
-from mysite.settings import EMAIL_HOST_USER
+from mysite.settings import DEFAULT_FROM_EMAIL
 from django.core.mail import send_mail, send_mass_mail
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode
@@ -41,7 +41,7 @@ class PostAdmin(admin.ModelAdmin):
         })
         recepient = email
         send_mail(subject, 
-    message, EMAIL_HOST_USER, [recepient], fail_silently = False)
+    message, DEFAULT_FROM_EMAIL, [recepient], fail_silently = False)
 
         title = queryset.values("title")
         title = title[0]
@@ -68,10 +68,10 @@ class PostAdmin(admin.ModelAdmin):
         })
         queryset.update(status=1)
         msg = EmailMultiAlternatives(subject, 
-    message, EMAIL_HOST_USER, [recepient[0]], bcc=recepient)
+    message, DEFAULT_FROM_EMAIL, [recepient[0]], bcc=recepient)
         msg.send() 
     #     send_mail(subject, 
-    # message, EMAIL_HOST_USER, recepient, fail_silently = False)
+    # message, DEFAULT_FROM_EMAIL, recepient, fail_silently = False)
 
 admin.site.register(Post, PostAdmin)
 

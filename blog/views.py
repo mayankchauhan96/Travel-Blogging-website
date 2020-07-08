@@ -30,7 +30,7 @@ from rest_framework import authentication, permissions
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.backends import ModelBackend
-from mysite.settings import EMAIL_HOST_USER
+from mysite.settings import DEFAULT_FROM_EMAIL
 from django.core.mail import send_mail
 from django.db.models import Count
 from django.core.paginator import Paginator
@@ -57,7 +57,7 @@ class PostInfiniteRecent(generic.ListView):
 def recent_post(request):
     top_posts = Post.objects.filter(status=1,).order_by('-views')
     recent_posts = Post.objects.filter(status=1,).order_by('-created_on')
-    recom_posts = Post.objects.filter(status=1,).annotate(q_count=Count('like')) \
+    recom_posts = Post.objects.filter(status=1,).annotate(q_count=Count('like')).distinct() \
                                  .order_by('-q_count')
     n = len(top_posts)
     nslides = n
@@ -339,7 +339,7 @@ def signup_view(request):
                 recepient = str(form['email'].value())
                 # user.email_user(subject, message)
                 send_mail(subject, 
-            message, EMAIL_HOST_USER, [recepient], fail_silently = False)
+            message, DEFAULT_FROM_EMAIL, [recepient], fail_silently = False)
                 return redirect('blog:activation_sent')
             else:
                 messages.error(request, 'Invalid reCAPTCHA. Please try again.')
