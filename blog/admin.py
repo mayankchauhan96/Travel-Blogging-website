@@ -15,7 +15,7 @@ from django.core.mail import get_connection, EmailMultiAlternatives
 class PostAdmin(admin.ModelAdmin):
     form = PostAdminModelForm
     list_display = ('post_id','title', 'slug', 'status','created_on','location','author',"state","views")
-    list_filter = ("status","state","category","location",)
+    list_filter = ("status","state","location",)
     search_fields = ['title', 'location','author',"category",]
     actions = ['approve_posts']
 

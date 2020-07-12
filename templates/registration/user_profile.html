@@ -62,7 +62,8 @@
 
 <div class="container">
   <div class="row">
-      <div class="col-md-12 card mb-4 mt-3 ">
+    <p></p><br>
+      <div class="col-md-12 card border-info mb-4 mt-5 ">
 
           <dl class="row mt-3">
             
@@ -110,7 +111,7 @@
         <div class="row justify-content-around">
             <div class="col-md-8  mb-4  mt-3   top">
               {% for post in posts|slice:"0:100" %}
-              <div class="card mt-5" >
+              <div class=" mt-5" >
                   <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
                       srcset="
                       {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},

@@ -126,7 +126,7 @@ color: rgb(0, 0, 0);
       }
     }
     #broad{
-        max-width: 8280px;
+        /* max-width: 8280px; */
         background-color: black;
     }
 
@@ -227,13 +227,14 @@ color: rgb(0, 0, 0);
       <div class="card-body">
         <center><strong class="text-white"> About {{ post.author}} </strong></center>
         <p></p>
+       
+        {% if post.author.profile.bio %}
+        <p class="text-white">{{ post.author.profile.bio }}</p>
+        {% endif %}
         {% if user.is_authenticated and user == post.author %}
         <a style="float: right;" href="{% url 'blog:update_profile' user.id %}" > <button class="btn-outline-white btn-sm text-white"> Update</button></a>
         {% else %}
         <a style="float: right;" href="{% url 'blog:get_user_profile' post.author.id %}" ><button class="btn-outline-white btn-sm text-white"> More Info</button></a>
-        {% endif %}
-        {% if post.author.profile.bio %}
-        <p class="text-white">{{ post.author.profile.bio }}</p>
         {% endif %}
         <a class="btn-1" href="{{ post.author.profile.instagram_link }}" target="_blank">
           <i class="fa fa-instagram pl-1 pr-1"></i>
