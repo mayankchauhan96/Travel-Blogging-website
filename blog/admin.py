@@ -46,7 +46,7 @@ class PostAdmin(admin.ModelAdmin):
         title = queryset.values("title")
         title = title[0]
         title = title['title']
-        subject = 'New blog is up: ' + title
+        subject = 'New blog up: ' + title
         emails = []
         for i in User.objects.values_list('email',flat=True):
             emails.append(i)
