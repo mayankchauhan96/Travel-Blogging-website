@@ -58,7 +58,7 @@ class PostAdmin(admin.ModelAdmin):
             pass
         emails.remove(email)
         random.shuffle(emails)
-        recepient = emails[:100]
+        recepient = emails[:70]
 
         message = render_to_string('registration/publishall.html', {
             'user': username,
@@ -68,7 +68,7 @@ class PostAdmin(admin.ModelAdmin):
         })
         queryset.update(status=1)
         msg = EmailMultiAlternatives(subject, 
-    message, DEFAULT_FROM_EMAIL, [recepient[0]], bcc=recepient)
+    message, DEFAULT_FROM_EMAIL, ['talebytravellers@gmail.com'], bcc=recepient)
         msg.send() 
     #     send_mail(subject, 
     # message, DEFAULT_FROM_EMAIL, recepient, fail_silently = False)
