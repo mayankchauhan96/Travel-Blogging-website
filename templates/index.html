@@ -400,7 +400,7 @@
                           /></a>
                   <div class="card-body" id="blackcard">
                     <h5 class="card-title "><a class = 'white-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
-                    <p class="card-text"  ><a class = 'like-btn white-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="white-text pb-2 pt-1">{{ post.author}}</a>&ensp;<small class="white-text">|&ensp; {{ post.created_on }}</small></p>
+                    <p class="card-text"  ><a class = 'like-btn white-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="white-text pb-2 pt-1">{{ post.author}}</a>&ensp;<small class="white-text text-muted">|&ensp; {{ post.created_on }}</small></p>
                   </div>
                 </div>
                 {% endfor %}
@@ -422,7 +422,7 @@
                           /></a>
                   <div class="card-body" id="blackcard">
                     <h5 class="card-title "><a class = 'white-text' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
-                    <p class="card-text"  ><a class = 'like-btn white-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="white-text pb-2 pt-1">{{ post.author}}</a>&ensp;<small class="white-text">|&ensp; {{ post.created_on }}</small></p>
+                    <p class="card-text"  ><a class = 'like-btn white-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a><i class="fa fa-user"></i> <a href= "{% url 'blog:get_user_profile' post.author.id %}" class="white-text pb-2 pt-1">{{ post.author}}</a>&ensp;<small class="white-text text-muted">|&ensp; {{ post.created_on }}</small></p>
                   </div>
                 </div>
                 {% endfor %}

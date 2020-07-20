@@ -25,6 +25,11 @@
       font-size: 15px;
     color:red;
     }
+    .back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+}
 </style>
 <header class="masthead">
     <div class="overlay"></div>
@@ -38,6 +43,7 @@
         </div>
     </div>
 </header>
+<a id="back-to-top" href="#" class="btn btn-dark btn-sm  back-to-top" role="button"><i class="fa fa-chevron-up"></i></a>
 
 <div>
 
@@ -78,24 +84,47 @@
                   </dl>
                   <dl class="row">
                     <dt class="col-sm-4">Website</dt>
-                    <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.Website }}">{{ user.profile.Website }}</a></dd>
+                    <dd class="col-sm-8">
+                    {% if user.profile.Website %}
+
+                      <a class="black-text" target="_blank" href="{{ user.profile.Website }}">{{ user.profile.Website }}</a>
+                    {% endif %}
+                    </dd>
                   </dl>
                   <dl class="row">
                     <dt class="col-sm-4">Insta</dt>
-                    <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.instagram_link }}">{{ user.profile.instagram_link }}</a></dd>
+                    <dd class="col-sm-8">
+                  {% if user.profile.instagram_link %}
+                      
+                      <a class="black-text" target="_blank" href="{{ user.profile.instagram_link }}">{{ user.profile.instagram_link }}</a>
+                      {% endif %}
+                    
+                    </dd>
                   </dl>
                   <dl class="row">
                     <dt class="col-sm-4">Facebook Profile</dt>
-                    <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.facebook_link }}">{{ user.profile.facebook_link }}</a></dd>
+                    <dd class="col-sm-8">
+                  {% if user.profile.facebook_link %}
+                      
+                      <a class="black-text" target="_blank" href="{{ user.profile.facebook_link }}">{{ user.profile.facebook_link }}</a>
+                      {% endif %}
+                    
+                    </dd>
                   </dl>
                   <dl class="row">
                     <dt class="col-sm-4">YouTube Channel</dt>
-                    <dd class="col-sm-8"><a class="black-text" target="_blank" href="{{ user.profile.facebook_link }}">{{ user.profile.youtube_channel }}</a></dd>
+                    <dd class="col-sm-8">
+                  {% if user.profile.youtube_channel %}
+                      
+                      <a class="black-text" target="_blank" href="{{ user.profile.youtube_channel }}">{{ user.profile.youtube_channel }}</a>
+                      {% endif %}
+                    
+                    </dd>
                   </dl>
                 </dd>
               </dl>
 
-            <a class="btn btn-outline-dark" href= "{% url 'blog:update_profile' user.id %}" > Update Profile</a>
+            <a class="btn btn-dark btn-lg" href= "{% url 'blog:update_profile' user.id %}" > Update Profile</a>
 
         </div>
         <div class="col-md-12 mb-4 mt-3 ">
@@ -107,7 +136,7 @@
           <div class="row justify-content-around">
               <div class="col-md-8  mb-4  mt-3   top">
                   {% for post in user_posts|slice:"0:100" %}
-                  <div class="card mt-5" >
+                  <div class=" mt-5" >
                       <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
                           srcset="
                           {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
@@ -132,5 +161,22 @@
     </div>
   </div>
 </div>
-
+<script>
+  $(document).ready(function(){
+	$(window).scroll(function () {
+			if ($(this).scrollTop() > 50) {
+				$('#back-to-top').fadeIn();
+			} else {
+				$('#back-to-top').fadeOut();
+			}
+		});
+		// scroll body to 0px on click
+		$('#back-to-top').click(function () {
+			$('body,html').animate({
+				scrollTop: 0
+			}, 400);
+			return false;
+		});
+});
+</script>
 {% endblock content %}

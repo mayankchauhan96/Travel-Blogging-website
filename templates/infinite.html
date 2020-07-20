@@ -42,6 +42,11 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+.back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+}
     
 </style>
 
@@ -60,9 +65,10 @@
 </header>
 
 
+<h1 style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:blue;" >EX</span>plore</h1>
 
-<h1 style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:blue;" >Blog</span>posts</h1>
 
+<a id="back-to-top" href="#" class="btn btn-dark btn-sm  back-to-top" role="button"><i class="fa fa-chevron-up"></i></a>
 
 
     <div class="container">
@@ -71,13 +77,14 @@
         {% block sidebar2 %} {% include 'sidebar2.html' %} {% endblock sidebar2 %}
 
 
+
         <div class="col-auto mb-3 ">
             <!-- Blog Entries Column -->
                 <div class="infinite-item">
 
                     <!-- <div class="card-deck"> -->
                         {% for post in posts %}
-                        <div class="card mt-5" style="width: 24rem; margin: 15px;">
+                        <div class=" mt-5" style="width: 24rem; margin: 15px;">
                             <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
                                 srcset="
                                 {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
@@ -134,7 +141,24 @@
 
     </script>
 
-
+<script>
+    $(document).ready(function(){
+      $(window).scroll(function () {
+              if ($(this).scrollTop() > 50) {
+                  $('#back-to-top').fadeIn();
+              } else {
+                  $('#back-to-top').fadeOut();
+              }
+          });
+          // scroll body to 0px on click
+          $('#back-to-top').click(function () {
+              $('body,html').animate({
+                  scrollTop: 0
+              }, 400);
+              return false;
+          });
+  });
+  </script>
 
 {%endblock%}
 

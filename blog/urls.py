@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^user/(?P<user_id>\d+)/myprofile/$', views.userprofileposts, name='user_url'),
     url(r'profile/(?P<user_id>\d+)/$', views.get_user_profile, name= "get_user_profile"),
     url(r'category/(?P<category>\w+)/$', views.get_category, name= "get_category"),
+    url(r'state/(?P<state>.*)/$', views.get_state2, name= "get_state2"),
     path('state/<slug:slug_st>', views.get_state, name= "get_state"),
     path('location/<slug:slug_lc>', views.get_location, name= "get_location"),
     path('<slug:slug>/',  views.post_detail, name='post_detail'),

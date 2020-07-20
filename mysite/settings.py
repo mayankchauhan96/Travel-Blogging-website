@@ -67,8 +67,10 @@ INSTALLED_APPS = [
     'six',
     'rest_framework',
     'ckeditor',
+    'ckeditor_uploader',
     'django_cleanup',
     'sorl.thumbnail',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
@@ -135,10 +137,11 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
         # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
         'width': '100%',
+        'filebrowserBrowseUrl': '',
         # 'width': '100%',
         # 'filebrowserWindowHeight': 725,
-        # 'filebrowserWindowWidth': 940,
-        # 'toolbarCanCollapse': True,
+        # 'filebrowserWindowWidth': 350,
+        'toolbarCanCollapse': True,
         # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
         'tabSpaces': 4,
         'extraPlugins': ','.join([
@@ -158,8 +161,6 @@ CKEDITOR_CONFIGS = {
             'youtube',
             'embed',
             'image2',
-
-
         ]),
         "embed_provider": '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}',
         
@@ -169,7 +170,7 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+# CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "images/"
 # Database
 # https://docs.djangoproject.com/en/3.0config.embed_provider =/ref/settings/#databases

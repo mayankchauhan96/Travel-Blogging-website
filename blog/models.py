@@ -8,6 +8,7 @@ from django.urls import reverse
 import json
 import datetime
 from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from sorl.thumbnail import ImageField
 
 
@@ -106,7 +107,7 @@ class Post(models.Model):
     cover = ImageField(upload_to='images/', null = True)
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name= "posts")
     updated_on = models.DateTimeField(auto_now= True)
-    content = RichTextField(blank = True , null= True)
+    content = RichTextUploadingField(blank = True , null= True)
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
     state = models.CharField(max_length=80,choices=STATE_CHOICES, default="Somewhere In India")

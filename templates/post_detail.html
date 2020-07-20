@@ -129,7 +129,34 @@ color: rgb(0, 0, 0);
         /* max-width: 8280px; */
         background-color: black;
     }
+    .back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+}
+/* unvisited link
+a:link {
+  color: darkblue;
+} */
 
+/* visited link */
+/* a:visited {
+  color: darkmagenta;
+} */
+
+/* mouse over link */
+a:hover {
+  color: hotpink;
+}
+
+a:focus {
+  color: violet;
+}
+
+/* selected link */
+a:active {
+  color: black;
+}
 </style>
 <header class="masthead">
   <div class="overlay"></div>
@@ -143,10 +170,10 @@ color: rgb(0, 0, 0);
       </div>
   </div>
 </header>
-
+<a id="back-to-top" href="#" class="btn btn-dark btn-sm  back-to-top" role="button"><i class="fa fa-chevron-up"></i></a>
 <div class="container">
   <div class="row">
-    <div class="col-md-12  mb-4  mt-3 left  top">
+    <div class="col-md-8  mb-4  mt-3 left  top">
       <div class="card-body">
         <h1>{% block title %} {{ post.title }} {% endblock title %}</h1>
         <a class="black-text pb-2 pt-1" target="_blank" ><i class="fa fa-user"></i> <a class="black-text pb-2 pt-1" data-html="true" data-toggle="popover" data-placement="right" target="_blank" title="" data-style="mypops" id="Pops" data-content="Bio: {{ post.author.profile.bio }} <br> Website: <a href='{{ post.author.profile.Website }}' title='click here to visit website'>{{ post.author.profile.Website }} </a>" href= "{% url 'blog:get_user_profile' post.author.id %}">{{ post.author }}</a>  | <span class="text-muted">{{ post.created_on}} </span></a> <br>
@@ -180,9 +207,9 @@ color: rgb(0, 0, 0);
     sizes="100vw"
       /> 
       <p></p><br>
-       <center> <strong><div ><i class="fa fa-camera"></i> <a class="black-text pb-2 pt-1" href="{% url 'blog:get_state' post.slug_st %}">
-          {{ post.state}}</a> |<a class="black-text pb-2 pt-1" href="{% url 'blog:get_location' post.slug_lc %}"> {{ post.location}} </a>
-        </div></center></strong>
+        <strong><div ><i class="fa fa-location-arrow"></i> <a class=" pb-2 pt-1" href="{% url 'blog:get_location' post.slug_lc %}">
+          {{ post.location}}</a> |<a class=" pb-2 pt-1" href="{% url 'blog:get_state' post.slug_st %}"> {{ post.state}} </a>
+        </div></strong>
         <p></p><br>
         <p class="card-text ">{{ post.content| safe }}</p>
           <p></p>
@@ -216,46 +243,95 @@ color: rgb(0, 0, 0);
 
       </div>
     </div>
+    {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
   </div>
 </div>
 
 
-    <div class="container" id="broad">
-      <div class="container ">
+    <div class="container" >
+      <div class="container" >
         <div class="row ">
-    <div class="col-md-12 card-dark mb-3 mb-4  mt-3 ">
+    <div class="col-md-8 card-dark mb-3 mb-4  mt-3 " id="broad">
       <div class="card-body">
         <center><strong class="text-white"> About {{ post.author}} </strong></center>
         <p></p>
        
         {% if post.author.profile.bio %}
         <p class="text-white">{{ post.author.profile.bio }}</p>
+        {% else %}
+        <p class="text-white">Full time travel blogger</p>
         {% endif %}
+
         {% if user.is_authenticated and user == post.author %}
         <a style="float: right;" href="{% url 'blog:update_profile' user.id %}" > <button class="btn-outline-white btn-sm text-white"> Update</button></a>
         {% else %}
         <a style="float: right;" href="{% url 'blog:get_user_profile' post.author.id %}" ><button class="btn-outline-white btn-sm text-white"> More Info</button></a>
         {% endif %}
+        {% if post.author.profile.instagram_link %}
         <a class="btn-1" href="{{ post.author.profile.instagram_link }}" target="_blank">
           <i class="fa fa-instagram pl-1 pr-1"></i>
         </a>
+        {% endif %}
+        {% if post.author.profile.facebook_link %}
+
         <a class="btn-1" href="{{ post.author.profile.facebook_link }}" target="_blank">
           <i  class="fa fa-facebook pl-2 pr-2"></i>
         </a>
+        {% endif %}
       </div>
     </div>
   </div>
 </div>
+<div class="col-md-8 card border-secondary mb-3 mb-4  mt-3 ">
+  <div class="card-body">
+  
+    <!-- comments -->
+    <h4>{{ comments.count }} Opinions</h4>
 
+    {% for comment in comments %}
+    <div class="comments" style="padding: 5px;">
+      <p class="font-weight-bold">
+        {{ comment.name }}
+        <span class=" text-muted font-weight-normal">
+          {{ comment.created_on }}
+        </span>
+      </p>
+      {{ comment.body | linebreaks }}
+    </div>
+    {% endfor %}
+  </div>
 </div>
+<div class="col-md-8 card mb-4  mt-3 ">
+  <div class="card-body">
+    {% if new_comment %}
+    <div class="alert alert-success" role="alert">
+      Your comment is now live
+    </div>
+    {% else %}
+    <h4>Leave a Reply</h4>
+    <form method="post" style="margin-top: 1.3em;">
+      {{ comment_form | crispy }}
+      {% csrf_token %}
+      <script src='https://www.google.com/recaptcha/api.js'></script>
+      <div class="g-recaptcha" data-sitekey="6LdVaQAVAAAAAEx_ba36Gt2hoCT4vwmMEqX43Yrf"></div>
+      <button type="submit" method= "post" class="btn btn-dark">Submit</button>
+    </form>
+    {% endif %}
+  </div>
+</div>
+</div>
+</div>
+</div>
+
 
     
 <div class="container ">
-      <p></p>
+      <p></p><br>
+
+<strong class="black-text" style="margin-top: 10px; margin-left: 5px;">Also Read</strong>
+
 <div class="row ">
-  <p></p><br>
- <center><strong class="black-text" style="margin-top: 10px; margin-left: 5px;">Also Read</strong></center>
-  <div class="col-md-12 mb-4 mt-3">
+  <div class="col-md-8 mb-4 mt-3">
       <div class="card-deck">
       {% for post in other_posts|slice:"1:4" %}
       <div class="card" id="smallcards" style="box-shadow: none; border: black;">
@@ -277,7 +353,7 @@ color: rgb(0, 0, 0);
       {% endfor %}
       </div>
   </div>
-  <div class="col-md-12 mb-4 mt-3">
+  <div class="col-md-8 mb-4 mt-3">
       <div class="card-deck">
       {% for post in other_posts|slice:"4:7" %}
       <div class="card" id="smallcards" style="box-shadow: none; border: black;">
@@ -299,45 +375,7 @@ color: rgb(0, 0, 0);
       {% endfor %}
       </div>
   </div><br>
-  <div class="col-md-12 card border-secondary mb-3 mb-4  mt-3 ">
-    <div class="card-body">
-    
-      <!-- comments -->
-      <h4>{{ comments.count }} Opinions</h4>
-
-      {% for comment in comments %}
-      <div class="comments" style="padding: 5px;">
-        <p class="font-weight-bold">
-          {{ comment.name }}
-          <span class=" text-muted font-weight-normal">
-            {{ comment.created_on }}
-          </span>
-        </p>
-        {{ comment.body | linebreaks }}
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="col-md-12 card mb-4  mt-3 ">
-    <div class="card-body">
-      {% if new_comment %}
-      <div class="alert alert-success" role="alert">
-        Your comment is now live
-      </div>
-      {% else %}
-      <h4>Leave a Reply</h4>
-      <form method="post" style="margin-top: 1.3em;">
-        {{ comment_form | crispy }}
-        {% csrf_token %}
-        <script src='https://www.google.com/recaptcha/api.js'></script>
-        <div class="g-recaptcha" data-sitekey="6LdVaQAVAAAAAEx_ba36Gt2hoCT4vwmMEqX43Yrf"></div>
-        <button type="submit" method= "post" class="btn btn-dark">Submit</button>
-      </form>
-      {% endif %}
-    </div>
-  </div>
-</div>
-</div>
+ 
 
 
 
@@ -367,6 +405,24 @@ color: rgb(0, 0, 0);
 <script>
 jQuery(document.links) .filter(function() { return this.hostname != window.location.hostname; }) .attr('target', '_blank');
 
+</script>
+<script>
+  $(document).ready(function(){
+	$(window).scroll(function () {
+			if ($(this).scrollTop() > 50) {
+				$('#back-to-top').fadeIn();
+			} else {
+				$('#back-to-top').fadeOut();
+			}
+		});
+		// scroll body to 0px on click
+		$('#back-to-top').click(function () {
+			$('body,html').animate({
+				scrollTop: 0
+			}, 400);
+			return false;
+		});
+});
 </script>
 
 {% endblock content %}

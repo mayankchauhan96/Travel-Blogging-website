@@ -69,6 +69,11 @@
       background-repeat: no-repeat;
       background-size: cover;
     }
+    .back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+}
 
 </style>
 
@@ -90,6 +95,7 @@
 
 <h1 style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:darkblue;" >Search</span>  Results:</h1>
 
+<a id="back-to-top" href="#" class="btn btn-dark btn-sm  back-to-top" role="button"><i class="fa fa-chevron-up"></i></a>
 
     <div class="container">
         <div class="row infinite-container align-center ">
@@ -168,7 +174,24 @@
             {% endfor %}
         </div>
     </div>
-
+<script>
+    $(document).ready(function(){
+        $(window).scroll(function () {
+                if ($(this).scrollTop() > 50) {
+                    $('#back-to-top').fadeIn();
+                } else {
+                    $('#back-to-top').fadeOut();
+                }
+            });
+            // scroll body to 0px on click
+            $('#back-to-top').click(function () {
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 400);
+                return false;
+            });
+    });
+    </script>
 
 {%endblock%}
 

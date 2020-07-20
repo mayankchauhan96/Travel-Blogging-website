@@ -19,6 +19,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import include, url
 from django.views.generic import TemplateView
+from django.contrib.sitemaps.views import sitemap
+from blog.sitemaps import PostSitemap
+from blog import views
+
+sitemaps = {
+    "posts": PostSitemap,
+}
 
 admin.site.site_header= "Tales BY Travellers"
 admin.site.site_title= "TBT Admin "
@@ -29,8 +36,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include(('blog.urls', 'blog'), namespace="blog")),
     path('accounts/', include('django.contrib.auth.urls')),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 if settings.DEBUG: # new
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

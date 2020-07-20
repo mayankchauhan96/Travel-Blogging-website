@@ -50,6 +50,8 @@ class PostInfiniteRecent(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(PostInfiniteRecent, self).get_context_data(**kwargs)
         context['categories'] = Category.objects.values_list('category',flat=True).distinct()
+        context['states'] = Post.objects.order_by().values_list('state',flat=True).distinct()
+
         # Add any other variables to the context here
         ...
         return context
@@ -446,6 +448,7 @@ def get_user_profile(request, user_id):
 
 def get_category(request, category):
     query = category
+    print(query)
     lookups= Q(category__category__icontains=query)
 
     posts = Post.objects.filter(lookups).distinct().order_by('-created_on')
@@ -456,6 +459,12 @@ def get_category(request, category):
 def get_state(request, slug_st):
     query = slug_st
     posts = Post.objects.filter(slug_st=query).order_by('-created_on')
+    return render(request, 'get_state.html', {"posts":posts,"query":query})
+
+def get_state2(request, state):
+    query = state
+    lookups = Q(state__icontains=query)
+    posts = Post.objects.filter(lookups).distinct().order_by('-created_on')
     return render(request, 'get_state.html', {"posts":posts,"query":query})
 
 def get_location(request, slug_lc):
