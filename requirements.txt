@@ -107,6 +107,6 @@ Twisted==20.3.0
 unittest2==1.1.0
 urllib3==1.25.9
 w3lib==1.21.0
-Werkzeug==0.9.6
+Werkzeug==0.15.3
 WTForms==2.0.2
 zope.interface==5.1.0
