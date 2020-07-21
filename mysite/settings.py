@@ -170,7 +170,7 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-# CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "images/"
 # Database
 # https://docs.djangoproject.com/en/3.0config.embed_provider =/ref/settings/#databases
