@@ -137,7 +137,7 @@
 		return {
 			mask: true,
 			template: '<div></div>',
-			pathName: lang.pathName,
+			// pathName: lang.pathName,
 
 			/**
 			 * Response cache. This cache object will be shared between all instances of this widget.
