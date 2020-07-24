@@ -115,7 +115,7 @@ CKEDITOR_CONFIGS = {
         'toolbar_YourCustomToolbarConfig': [
             
             {'name': 'basicstyles',
-             'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+             'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat','Source','Templates']},
             {'name': 'paragraph',
              'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-',
                        'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl']},
@@ -123,13 +123,13 @@ CKEDITOR_CONFIGS = {
             {'name': 'insert',
              'items': [ 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak','Iframe']},
             '/',
-            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
+            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize','SpellChecker', 'Scayt']},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
             {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
             '/',  # put this to force next toolbar on new line
             {'name': 'yourcustomtools', 'items': [
                 # put the name of your editor.ui.addButton here
-              'Image', 'Preview','Youtube','Embed',
+              'Image', 'Preview','Youtube','Embed'
 
             ]},
             
@@ -138,10 +138,10 @@ CKEDITOR_CONFIGS = {
         # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
         'width': '100%',
         'filebrowserBrowseUrl': '',
-        # 'width': '100%',
         # 'filebrowserWindowHeight': 725,
         # 'filebrowserWindowWidth': 350,
-        # 'toolbarCanCollapse': True,
+        'toolbarCanCollapse': True,
+        'fullPage': True,
         # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
         'tabSpaces': 4,
         'extraPlugins': ','.join([
