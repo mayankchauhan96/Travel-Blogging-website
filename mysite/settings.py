@@ -151,7 +151,6 @@ CKEDITOR_CONFIGS = {
             'autolink',
             'autoembed',
             'embedsemantic',
-            'autogrow',
             'widget',
             'lineutils',
             'clipboard',

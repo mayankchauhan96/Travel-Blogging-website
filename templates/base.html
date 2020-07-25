@@ -192,7 +192,11 @@
             width: 80px;
             height: inherit;
         }
-
+        #write_blog {
+  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1px;
+ 
+}
 
 
         </style>
@@ -220,7 +224,7 @@
                         <a class="nav-link" href="{% url 'blog:contact_us' %}">Contact us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'blog:blog_form' %}">Write Blog</a>
+                        <a class="nav-link" id="write_blog" href="{% url 'blog:blog_form' %}">Write Blog</a>
                     </li>
                     <form class="form-inline" action="/search" method= "get">
                         <div class="md-form my-0">
