@@ -22,7 +22,8 @@ from django.views.generic import TemplateView
 from django.contrib.sitemaps.views import sitemap
 from blog.sitemaps import PostSitemap
 from blog import views
-
+from ckeditor_uploader import views as uploader_views
+from django.views.decorators.cache import never_cache
 sitemaps = {
     "posts": PostSitemap,
 }
@@ -38,6 +39,10 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^ckeditor/upload/', uploader_views.upload, name='ckeditor_upload'),
+    url(r'^ckeditor/browse/', never_cache(uploader_views.browse), name='ckeditor_browse'),
+    
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

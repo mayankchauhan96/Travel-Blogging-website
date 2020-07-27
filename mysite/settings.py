@@ -138,6 +138,7 @@ CKEDITOR_CONFIGS = {
         # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
         'width': '100%',
         'filebrowserBrowseUrl': '',
+        # 'filebrowserUploadMethod': 'form',
         # 'filebrowserWindowHeight': 725,
         # 'filebrowserWindowWidth': 350,
         'toolbarCanCollapse': True,
