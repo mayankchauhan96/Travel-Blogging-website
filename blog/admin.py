@@ -9,7 +9,7 @@ from django.template.loader import render_to_string
 from django.contrib.auth.models import User,auth
 import random
 from django.core.mail import get_connection, EmailMultiAlternatives
-
+from datetime import datetime  
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -58,7 +58,7 @@ class PostAdmin(admin.ModelAdmin):
             pass
         emails.remove(email)
         random.shuffle(emails)
-        recepient = emails[:70]
+        recepient = emails[:80]
 
         message = render_to_string('registration/publishall.html', {
             'user': username,
@@ -67,6 +67,8 @@ class PostAdmin(admin.ModelAdmin):
             'title':title
         })
         queryset.update(status=1)
+        queryset.update(created_on=datetime.now())
+
         msg = EmailMultiAlternatives(subject, 
     message, DEFAULT_FROM_EMAIL, ['talebytravellers@gmail.com'], bcc=recepient)
         msg.send() 
