@@ -11,6 +11,8 @@ urlpatterns = [
     path('search/',  views.search, name='search'),
     path('blog_form/',  views.blog_form, name='blog_form'),
     path('explore/',  views.PostInfiniteRecent.as_view(), name='explore'),
+    path('wfh/',  views.wfm, name='wfm'),
+
 
     #autharisation
     path('signup/', views.signup_view, name="signup"),

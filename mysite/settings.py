@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'django_cleanup',
     'sorl.thumbnail',
     'django.contrib.sitemaps',
+    'analytical',
 ]
 
 MIDDLEWARE = [
@@ -218,6 +219,9 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+#GA
+GOOGLE_ANALYTICS_GTAG_PROPERTY_ID = 'UA-179293323-1'
 
 
 # Static files (CSS, JavaScript, Images)

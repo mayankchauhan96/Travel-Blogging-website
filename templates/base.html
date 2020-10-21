@@ -4,6 +4,7 @@
     <head>
         {% load static %}
         {% include 'message.html' %}
+        {% load google_analytics_gtag %}
         <!--textricheditor-->
         <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
         <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
@@ -39,7 +40,27 @@
         <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        {% block extrahead %}
+        <!--favicon-->
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+        <link rel="shortcut icon" type="image/png" href="{% static 'favicon/favicon.ico' %}">
+        <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+        <link rel="mask-icon" href="{% static 'favicon/safari-pinned-tab.svg' %}"color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+        {% endblock %}
+        {% google_analytics_gtag %}
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179293323-1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
+        gtag('config', 'UA-179293323-1');
+        </script>
         <title>Tales By Travelers</title>
     </head>
     <body>
@@ -192,10 +213,11 @@
             width: 80px;
             height: inherit;
         }
-        #write_blog {
-  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 1px;
- 
+        
+#wfm {
+    animation: pulse 1s;
+  box-shadow: 0 0 0 2em rgba(#fff,0);
+
 }
 
 
@@ -218,13 +240,16 @@
                     
        
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'blog:explore' %}" tabindex="-1" aria-disabled="true">Explore</a>
+                        <a class="nav-link" href="{% url 'blog:explore' %}" tabindex="-1" aria-disabled="true">Blogs</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'blog:contact_us' %}">Contact us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="write_blog" href="{% url 'blog:blog_form' %}">Write Blog</a>
+                        <a class="nav-link" id="write_blog" href="{% url 'blog:blog_form' %}">Create Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="wfm" href="{% url 'blog:wfm' %}">Work From <span style="color: #1491eb; font-weight: 700;">Himalayas</span> </a>
                     </li>
                     <form class="form-inline" action="/search" method= "get">
                         <div class="md-form my-0">

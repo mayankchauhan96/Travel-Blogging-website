@@ -25,6 +25,8 @@ from blog import views
 from ckeditor_uploader import views as uploader_views
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic.base import RedirectView
 
 sitemaps = {
     "posts": PostSitemap,
@@ -42,6 +44,7 @@ urlpatterns = [
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
     url(r'^ckeditor/upload/', login_required(uploader_views.upload), name='ckeditor_upload'),
     url(r'^ckeditor/browse/', never_cache(uploader_views.browse), name='ckeditor_browse'),
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('favicon/favicon.ico')))
     
 
 

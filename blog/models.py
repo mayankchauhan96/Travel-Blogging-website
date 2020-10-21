@@ -20,6 +20,9 @@ STATUS = (
 
 CATEGORY= (
     ("Beaches","Beaches"),
+    ("Treks","Treks"),
+    ("Glaciers","Glaciers"),
+    ("Summit","Summit"),
     ("Islands","Islands"),
     ("Hiking","Hiking"),
     ("Camping","Camping"),
@@ -51,6 +54,7 @@ CATEGORY= (
     ("Summer","Summer"),
     ("TravelTips","TravelTips"),
     ("Photography","Photography"),
+    ("WFM","WFM"),
 
 )
 
@@ -161,8 +165,9 @@ class Comment(models.Model):
 
 class ContactUs(models.Model):
     sno = models.AutoField
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80,blank = True)
     email = models.EmailField(max_length=100)
+    mobile = models.CharField(max_length=100,blank = True)
     created_on = models.DateTimeField(auto_now_add=True)
     content = models.TextField(max_length=500)
 

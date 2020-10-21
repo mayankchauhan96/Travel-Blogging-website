@@ -255,7 +255,15 @@
       font-size: 15px;
     color:red;
     }
+    .blink {
+  animation: blinker 1s step-start infinite;
+}
 
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
 </style>
  <header class="masthead">
     <div class="overlay"></div>
@@ -269,10 +277,10 @@
                    <h5> Hi {{ user.username }}!</h5>
             
                 {% else %}
-                    <a  class="btn btn-outline-black" href="{% url 'blog:signup' %}">
+                    <a  class="btn btn-outline-black btn-sm" href="{% url 'blog:signup' %}">
                     Register
                     </a> &ensp;
-                    <a  class="btn btn-outline-black" href="{% url 'blog:login' %}">
+                    <a  class="btn btn-outline-black btn-sm" href="{% url 'blog:login' %}">
                 Sign IN
                 </a>
 
@@ -524,8 +532,37 @@
         {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
     </div>
 </div>
-    
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" >
+          <h4 class="modal-title" id="myModalLabel" style="font-weight: 800;">Getting bored doing work from home?</h4>
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 
+        </div>
+        <div class="modal-body" >
+            <p style="font-style: oblique;">Why settle with work from home when you can do the same from this celestial place in almost the same price you pay in metro cities </p>
+                <p style="font-weight: 600; color: rgb(15, 14, 87);"> Providing budget-friendly stays in Uttarakhand and Himachal Pradesh
+                </p>
+                <p>Click below to view our listed cottages <i class="fa fa-arrow-circle-o-down"></i></p> 
+            <a class="blink" href="{% url 'blog:wfm' %}"><i class="fa fa-arrow-circle-o-right"></i> Visit <span style="color: #dd2911; font-weight: 700;">Now</span> </a>
 
+        </div>
+        <div class="modal-footer" style="font-weight: 800;background-color: #fdf3e9;">
+          <button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal">SKIP</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+<script>
+   setTimeout(function() {
+    $('#myModal').modal();
+}, 3000);
+// (function blink() {
+//   $('.blink_me').fadeOut(2000).fadeIn(2000, blink);
+// })();
+</script>
 
 {%endblock%}

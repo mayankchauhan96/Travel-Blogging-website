@@ -7,6 +7,9 @@ from django.apps import apps
 
 CATEGORY= (
     ("Beaches","Beaches"),
+    ("Treks","Treks"),
+    ("Glaciers","Glaciers"),
+    ("Summit","Summit"),
     ("Islands","Islands"),
     ("Hiking","Hiking"),
     ("Camping","Camping"),
@@ -38,6 +41,7 @@ CATEGORY= (
     ("Summer","Summer"),
     ("TravelTips","TravelTips"),
     ("Photography","Photography"),
+    ("WFH","WFH"),
 )
 
 
@@ -71,7 +75,7 @@ class EditForm(forms.ModelForm):
 class ContactUsForm(forms.ModelForm):
     class Meta:
         model = ContactUs
-        fields = ('name', 'email', 'content')
+        fields = ('name', 'email',"mobile", 'content')
 
 
 class SignUpForm(UserCreationForm):

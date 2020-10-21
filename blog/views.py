@@ -485,3 +485,11 @@ def terms_view(request):
 
 def privacy_view(request):
     return render(request, 'privacy.html')
+
+
+def wfm(request):
+    lookups= Q(category__category__icontains="WFH")
+
+    posts = Post.objects.filter(lookups).distinct().order_by('-created_on')
+
+    return render(request, 'wfm.html', {"posts":posts})
