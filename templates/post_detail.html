@@ -177,14 +177,15 @@ a:active {
       <div class="card-body">
         <h1>{% block title %} {{ post.title }} {% endblock title %}</h1>
 
-        {% for cat in post.category.all %}
-          {% if cat.category == "WFH" %}
+          {% if post.category.all.0.0 == "WFH" %}
+<p>yo</p>
     {% else %}
+
     <a class="black-text pb-2 pt-1" target="_blank" ><i class="fa fa-user"></i> <a class="black-text pb-2 pt-1" data-html="true" data-toggle="popover" data-placement="right" target="_blank" title="" data-style="mypops" id="Pops" data-content="Bio: {{ post.author.profile.bio }} <br> Website: <a href='{{ post.author.profile.Website }}' title='click here to visit website'>{{ post.author.profile.Website }} </a>" href= "{% url 'blog:get_user_profile' post.author.id %}">{{ post.author }}</a>  | <span class="text-muted">{{ post.created_on}} </span></a> <br>
 
 
         {% endif %}
-        {% endfor %}
+
 
       
             {% if user.is_authenticated and user == post.author %}
@@ -270,7 +271,6 @@ a:active {
         <div class="row ">
       <div class="col-md-12 card-dark mb-3 mb-4  mt-3 " id="broad">
 
-        {% for cat in post.category.all %}
           {% if cat.category == "WFH" %}
     {% else %}
     <div class="card-body">
@@ -302,7 +302,6 @@ a:active {
     </div>
 
         {% endif %}
-        {% endfor %}
      
     </div>
   </div>
@@ -312,14 +311,12 @@ a:active {
   <div class="card-body">
   
     <!-- comments -->
-    {% for cat in post.category.all %}
           {% if cat.category == "WFH" %}
     <h4>{{ comments.count }} Reviews</h4>
     {% else %}
     <h4>{{ comments.count }} Opinions</h4>
 
         {% endif %}
-        {% endfor %}
 
     {% for comment in comments %}
     <div class="comments" style="padding: 5px;">
@@ -341,14 +338,12 @@ a:active {
       Your comment is now live
     </div>
     {% else %}
-    {% for cat in post.category.all %}
           {% if cat.category == "WFH" %}
           <h4>Please share your experiences</h4>
     {% else %}
     <h4>Leave a Reply</h4>
 
         {% endif %}
-        {% endfor %}
     
     <form method="post" style="margin-top: 1.3em;">
       {{ comment_form | crispy }}
