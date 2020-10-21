@@ -1,0 +1,134 @@
+{% extends "base.html" %} {% load thumbnail %}
+{% block content %}
+{% load static %}
+
+
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+    }
+    
+    .head_text {
+        color: white;
+    }
+    
+    .card {
+        box-shadow: 0 32px 48px #E3E7EB;
+    }
+
+    
+    .notification{
+      position:absolute;
+      top: 5rem;
+      right: 1rem;
+      width:300px;
+      min-height:100px;
+      margin-top:100px;
+      border:1px solid #666;
+      background-color:#3073BB;
+      background-repeat:no-repeat;
+      background-position:20px 30px;
+    }
+    .masthead{
+  height: 100px;
+  padding: 100px 0 0 0;   
+  background-color: black;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.heart {
+      font-size: 15px;
+    color:red;
+    }
+.back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+}
+    
+</style>
+
+<header class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h3 class=" site-heading my-4 mt-3 text-white"> </h3>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<h1 style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:black;" >Work Friendly Destinations</span></h1>
+<a id="back-to-top" href="#" class="btn btn-dark btn-sm  back-to-top" role="button"><i class="fa fa-chevron-up"></i></a>
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col md-8  mb-4  mt-3 left top">
+                <center>
+                {% for post in posts|slice:"0:100" %}
+                <div class=" mt-5" style="width: 24rem;">
+                    <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
+                        srcset="
+                        {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                        {% thumbnail post.cover '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+                            alt="{{ post.title }}"
+                        sizes="100vw"
+                            /></a>
+                    
+                    <div class="card-body ">
+                        <h5 class="card-title text-left"><a class = 'black-text ' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
+                        <p class="card-text text-left " ><a class = 'like-btn black-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a> <a class="black-text pb-2 pt-1">{{ views_count }} {{ view.ip.count }} <i class="fa fa-eye"></i>       {{ post.views }} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.state }}</small></p>
+                    </div>
+                </div>
+                {% endfor %}
+            </center>
+
+        </div>
+           
+
+
+        </div>
+       <p style="text-align: center; font-weight: 800;"> Follow us on <span style="color: #9c0443; font-weight: 700;">Instagram</span>
+        <a class="profile-link text-black-50" href="https://www.instagram.com/work_from_himalayas" target="_blank" rel="noreferrer">
+            <span class="btn-floating btn-lg btn-ins text-black-50">&ensp;&ensp;&ensp;<i class="fa fa-instagram"></i></span>Follow Us! <i class="fa fa-arrow-circle-right"></i></a></p>
+
+
+            <div class='embedsocial-instagram' data-ref="24c4c8af647a1dfbcb78dcdc9c29736c143fffae"></div><script>(function(d, s, id){var js; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = "https://embedsocial.com/embedscript/in.js"; d.getElementsByTagName("head")[0].appendChild(js);}(document, "script", "EmbedSocialInstagramScript"));</script>
+
+
+    </div><br>
+      
+<script>
+    $(document).ready(function(){
+        $(window).scroll(function () {
+                if ($(this).scrollTop() > 50) {
+                    $('#back-to-top').fadeIn();
+                } else {
+                    $('#back-to-top').fadeOut();
+                }
+            });
+            // scroll body to 0px on click
+            $('#back-to-top').click(function () {
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 400);
+                return false;
+            });
+    });
+    </script>
+
+{%endblock%}
+
