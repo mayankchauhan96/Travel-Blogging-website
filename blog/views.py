@@ -491,5 +491,7 @@ def wfm(request):
     lookups= Q(category__category__icontains="WFH")
 
     posts = Post.objects.filter(lookups).distinct().order_by('-created_on')
+    ratings = [8.0,9.5,9.0,8.5,8.5,9.0,9.0]
+    list_ = zip(posts,ratings)
 
-    return render(request, 'wfm.html', {"posts":posts})
+    return render(request, 'wfm.html', {"list_":list_})

@@ -14,9 +14,9 @@
         color: white;
     }
     
-    .card {
+    /* .card {
         box-shadow: 0 32px 48px #E3E7EB;
-    }
+    } */
 
     
     .notification{
@@ -48,7 +48,30 @@
     bottom: 25px;
     right: 25px;
 }
-    
+.col-xs-4 img{
+
+height: 180px;
+max-width: 210px;
+min-width: -webkit-fill-available;
+ display: inline-block;
+ margin: 25px;
+ box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+ 
+  }
+  .col-xs-8 {
+
+max-width: 200px;
+margin-top: 5px;
+ 
+  }
+  #yt{
+      margin-left: 50px;
+      margin-bottom: 20px;
+      margin-right: 20px;
+
+  }
+
+
 </style>
 
 <header class="masthead">
@@ -67,16 +90,32 @@
 
 
 
-<h1 style="text-align:center; font-family:verdana; margin-top:50px; margin-bottom:50px; "><span style="color:black;" >Work Friendly Destinations</span></h1>
+<h2 style="text-align:center; font-family:'Times New Roman', Times, serif; margin-top:50px; margin-bottom:50px; "><span style="color:black;" >WORK FROM HIMALAYAS</span></h2>
+<center>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card" id="yt"><iframe height="300px" src="https://www.youtube.com/embed/vs2ha8w6ntE?autoplay=1&cc_load_policy=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+
+</center>
 <a id="back-to-top" href="#" class="btn btn-dark btn-sm  back-to-top" role="button"><i class="fa fa-chevron-up"></i></a>
 
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col md-8  mb-4  mt-3 left top">
+         
                 <center>
-                {% for post in posts|slice:"0:100" %}
-                <div class=" mt-5" style="width: 24rem;">
+
+                {% for post,rating in list_ %}
+
+            <!-- <div class="card" style="width: 500px;"> -->
+            <div class="row ">
+                <div class="col-xs-4">
                     <a href="{% url 'blog:post_detail' post.slug  %}"> <img class="card-img-top" src="{% thumbnail post.cover '1920' as im %}{{ im.url }}{% endthumbnail %}"
                         srcset="
                         {% thumbnail post.cover '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
@@ -87,20 +126,30 @@
                             alt="{{ post.title }}"
                         sizes="100vw"
                             /></a>
-                    
-                    <div class="card-body ">
-                        <h5 class="card-title text-left"><a class = 'black-text ' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></h5>
-                        <p class="card-text text-left " ><a class = 'like-btn black-text' data-href="{{ post.get_api_like_url }}" data-likes= "{{ post.like.count }}" href="{{ post.get_like_url }}">  <i class="heart fa fa-heart"></i> {{ post.like.count }}&ensp; </a> <a class="black-text pb-2 pt-1">{{ views_count }} {{ view.ip.count }} <i class="fa fa-eye"></i>       {{ post.views }} </a>&ensp;|&ensp;<small class="text-muted"> {{ post.state }}</small></p>
+                </div>
+                <div class="col-xs-8" >
+                    <div class="card-body" >
+                        
+                       <p class="card-title text-left" style="font-size:medium;"><a class = ' black-text ' href="{% url 'blog:post_detail' post.slug  %}" > {{ post.title }}</a></p>
+                        <p class="card-text text-left "style="font-size: small;" > <i class="heart fa fa-star"></i> {{ rating }}&ensp;| <span class="text-muted">&ensp;{{post.location}}</span></p>
+                          <p class="card-text text-left "><i class=" fa fa-location-arrow"></i> <small class="text-left">{{ post.state }}</small></p>
+
                     </div>
                 </div>
+
+            </div>
+
+
                 {% endfor %}
+
             </center>
 
-        </div>
+        <!-- </div> -->
            
 
 
         </div>
+        <p style="margin-top: 50px;"></p>
        <p style="text-align: center; font-weight: 800;"> Follow us on <span style="color: #9c0443; font-weight: 700;">Instagram</span>
         <a class="profile-link text-black-50" href="https://www.instagram.com/work_from_himalayas" target="_blank" rel="noreferrer">
             <span class="btn-floating btn-lg btn-ins text-black-50">&ensp;&ensp;&ensp;<i class="fa fa-instagram"></i></span>Follow Us! <i class="fa fa-arrow-circle-right"></i></a></p>

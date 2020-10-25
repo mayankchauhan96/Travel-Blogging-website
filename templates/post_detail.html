@@ -225,10 +225,9 @@ a:active {
           <p></p>
           {% for cat in post.category.all %}
           {% if cat.category == "WFH" %}
-          <p><a class="btn btn-dark btn-sm active " href="https://wa.me/+91 8699244521?text=I want to book {{ post.location }} stay situated in {{post.state}}">Book now </a> &ensp;
-          <a class="btn btn-dark btn-sm active " href="https://wa.me/+91 8699244521?text=I want to know all the details regarding {{ post.location }} stay situated in {{post.state}}">More Info </a> &ensp;
-
-          <a class="btn btn-outline-dark btn-sm active " href="{% url 'blog:contact_us'%}">Leave your query here</a></p>
+          <a class="btn btn-lg active text-light" style="background-color: #0071c2; font-weight: 800;" href="https://wa.me/+91 8699244521?text=I want to know all the details regarding {{ post.location }} stay situated in {{post.state}}"> Enquire Now </a> &ensp;
+or&ensp;
+          <a class="btn btn-outline-dark btn-lg active " style="font-weight: 600;" href="{% url 'blog:contact_us'%}">Leave your query here</a></p>
 
         {% endif %}
         {% endfor %}

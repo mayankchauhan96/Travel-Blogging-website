@@ -535,27 +535,52 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header" >
-          <h4 class="modal-title" id="myModalLabel" style="font-weight: 800;">Getting bored doing work from home?</h4>
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <div class="modal-header" style="background-color:#207cd3 ;">
+            <h4 class="heading">Getting bored doing
+              <strong> work from home?</strong>
+            </h4>
 
-        </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" class="white-text">&times;</span>
+            </button>
+          </div>
+    
         <div class="modal-body" >
-            <p style="font-style: oblique;">Why settle with work from home when you can do the same from this celestial place in almost the same price you pay in metro cities </p>
-                <p style="font-weight: 600; color: rgb(15, 14, 87);"> Providing budget-friendly stays in Uttarakhand and Himachal Pradesh
-                </p>
-                <p>Click below to view our listed cottages <i class="fa fa-arrow-circle-o-down"></i></p> 
-            <a class="blink" href="{% url 'blog:wfm' %}"><i class="fa fa-arrow-circle-o-right"></i> Visit <span style="color: #dd2911; font-weight: 700;">Now</span> </a>
 
-        </div>
-        <div class="modal-footer" style="font-weight: 800;background-color: #fdf3e9;">
-          <button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal">SKIP</button>
+        <!--Body-->
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col-3">
+              <p></p>
+              <p class="text-center">
+                <i class="fa fa-wifi fa-4x" style="color: #207cd3;"></i>
+              </p>
+            </div>
+
+            <div class="col-9">
+              <p class="text-black-50">Why settle with work from home when you can do the same from this celestial place in almost the same price you pay in metro cities </p>
+              <p>
+                <strong>Providing budget-friendly stays in Uttarakhand and Himachal Pradesh</strong>
+              </p>
+              <h2>
+               <a class="blink" href="{% url 'blog:wfm' %}"><i class="fa fa-arrow-circle-o-right"></i> Visit <span style="color: #d34a20; font-weight: 700;">Now</span> </a>
+           
+              </h2>
+
+            </div>
+          </div>
+     
+        <div class="modal-footer flex-center" style="font-weight: 800;background-color: #ffffff;">
+          <button type="button" class="btn btn-outline-primary btn-sm" data-dismiss="modal">SKIP</button>
         </div>
       </div>
     </div>
   </div>
 
   </div>
+  </div>
+
 <script>
    setTimeout(function() {
     $('#myModal').modal();

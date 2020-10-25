@@ -219,6 +219,88 @@
   box-shadow: 0 0 0 2em rgba(#fff,0);
 
 }
+#profile_drop {
+    background-color:rgb(221, 207, 228);
+}
+#sidesoc {
+    position: fixed;
+    width: 80px;
+    margin-top: 150px;
+    margin-left: -40px;
+    transition: all 0.3s linear;
+    box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, .4)
+}
+
+#sidesoc ul {
+    margin-top: 0;
+    margin-bottom: 0rem
+}
+
+#sidesoc li {
+    height: 45px;
+    position: relative
+}
+
+#sidesoc li a {
+    color: #fff !important;
+    display: block;
+    height: 100%;
+    width: 100%;
+    line-height: 45px;
+    padding-left: 25%;
+    border-bottom: 1px solid rgba(0, 0, 0, .4);
+    transition: all .3s linear;
+    text-decoration: none !important
+}
+
+#sidesoc li:nth-child(1) a {
+    background: #4267B2
+}
+
+#sidesoc li:nth-child(2) a {
+    background: #1DA1F2
+}
+
+#sidesoc li:nth-child(3) a {
+    background: #E1306C
+}
+
+
+
+#sidesoc li:nth-child(4) a {
+    background: #333
+}
+
+#sidesoc li:nth-child(5) a {
+    background: #bb3434
+}
+
+#sidesoc li a i {
+    position: absolute;
+    top: 14px;
+    /* left: 24px; */
+    font-size: 20px
+}
+
+#sidesoc ul li a span {
+    display: none;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase
+}
+
+#sidesoc a:hover {
+    z-index: 1;
+    width: 200px;
+    border-bottom: 1px solid rgba(0, 0, 0, .5);
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, .3)
+}
+
+#sidesoc ul li:hover a span {
+    padding-left: 30%;
+    display: block;
+    font-size: 15px
+}
 
 
         </style>
@@ -242,12 +324,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'blog:explore' %}" tabindex="-1" aria-disabled="true">Blogs</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="{% url 'blog:contact_us' %}">Contact us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="write_blog" href="{% url 'blog:blog_form' %}">Create Blog</a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link" id="wfm" href="{% url 'blog:wfm' %}">Work From <span style="color: #1491eb; font-weight: 700;">Himalayas</span> </a>
                     </li>
@@ -260,13 +342,11 @@
                     
                 </ul>
                     <p></p>
-                    <!-- social_media -->
-                    <buttton class="btn-floating btn-lg btn-fb"><a href="https://www.facebook.com/Tales-by-travelers-112035743922925" target="_blank" class="fa fa-facebook-f"></a></buttton>
+                    <!-- <buttton class="btn-floating btn-lg btn-fb"><a href="https://www.facebook.com/Tales-by-travelers-112035743922925" target="_blank" class="fa fa-facebook-f"></a></buttton>
                     <buttton class="btn-floating btn-lg btn-tw"><a href="https://twitter.com/by_travelers" target="_blank" class="fa fa-twitter-square"></a></buttton>
                     <buttton class="btn-floating btn-lg btn-ins"><a href="https://www.instagram.com/talesbytravelers/" target="_blank" id="instagram" class="fa fa-instagram"></a></buttton>
                     <buttton class="btn-floating btn-lg btn-pin"><a href="https://www.pinterest.ca/talesbytravelers/" target="_blank" class="fa fa-pinterest-p"></a></buttton>
-                    <buttton class="btn-floating btn-lg btn-yt"><a href="https://www.youtube.com/channel/UCfzp0hjot8cbJIHGdLphuCQ?disable_polymer=true" target="_blank" class="fa fa-youtube-play"></a></buttton>
-                    <!-- <buttton class="btn-floating btn-lg btn-email"><a onclick="location.href='mailto:talesbytravelers@gmail.com';" target="_blank" class="fa fa-envelope pr-1"></a></buttton> -->
+                    <buttton class="btn-floating btn-lg btn-yt"><a href="https://www.youtube.com/channel/UCfzp0hjot8cbJIHGdLphuCQ?disable_polymer=true" target="_blank" class="fa fa-youtube-play"></a></buttton> -->
                 <ul class="navbar-nav mr-end">
 
                     <li class="nav-item dropdown">
@@ -276,7 +356,7 @@
                         Profile
                         </a>
                         
-                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <ul id="profile_drop" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <ul class="dropdown-submenu">
                                 
                                 <a href="{% url 'blog:user_url' user.id %}" class="dropdown-item">About | Blogs </a>
@@ -319,7 +399,16 @@
             </div>
         </nav>
 
- 
+        
+        <nav id="sidesoc">
+            <ul>
+                <li><a href="https://www.facebook.com/Tales-by-travelers-112035743922925"target="_blank"><i class="fa fa-facebook"></i><span>Facebook</span></a></li>
+                <li><a href="https://twitter.com/by_travelers" target="_blank"><i class="fa fa-twitter"></i><span>Twitter</span></a></li>
+                <li><a href="https://www.instagram.com/talesbytravelers/" target="_blank"><i class="fa fa-instagram"></i><span>Instagram</span></a></li>
+                <li><a href="https://www.pinterest.ca/talesbytravelers/" target="_blank"><i class="fa fa-pinterest"></i><span>Pinterest</span></a></li>
+                <li><a href="https://www.youtube.com/channel/UCfzp0hjot8cbJIHGdLphuCQ?disable_polymer=true" target="_blank"><i class="fa fa-youtube"></i><span>Youtube</span></a></li>
+            </ul>
+        </nav>
 
         {% block content %}
         <!-- Content Goes here -->
@@ -362,7 +451,7 @@
                     <a href="{% url 'blog:about_us' %}">Help</a>
                 </li>
                 <li class="list-inline-item">
-                    <a href="{% url 'blog:contact_us' %}">Feedback & Suggestions</a>
+                    <a href="{% url 'blog:contact_us' %}">Contact Us</a>
                 </li>
               </ul>
            
