@@ -130,7 +130,7 @@ CKEDITOR_CONFIGS = {
             '/',  # put this to force next toolbar on new line
             {'name': 'yourcustomtools', 'items': [
                 # put the name of your editor.ui.addButton here
-              'Image', 'Preview','Youtube','Embed'
+              'Image', 'Preview','Youtube','Embed','Slideshow',
 
             ]},
             
@@ -142,6 +142,9 @@ CKEDITOR_CONFIGS = {
         # 'filebrowserUploadMethod': 'form',
         # 'filebrowserWindowHeight': 725,
         # 'filebrowserWindowWidth': 350,
+        # 'filebrowserImageBrowseUrl': "",
+        # 'filebrowserImageUploadUrl': "images/",
+
         'toolbarCanCollapse': True,
         'fullPage': True,
         # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
@@ -162,6 +165,7 @@ CKEDITOR_CONFIGS = {
             'youtube',
             'embed',
             'image2',
+            'slideshow',
         ]),
         "embed_provider": '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}',
         

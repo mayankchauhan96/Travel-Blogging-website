@@ -184,7 +184,7 @@ class Profile(models.Model):
     city = models.CharField(max_length=100, blank=True, null=True)
     Website = models.CharField(max_length=100, blank=True, null=True)
     youtube_channel = models.CharField(max_length=100, blank=True, null=True)
-
+    # dp = ImageField(upload_to='images/dp/', null = True, blank = True)
 
     def __str__(self):
         return self.user.username
