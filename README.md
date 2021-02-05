@@ -1,2 +1,10 @@
 # Travel-Blogging-website
-Simple blogging website using django framework
+Crud blogging website
+
+Framework: Django
+Design template: Bootstrap 4
+
+Live now, 
+Url: https://talesbytavelers.in
+
+
