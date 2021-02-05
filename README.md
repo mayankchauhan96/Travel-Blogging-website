@@ -5,6 +5,6 @@ Framework: Django
 Design template: Bootstrap 4
 
 Live now, 
-Url: https://talesbytavelers.in
+Url: http://talesbytavelers.in
 
 
