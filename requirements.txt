@@ -28,7 +28,7 @@ django-jquery==3.1.0
 django-js-asset==1.2.2
 django-multiselectfield==0.1.12
 django-richtextfield==1.6
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 dnspython==1.16.0
 email-validator==1.1.0
 extras==0.0.3
