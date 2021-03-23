@@ -33,7 +33,7 @@ dnspython==1.16.0
 email-validator==1.1.0
 extras==0.0.3
 fixtures==2.0.0
-Flask==0.11.1
+Flask==1.0
 Flask-Babel==0.11.1
 Flask-BabelEx==0.9.4
 Flask-Compress==1.4.0
