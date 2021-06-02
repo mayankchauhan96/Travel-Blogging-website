@@ -108,7 +108,7 @@ testtools==2.4.0
 traceback2==1.4.0
 Twisted==20.3.0
 unittest2==1.1.0
-urllib3==1.25.9
+urllib3==1.26.5
 w3lib==1.21.0
 Werkzeug==0.9.6
 WTForms==2.0.2
