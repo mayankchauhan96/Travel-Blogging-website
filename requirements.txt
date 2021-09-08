@@ -68,7 +68,7 @@ parsel==1.6.0
 passlib==1.6.2
 pbr==1.9.1
 pgadmin4==2.1
-Pillow==7.1.1
+Pillow==8.3.2
 Protego==0.1.16
 psutil==5.7.0
 psycopg2==2.7.7
