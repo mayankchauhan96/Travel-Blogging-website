@@ -60,7 +60,7 @@ Jinja2==2.7.3
 ldap3==2.7
 linecache2==1.0.0
 lxml==4.5.0
-Mako==1.1.2
+Mako==1.2.2
 MarkupSafe==0.23
 oauthlib==3.1.0
 paramiko==2.7.1
